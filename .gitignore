@@ -1,0 +1,30 @@
+# PhpStorm files, directories
+.idea
+.idea/*
+
+# NetBeans files
+build
+build/*
+dist
+dist/*
+nbproject/private
+nbproject/private/*
+
+# Eclipse files
+.metadata
+bin/
+tmp/
+*~.nib
+local.properties
+.loadpath
+.buildpath
+.settings/
+.settings/*
+
+# temp files
+*.tmp
+*.bak
+*.swp
+
+# Mac OS X
+.DS_Store
