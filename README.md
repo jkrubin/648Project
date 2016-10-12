@@ -7,8 +7,6 @@
 * Josh Rubin
 * Ryan Tang
 
-------------
-
 # Coding conventions
 
 * Variables and functions should be named in `camelCase` and *not* `snake_case`. (Exception: PHP functions should be written in `snake_case`.)
