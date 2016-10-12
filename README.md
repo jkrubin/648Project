@@ -16,6 +16,7 @@
 * Indentation should be **tabs only**, unless aligning SQL queries with spaces.
 * Braces should be preceded by a space, written in the following manner, and are **required** even if it only encapsulates one line of code, like so:
 
+    ```
     function queryDb($query) {
     	// Some code
     	if ($condition1) {
@@ -26,6 +27,7 @@
     		// code here
     	}
     }
+    ```
 
 * SQL queries should be written on multiple lines (unless the query is extremely short).
 * Operators (`&&`, `||`, `==`, `+`, `-`, and so on) should be spaced apart from the rest of the expression. (Includes PHP `.`, excludes SQL statements)
