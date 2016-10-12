@@ -84,4 +84,9 @@
     	}
     ?>
 
+# Git/GitLab usage guide
 
+* Branches should be named by their category and the feature they're implementing - for example, `api/listings`, `ui/theme`.
+* Use multi-line commit messages to document all code changes, if committing more than one change at a time - but make sure the first line is the executive summary or most important change of your commit.
+* All Merge Requests (MRs) should be assigned to Ed Young, with the appropriate Milestone marked.
+* If responding to an MR that is assigned to you, please reassign to Ed Young once you are done fixing any issues raised with your commit(s) to indicate completion.
