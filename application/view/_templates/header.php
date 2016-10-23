@@ -23,4 +23,4 @@
 			</ul>
 		</nav>
 	</header>
-	<div class="disclaimer">SFSU/FAU/Fulda Software Engineering Project, Fall 2016.  For Demonstration Only</div>
+	<div id="disclaimer">SFSU/FAU/Fulda Software Engineering Project, Fall 2016.  For Demonstration Only</div>
