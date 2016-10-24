@@ -12,8 +12,7 @@ class DAO{
 	 *searches the database for $terms
 	**/
 	public function searchListings($terms){
-		$data = http_build_query($terms);
-		$sql = "SELECT * FROM Listings WHERE Description LIKE '%".$data."'%";
+		$sql = "SELECT * FROM Listings WHERE Description LIKE '%".$terms."'%";
 		$query = $this->db->prepare($sql);
 		return json_encode($query-fetchAll());
 	}
