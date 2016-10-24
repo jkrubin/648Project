@@ -15,7 +15,7 @@ class DAO{
 		$data = http_build_query($terms);
 		$sql = "SELECT * FROM Listings WHERE Description LIKE '%".$data."'%";
 		$query = $this->db->prepare($sql);
-		return $query-fetchAll();
+		return json_encode($query-fetchAll());
 	}
 }
 
