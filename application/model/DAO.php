@@ -12,9 +12,19 @@ class DAO{
 	 *searches the database for $terms
 	**/
 	public function searchListings($terms){
-		$sql = "SELECT * FROM Listings WHERE Description LIKE '%".$terms."'%";
-		$query = $this->db->prepare($sql);
-		return json_encode($query-fetchAll());
+	    $sql0 = "SELECT * FROM IMFORMATION_SCHEMA.columns";
+	    $query0 = $this->db->prepare($sql0);
+	    $sql = NULL;
+	    foreach($query0->fetchALL as &$value){
+		    $temp = "SELECT * FROM Listings WHERE " . $value . " LIKE '%".$terms."'%";
+		    if($sql == NULL){
+		        $sql = temp
+		    }else{
+		        $sql = $sql . " UNION " . $temp;
+		    }
+		    $query = $this->db->prepare($sql);
+		}
+		return json_encode($query->fetchAll());
 	}
 }
 
