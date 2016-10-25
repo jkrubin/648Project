@@ -58,6 +58,14 @@ header nav a:hover {
 	margin-right: auto;
 }
 
+#search-wrapper {
+	position: absolute;
+	left: 50%;
+	top: 225px;
+	margin: 0 0 0 -305px;
+	width: 610px;
+}
+
 #search {
 	margin-left: auto;
 	margin-right: auto;
@@ -74,5 +82,12 @@ header nav a:hover {
 	font-size: 1.5em;
 	color: white;
 	background-color: #43428A;
-	border: none;
+	border: 2px solid #43428A;
+}
+
+#search input[type=submit]:hover {
+	color: #43428A;
+	background-color: white;
+	cursor: pointer;
+	border: 1px solid #43428A;
 }
