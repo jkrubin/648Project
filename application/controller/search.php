@@ -17,7 +17,10 @@ class Search extends Controller {
 	$allowed_keys = array("br", "bath", "sqft", "zip", "city", "dep", "pdep", "kdep", "ele", "net", "wat", "gas", "tv", "pet", "smk", "furn", "srt", "end");
 	public function index() {
 		// if we have POST data to create a new song entry
-		fetchListings();	
+		fetchListings();
+		require APP . 'view/_templates/header.php';
+		require APP . 'view/home/index.php';
+		require APP . 'view/_templates/footer.php';
 
 	}
 
@@ -127,13 +130,13 @@ class Search extends Controller {
 								$sql = $sql . " AND Furnished=$value";
 							}
 							case "startdate":
-							if(validate($value, "string")){
+							if(validate($value, "date")){
 								$sql = $sql . " AND StartDate=$value";
 							}
 							break;
 							
 							case "enddate":
-							if(validate($value, "string")){
+							if(validate($value, "date")){
 								$sql = $sql . " AND EndDate=$value";
 							}
 							break;
@@ -160,7 +163,7 @@ class Search extends Controller {
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
 		if($temp && $temp->format('Y-m-d') === $data){
-			return ($type == $date);
+			return ($type == "date");
 		}
 		return ($type == "string");
 	}
