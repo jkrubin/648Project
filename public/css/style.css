@@ -48,20 +48,28 @@ header nav a:hover {
 	font-size: 2em;
 	font-weight: bold;
 	color: #ff0000;
-	margin-top: 4em;
+	position: absolute;
+	top: 3em;
 }
 
 #wrapper {
 	width: 85%;
-	margin-top: 6em;
+	top: 4em;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 #search-wrapper {
 	position: absolute;
+	left: 30%;
+	top: 125px;
+	margin: 0 0 0 -305px;
+	width: 80%;
+}
+
+#search-wrapper.home {
 	left: 50%;
-	top: 225px;
+	top: 165px;
 	margin: 0 0 0 -305px;
 	width: 610px;
 }
@@ -75,6 +83,7 @@ header nav a:hover {
 	padding: 0.5em;
 	font-size: 1.5em;
 	min-width: 20em;
+	width: 80%;
 }
 
 #search input[type=submit] {

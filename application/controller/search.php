@@ -16,14 +16,13 @@ class Search extends Controller {
 	 */
 	public function index() {
 		// if we have POST data to create a new song entry
+
+
 		$listings = $this->fetchListings();
-		foreach ($listings as $i => $subarr) {
-			echo "array(";
-			foreach ($subarr as $key => $value) {
-				echo "$key =&gt; $value, ";
-			}
-			echo ")<br>";
-		}
+
+		require APP . 'view/_templates/header.php';
+		require APP . 'view/search/index.php';
+		require APP . 'view/_templates/footer.php';
 	}
 
 	private function fetchListings():array {

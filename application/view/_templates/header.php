@@ -22,5 +22,5 @@
 				<a href="<?php echo URL; ?>"><li class="logo">RentSFSU</li></a>
 			</ul>
 		</nav>
+		<div id="disclaimer">SFSU/FAU/Fulda Software Engineering Project, Fall 2016.  For Demonstration Only</div>
 	</header>
-	<div id="disclaimer">SFSU/FAU/Fulda Software Engineering Project, Fall 2016.  For Demonstration Only</div>
