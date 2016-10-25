@@ -14,13 +14,9 @@ class Search extends Controller {
 	 * PAGE: index
 	 * This method handles what happens when you move to http://sfsuswe.com/f16g11/Webby/search.php
 	 */
-	$allowed_keys = array("br", "bath", "sqft", "zip", "city", "dep", "pdep", "kdep", "ele", "net", "wat", "gas", "tv", "pet", "smk", "furn", "srt", "end");
+	$allowed_keys = array("br", "bath", "sqft", "zip", "city", "dep", "pdep", "kdep", "electric", "internet", "water", "gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate");
 	public function index() {
 		// if we have POST data to create a new song entry
-		fetchListings();
-		require APP . 'view/_templates/header.php';
-		require APP . 'view/home/index.php';
-		require APP . 'view/_templates/footer.php';
 
 	}
 
@@ -85,7 +81,7 @@ class Search extends Controller {
 							}
 							break;
 							
-							case "elect":
+							case "electric":
 							if(validate($value, "boolean")){
 								$sql = $sql . " AND Electricity=$value";
 							}
