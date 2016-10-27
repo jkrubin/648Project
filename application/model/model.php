@@ -155,7 +155,6 @@ class Model {
 			}
 		$sql .= " LIMIT 10";
 		$query = $this->db->prepare($sql);
-		echo $sql;
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
