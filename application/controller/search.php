@@ -12,7 +12,7 @@
 class Search extends Controller {
 	/**
 	 * PAGE: index
-	 * This method handles what happens when you move to http://sfsuswe.com/f16g11/Webby/search.php
+	 * This method handles what happens when you move to http://sfsuswe.com/f16g11/Webby/search
 	 */
 	public function index() {
 		// if we have POST data to create a new song entry

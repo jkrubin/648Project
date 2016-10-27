@@ -25,6 +25,7 @@ local.properties
 *.tmp
 *.bak
 *.swp
+*.*~
 
 # Mac OS X
 .DS_Store
