@@ -16,7 +16,7 @@
 <body>
 
 	<!-- navigation -->
-	<header>
+	<header <?php if (!empty($isHome)) echo "class='home'"; ?>>
 		<nav>
 			<ul>
 				<a href="<?php echo URL; ?>"><li class="logo">RentSFSU</li></a>
