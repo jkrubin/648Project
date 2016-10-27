@@ -31,7 +31,7 @@ class Search extends Controller {
 				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
 		$cities = array("oakland", "san francisco", "daly city");
 		$streets = array("way", "street", "road");
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
@@ -65,7 +65,7 @@ class Search extends Controller {
 		 */
 			foreach($splitQuery as $key){
 				if(is_numeric($key)){
-					if(ereg("/5{0-9}", $key) && ereg("/^9", $key)){
+					if(preg_match("/[0-9]{5}/", $key) && preg_match("/^9/", $key)){
 						$sortedQuery['zip'] = $key;
 					}else{
 						$sortedQuery['stno'] = $key;
@@ -105,7 +105,7 @@ class Search extends Controller {
 
 						case "zip":
 							if ($this->validate($value, "integer")) {
-								$sql .= " AND ZIP=$value";
+								$sql .= " AND R.ZIP=$value";
 							}
 							break;
 
@@ -192,7 +192,7 @@ class Search extends Controller {
 
 						case "stadd":
 							if ($this->validate($value, "string")){
-								$sql .= " AND R.StreetName=$value";
+								$sql .= " AND R.StreetName='$value'";
 							}
 							break;
 
@@ -218,7 +218,7 @@ class Search extends Controller {
 	private function validate($data, $type) {
 		if (is_numeric($data)) {
 			if (is_int(intval($data))) {
-				return ($type == "int");
+				return ($type == "integer");
 			}
 		}
 		if ($data == 'true' || $data == 'false') {
