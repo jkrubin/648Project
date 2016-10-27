@@ -26,16 +26,9 @@ class Search extends Controller {
 	}
 
 	private function fetchListings():array {
-		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
-				"dep", "pdep", "kdep", "electric", "internet", "water",
-				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
+		
 		$cities = array("oakland", "san francisco", "daly city", "san", "francisco", "daly", "city");
 		$streets = array("way", "street", "road");
-		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
-				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
-				"FROM Listings L, Rentals R " .
-				"WHERE R.RentalId=L.RentalId";
 		$splitQuery = array();
 		$sortedQuery = array();
 
@@ -65,9 +58,10 @@ class Search extends Controller {
 		 *if $key is a string that is in the array $cities, it will be added to 'cities'
 		 *otherwise it will be added 'stadd'
 		 */
+			$i = 0;
 			foreach($splitQuery as $key){
 				if(is_numeric($key)){
-					if(preg_match("/[0-9]{5}/", $key) && preg_match("/^9/", $key)){
+					if(preg_match("/[0-9]{5}/", $key) && preg_match("/^9/", $key) && (($i+1) == count($splitQuery))){
 						$sortedQuery['zip'] = $key;
 					}else{
 						$sortedQuery['stno'] = $key;
@@ -79,156 +73,11 @@ class Search extends Controller {
 						$sortedQuery['stadd'] = $key;
 					}
 				}
+				$i++;
 			}
-			/*
-			 *Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
-			 *Each key is then validated for the appropriate data type and then added to the SQL query.
-			 */
-			foreach ($sortedQuery as $key => $value) {
-				if (in_array($key, $allowedKeys)) {
-					switch ($key) {
-						case "br":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND Bedrooms=$value";
-							}
-							break;
-
-						case "bath":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND Bathrooms=$value";
-							}
-							break;
-
-						case "sqft":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND SqFt=$value";
-							}
-							break;
-
-						case "zip":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND R.ZIP=$value";
-							}
-							break;
-
-						case "city":
-							if ($this->validate($value, "string")) {
-								$sql .= " AND R.city LIKE '%$value%'";
-							}
-							break;
-
-						case "dep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Deposit=$value";
-							}
-							break;
-
-						case "pdep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND PetDeposit=$value";
-							}
-							break;
-
-						case "kdep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND KeyDeposit=$value";
-							}
-							break;
-
-						case "electric":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Electricity=$value";
-							}
-							break;
-
-						case "internet":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Internet=$value";
-							}
-							break;
-
-						case "water":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Water=$value";
-							}
-							break;
-
-						case "gas":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Gas=$value";
-							}
-							break;
-						case "tv":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Television=$value";
-							}
-							break;
-
-						case "pet":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Pet=$value";
-							}
-							break;
-
-						case "smoke":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Smoking=$value";
-							}
-							break;
-
-						case "furnished":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Furnished=$value";
-							}
-						case "startdate":
-							if ($this->validate($value, "date")) {
-								$sql .= " AND StartDate=$value";
-							}
-							break;
-
-						case "enddate":
-							if ($this->validate($value, "date")) {
-								$sql .= " AND EndDate=$value";
-							}
-							break;
-
-						case "stadd":
-							if ($this->validate($value, "string")){
-								$sql .= " AND R.StreetName LIKE '%$value%'";
-							}
-							break;
-
-						case "stno":
-							if ($this->validate($value, "integer")){
-								$sql .= " AND R.StreetNo LIKE '%$value%'";
-							}
-							break;
-						default:
-							break;
-					}
-				}
-			}
+			
+		return $this->model->getListings($sortedQuery);
 		}
-		$sql .= " LIMIT 10";
-		//return $this->model->getListings($sql);
-		$query = $this->db->prepare($sql);
-		$query->execute();
-		return $query->fetchAll(PDO::FETCH_ASSOC);
-	}
-
-	private function validate($data, $type) {
-		if (is_numeric($data)) {
-			if (is_int(intval($data))) {
-				return ($type == "integer");
-			}
-		}
-		if ($data == 'true' || $data == 'false') {
-			return ($type == "boolean");
-		}
-		$temp = DateTime::createFromFormat('Y-m-d', $data);
-		if ($temp && $temp->format('Y-m-d') == $data) {
-			return ($type == "date");
-		}
-		return ($type == "string");
 	}
 }
+?>
