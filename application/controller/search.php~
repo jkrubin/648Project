@@ -29,7 +29,7 @@ class Search extends Controller {
 		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
 				"dep", "pdep", "kdep", "electric", "internet", "water",
 				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
-		$cities = array("oakland", "san francisco", "daly city");
+		$cities = array("oakland", "san francisco", "daly city", "san", "francisco", "daly", "city");
 		$streets = array("way", "street", "road");
 		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
@@ -47,7 +47,9 @@ class Search extends Controller {
 		if (!empty($_GET)) {
 			$temp = preg_split("/ /", $_GET["q"]);
 			for($i = 0; $i < count($temp); $i++){
-				if(in_array((strtolower($temp[$i])." ".(strtolower($temp[$i + 1]))), $cities) || in_array(strtolower($temp[$i + 1]), $streets)){
+				if(in_array(strtolower($temp[$i]), $cities)){
+					array_push($splitQuery, strtolower($temp[$i]));
+				}else if(in_array((strtolower($temp[$i])." ".(strtolower($temp[$i + 1]))), $cities) || in_array(strtolower($temp[$i + 1]), $streets)){
 					array_push($splitQuery, strtolower($temp[$i])." ".(strtolower($temp[$i + 1])));
 					$i++;
 				}else{
@@ -111,7 +113,7 @@ class Search extends Controller {
 
 						case "city":
 							if ($this->validate($value, "string")) {
-								$sql .= " AND R.city='$value'";
+								$sql .= " AND R.city LIKE '%$value%'";
 							}
 							break;
 
@@ -192,13 +194,13 @@ class Search extends Controller {
 
 						case "stadd":
 							if ($this->validate($value, "string")){
-								$sql .= " AND R.StreetName='$value'";
+								$sql .= " AND R.StreetName LIKE '%$value%'";
 							}
 							break;
 
 						case "stno":
 							if ($this->validate($value, "integer")){
-								$sql .= " AND R.StreetNo='$value'";
+								$sql .= " AND R.StreetNo LIKE '%$value%'";
 							}
 							break;
 						default:
@@ -208,7 +210,6 @@ class Search extends Controller {
 			}
 		}
 		$sql .= " LIMIT 10";
-		echo $sql;
 		//return $this->model->getListings($sql);
 		$query = $this->db->prepare($sql);
 		$query->execute();
