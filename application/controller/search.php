@@ -26,131 +26,191 @@ class Search extends Controller {
 	}
 
 	private function fetchListings():array {
-		$allowed_keys = array("br", "bath", "sqft", "zip", "city",
+		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
 				"dep", "pdep", "kdep", "electric", "internet", "water",
-				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate");
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
+		$cities = array("oakland", "san francisco", "daly city", "san", "francisco", "daly", "city");
+		$streets = array("way", "street", "road");
+		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
 				"WHERE R.RentalId=L.RentalId";
-		if (!empty($_GET)) {
-			// do addSong() in model/model.php
-			foreach ($_GET as $key => $value) {
-				$key = strtolower($key);
-				if (in_array($key, $allowed_keys)) {
+		$splitQuery = array();
+		$sortedQuery = array();
 
+
+		/*
+		 *If statement takes the query string from _GET["q"] and splits it up using " "(space) as a delimiter and puts it into $temp.
+		 *The for loop then finds all cities and streets and pushes them into $splitQuery as one string. Other parameters are pushed into $splitQuery
+		 */
+		if (!empty($_GET)) {
+			$temp = preg_split("/ /", $_GET["q"]);
+			for($i = 0; $i < count($temp); $i++){
+				if(in_array(strtolower($temp[$i]), $cities)){
+					array_push($splitQuery, strtolower($temp[$i]));
+				}else if(in_array((strtolower($temp[$i])." ".(strtolower($temp[$i + 1]))), $cities) || in_array(strtolower($temp[$i + 1]), $streets)){
+					array_push($splitQuery, strtolower($temp[$i])." ".(strtolower($temp[$i + 1])));
+					$i++;
+				}else{
+					array_push($splitQuery, strtolower($temp[$i]));
+				}
+			}
+
+
+		/*
+		 *foreach look takes each item in $splitQuery and catagorizes it
+		 *If $key is a 5 digit number starting with a 9 then it will get added into 'zip'
+		 *If $key is a number, but not a zip code, then it will push added to 'stno'
+		 *if $key is a string that is in the array $cities, it will be added to 'cities'
+		 *otherwise it will be added 'stadd'
+		 */
+			foreach($splitQuery as $key){
+				if(is_numeric($key)){
+					if(preg_match("/[0-9]{5}/", $key) && preg_match("/^9/", $key)){
+						$sortedQuery['zip'] = $key;
+					}else{
+						$sortedQuery['stno'] = $key;
+					}
+				}else{
+					if(in_array($key, $cities)){
+						$sortedQuery['city'] = $key;
+					}else{
+						$sortedQuery['stadd'] = $key;
+					}
+				}
+			}
+			/*
+			 *Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
+			 *Each key is then validated for the appropriate data type and then added to the SQL query.
+			 */
+			foreach ($sortedQuery as $key => $value) {
+				if (in_array($key, $allowedKeys)) {
 					switch ($key) {
 						case "br":
-							if (validate($value, "integer")) {
-								$sql = $sql . " AND Bedrooms=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND Bedrooms=$value";
 							}
 							break;
 
 						case "bath":
-							if (validate($value, "integer")) {
-								$sql = $sql . " AND Bathrooms=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND Bathrooms=$value";
 							}
 							break;
 
 						case "sqft":
-							if (validate($value, "integer")) {
-								$sql = $sql . " AND SqFt=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND SqFt=$value";
 							}
 							break;
 
 						case "zip":
-							if (validate($value, "integer")) {
-								$sql = $sql . " AND ZIP=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND R.ZIP=$value";
 							}
 							break;
 
 						case "city":
-							if (validate($value, "string")) {
-								$sql = $sql . " AND city=$value";
+							if ($this->validate($value, "string")) {
+								$sql .= " AND R.city LIKE '%$value%'";
 							}
 							break;
 
 						case "dep":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Deposit=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Deposit=$value";
 							}
 							break;
 
 						case "pdep":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND PetDeposit=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND PetDeposit=$value";
 							}
 							break;
 
 						case "kdep":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND KeyDeposit=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND KeyDeposit=$value";
 							}
 							break;
 
 						case "electric":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Electricity=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Electricity=$value";
 							}
 							break;
 
 						case "internet":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Internet=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Internet=$value";
 							}
 							break;
+
 						case "water":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Water=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Water=$value";
 							}
 							break;
 
 						case "gas":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Gas=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Gas=$value";
 							}
 							break;
 						case "tv":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Television=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Television=$value";
 							}
 							break;
 
 						case "pet":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Pet=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Pet=$value";
 							}
 							break;
 
 						case "smoke":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Smoking=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Smoking=$value";
 							}
 							break;
 
 						case "furnished":
-							if (validate($value, "boolean")) {
-								$sql = $sql . " AND Furnished=$value";
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Furnished=$value";
 							}
 						case "startdate":
-							if (validate($value, "date")) {
-								$sql = $sql . " AND StartDate=$value";
+							if ($this->validate($value, "date")) {
+								$sql .= " AND StartDate=$value";
 							}
 							break;
 
 						case "enddate":
-							if (validate($value, "date")) {
-								$sql = $sql . " AND EndDate=$value";
+							if ($this->validate($value, "date")) {
+								$sql .= " AND EndDate=$value";
 							}
 							break;
 
+						case "stadd":
+							if ($this->validate($value, "string")){
+								$sql .= " AND R.StreetName LIKE '%$value%'";
+							}
+							break;
 
+						case "stno":
+							if ($this->validate($value, "integer")){
+								$sql .= " AND R.StreetNo LIKE '%$value%'";
+							}
+							break;
+						default:
+							break;
 					}
 				}
 			}
 		}
-		#$sql .= " LIMIT 10";
+		$sql .= " LIMIT 10";
+		//return $this->model->getListings($sql);
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -159,14 +219,14 @@ class Search extends Controller {
 	private function validate($data, $type) {
 		if (is_numeric($data)) {
 			if (is_int(intval($data))) {
-				return ($type == "int");
+				return ($type == "integer");
 			}
 		}
 		if ($data == 'true' || $data == 'false') {
 			return ($type == "boolean");
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
-		if ($temp && $temp->format('Y-m-d') === $data) {
+		if ($temp && $temp->format('Y-m-d') == $data) {
 			return ($type == "date");
 		}
 		return ($type == "string");

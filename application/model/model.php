@@ -12,6 +12,152 @@ class Model {
 		}
 	}
 
+	/*
+	 *Get all Listings from the database that match criteria $query
+	 *
+	 */
+	public function getListings($query){
+		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
+				"dep", "pdep", "kdep", "electric", "internet", "water",
+				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
+		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"FROM Listings L, Rentals R " .
+				"WHERE R.RentalId=L.RentalId";
+			/*
+			 *Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
+			 *Each key is then validated for the appropriate data type and then added to the SQL query.
+			 */
+			foreach ($query as $key => $value) {
+				if (in_array($key, $allowedKeys)) {
+					switch ($key) {
+						case "br":
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND Bedrooms=$value";
+							}
+							break;
+
+						case "bath":
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND Bathrooms=$value";
+							}
+							break;
+
+						case "sqft":
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND SqFt=$value";
+							}
+							break;
+
+						case "zip":
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND R.ZIP=$value";
+							}
+							break;
+
+						case "city":
+							if ($this->validate($value, "string")) {
+								$sql .= " AND R.city LIKE '%$value%'";
+							}
+							break;
+
+						case "dep":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Deposit=$value";
+							}
+							break;
+
+						case "pdep":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND PetDeposit=$value";
+							}
+							break;
+
+						case "kdep":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND KeyDeposit=$value";
+							}
+							break;
+
+						case "electric":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Electricity=$value";
+							}
+							break;
+
+						case "internet":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Internet=$value";
+							}
+							break;
+
+						case "water":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Water=$value";
+							}
+							break;
+
+						case "gas":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Gas=$value";
+							}
+							break;
+						case "tv":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Television=$value";
+							}
+							break;
+
+						case "pet":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Pet=$value";
+							}
+							break;
+
+						case "smoke":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Smoking=$value";
+							}
+							break;
+
+						case "furnished":
+							if ($this->validate($value, "boolean")) {
+								$sql .= " AND Furnished=$value";
+							}
+						case "startdate":
+							if ($this->validate($value, "date")) {
+								$sql .= " AND StartDate=$value";
+							}
+							break;
+
+						case "enddate":
+							if ($this->validate($value, "date")) {
+								$sql .= " AND EndDate=$value";
+							}
+							break;
+
+						case "stadd":
+							if ($this->validate($value, "string")){
+								$sql .= " AND R.StreetName LIKE '%$value%'";
+							}
+							break;
+
+						case "stno":
+							if ($this->validate($value, "integer")){
+								$sql .= " AND R.StreetNo LIKE '%$value%'";
+							}
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		$sql .= " LIMIT 10";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
 	/**
 	 * Get all songs from database
 	 */
@@ -118,4 +264,22 @@ class Model {
 		// fetch() is the PDO method that get exactly one result
 		return $query->fetch()->amount_of_songs;
 	}
+
+
+	private function validate($data, $type) {
+		if (is_numeric($data)) {
+			if (is_int(intval($data))) {
+				return ($type == "integer");
+			}
+		}
+		if ($data == 'true' || $data == 'false') {
+			return ($type == "boolean");
+		}
+		$temp = DateTime::createFromFormat('Y-m-d', $data);
+		if ($temp && $temp->format('Y-m-d') == $data) {
+			return ($type == "date");
+		}
+		return ($type == "string");
+	}
 }
+?>
