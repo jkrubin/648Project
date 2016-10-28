@@ -42,8 +42,11 @@ class Search extends Controller {
 			for($i = 0; $i < count($temp); $i++){
 				if(in_array(strtolower($temp[$i]), $cities)){
 					array_push($splitQuery, strtolower($temp[$i]));
-				}else if(in_array((strtolower($temp[$i])." ".(strtolower($temp[$i + 1]))), $cities) || in_array(strtolower($temp[$i + 1]), $streets)){
+				}else if(in_array(strtolower($temp[$i]), $cities) && (count($temp) >= 2)){
 					array_push($splitQuery, strtolower($temp[$i])." ".(strtolower($temp[$i + 1])));
+					$i++;
+				}elseif(in_array(strtolower($temp[$i]), $streets) && (count($temp) >= 2)){
+					array_push($splitQuery, strtolower($temp[$i - 1])." ".strtolower($temp[$i]));
 					$i++;
 				}else{
 					array_push($splitQuery, strtolower($temp[$i]));
