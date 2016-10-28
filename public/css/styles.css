@@ -1720,8 +1720,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333333;
-  background-color: #fff;
+  color: #000;
+  background-color: #f4f4f4;
 }
 
 /* line 36, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_scaffolding.scss */
@@ -1776,7 +1776,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857143;
-  background-color: #fff;
+  background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -3519,7 +3519,7 @@ th {
 }
 /* line 62, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_tables.scss */
 .table .table {
-  background-color: #fff;
+  background-color: #f4f4f4;
 }
 
 /* line 75, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_tables.scss */
@@ -4293,7 +4293,7 @@ select[multiple].input-lg,
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #737373;
+  color: #404040;
 }
 
 @media (min-width: 768px) {
@@ -5494,7 +5494,7 @@ tbody.collapse.in {
 /* line 96, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navs.scss */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #fff;
+  background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -5587,7 +5587,7 @@ tbody.collapse.in {
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #fff;
+    border-bottom-color: #f4f4f4;
   }
 }
 
@@ -6628,7 +6628,7 @@ a.badge:hover, a.badge:focus {
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #fff;
+  background-color: #f4f4f4;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
@@ -6647,7 +6647,7 @@ a.badge:hover, a.badge:focus {
 /* line 27, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_thumbnails.scss */
 .thumbnail .caption {
   padding: 9px;
-  color: #333333;
+  color: #000;
 }
 
 /* line 34, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_thumbnails.scss */
@@ -8787,4 +8787,147 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+/* line 17, ../../scss/styles.scss */
+body {
+  font: 14px #000 "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* line 21, ../../scss/styles.scss */
+header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #ffffff;
+  height: 13em;
+  width: 102%;
+  box-shadow: 0px 1px 5px #444444;
+  padding: 0.5em;
+}
+
+/* line 32, ../../scss/styles.scss */
+header.home {
+  height: 7.7em;
+}
+
+/* line 36, ../../scss/styles.scss */
+header nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #43428A;
+  padding-left: 2em;
+}
+
+/* line 45, ../../scss/styles.scss */
+header nav ul {
+  margin: 0;
+}
+
+/* line 49, ../../scss/styles.scss */
+header nav ul li {
+  list-style-type: none;
+}
+
+/* line 53, ../../scss/styles.scss */
+header nav a {
+  display: inline-block;
+  padding: 2em 1em;
+  top: 0;
+  bottom: 0;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  color: #fff;
+}
+
+/* line 66, ../../scss/styles.scss */
+header nav a:hover {
+  background-color: #4544cb;
+}
+
+/* line 70, ../../scss/styles.scss */
+ul li {
+  list-style-type: none;
+}
+
+/* line 74, ../../scss/styles.scss */
+.footer a {
+  color: #454545;
+}
+
+/* line 78, ../../scss/styles.scss */
+#disclaimer {
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #ff0000;
+  position: absolute;
+  top: 3em;
+}
+
+/* line 88, ../../scss/styles.scss */
+#wrapper {
+  width: 85%;
+  top: 4em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 95, ../../scss/styles.scss */
+#search-wrapper {
+  position: absolute;
+  left: 30%;
+  top: 125px;
+  margin: 0 0 0 -305px;
+  width: 80%;
+}
+
+/* line 103, ../../scss/styles.scss */
+#search-wrapper.home {
+  left: 50%;
+  top: 165px;
+  margin: 0 0 0 -305px;
+  width: 610px;
+}
+
+/* line 110, ../../scss/styles.scss */
+#search {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 115, ../../scss/styles.scss */
+#search input[type=text] {
+  padding: 0.5em;
+  font-size: 1.5em;
+  min-width: 20em;
+  width: 80%;
+}
+
+/* line 122, ../../scss/styles.scss */
+#search input[type=submit] {
+  padding: 0.5em;
+  font-size: 1.5em;
+  color: white;
+  background-color: #43428A;
+  border: 2px solid #43428A;
+}
+
+/* line 130, ../../scss/styles.scss */
+#search input[type=submit]:hover {
+  color: #43428A;
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid #43428A;
+}
+
+/* line 137, ../../scss/styles.scss */
+.rent {
+  font-size: 2em;
+  font-weight: bold;
 }

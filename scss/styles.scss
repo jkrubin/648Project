@@ -6,3 +6,136 @@
 
 // Import Bootstrap for Sass
 @import "bootstrap";
+
+//===== Colors =====
+$theme-color: #43428A;
+$btn-color:		#77b800;
+
+
+
+
+body {
+	font: $font-size-base $gray-base $font-family-sans-serif;
+}
+
+header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #ffffff;
+	height: 13em;
+	width: 102%;
+	box-shadow: 0px 1px 5px #444444;
+	padding: 0.5em;
+}
+
+header.home {
+	height: 7.7em;
+}
+
+header nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #43428A;
+	padding-left: 2em;
+}
+
+header nav ul {
+	margin: 0;
+}
+
+header nav ul li {
+	list-style-type: none;
+}
+
+header nav a {
+	display: inline-block;
+	padding: 2em 1em;
+	top: 0;
+	bottom: 0;
+	text-decoration: none;
+	font-size: 1em;
+	font-weight: bold;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	color: #fff;
+}
+
+header nav a:hover {
+	background-color: #4544cb;
+}
+
+ul li {
+	list-style-type: none;
+}
+
+.footer a {
+	color: #454545;
+}
+
+#disclaimer {
+	width: 100%;
+	text-align: center;
+	font-size: 2em;
+	font-weight: bold;
+	color: #ff0000;
+	position: absolute;
+	top: 3em;
+}
+
+#wrapper {
+	width: 85%;
+	top: 4em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#search-wrapper {
+	position: absolute;
+	left: 30%;
+	top: 125px;
+	margin: 0 0 0 -305px;
+	width: 80%;
+}
+
+#search-wrapper.home {
+	left: 50%;
+	top: 165px;
+	margin: 0 0 0 -305px;
+	width: 610px;
+}
+
+#search {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#search input[type=text] {
+	padding: 0.5em;
+	font-size: 1.5em;
+	min-width: 20em;
+	width: 80%;
+}
+
+#search input[type=submit] {
+	padding: 0.5em;
+	font-size: 1.5em;
+	color: white;
+	background-color: #43428A;
+	border: 2px solid #43428A;
+}
+
+#search input[type=submit]:hover {
+	color: #43428A;
+	background-color: white;
+	cursor: pointer;
+	border: 1px solid #43428A;
+}
+
+.rent {
+	font-size: 2em;
+	font-weight: bold;
+}
+
