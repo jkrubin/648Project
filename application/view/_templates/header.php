@@ -11,7 +11,11 @@
 	<!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
 
 	<!-- CSS -->
-	<link href="<?php echo URL; ?>css/style.css" rel="stylesheet">
+	<link href="<?php echo URL; ?>css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="<?php echo URL; ?>css/print.css" media="print" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+		<link href="<?php echo URL; ?>css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<![endif]-->
 </head>
 <body>
 
