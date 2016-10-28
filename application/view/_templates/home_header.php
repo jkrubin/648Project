@@ -22,7 +22,7 @@
 
 	<!-- navigation -->
 	<header class="home">
-		<nav>
+		<nav id="navbar" class="home">
 			<ul>
 				<a href="<?php echo URL; ?>"><li class="logo">RentSFSU</li></a>
 			</ul>

@@ -4441,7 +4441,7 @@ select[multiple].input-lg,
 }
 /* line 32, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_buttons.scss */
 .btn:hover, .btn:focus, .btn.focus {
-  color: #333;
+  color: #fff;
   text-decoration: none;
 }
 /* line 39, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_buttons.scss */
@@ -4467,33 +4467,33 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 /* line 68, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-default {
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
+  color: #fff;
+  background-color: #77b800;
+  border-color: #77b800;
 }
 /* line 11, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:focus, .btn-default.focus {
-  color: #333;
-  background-color: #e6e6e6;
-  border-color: #8c8c8c;
+  color: #fff;
+  background-color: #568500;
+  border-color: #253900;
 }
 /* line 17, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:hover {
-  color: #333;
-  background-color: #e6e6e6;
-  border-color: #adadad;
+  color: #fff;
+  background-color: #568500;
+  border-color: #4f7b00;
 }
 /* line 22, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
-  color: #333;
-  background-color: #e6e6e6;
-  border-color: #adadad;
+  color: #fff;
+  background-color: #568500;
+  border-color: #4f7b00;
 }
 /* line 29, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
-  color: #333;
-  background-color: #d4d4d4;
-  border-color: #8c8c8c;
+  color: #fff;
+  background-color: #3f6100;
+  border-color: #253900;
 }
 /* line 37, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
@@ -4501,13 +4501,13 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 /* line 45, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled.focus, .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default.focus {
-  background-color: #fff;
-  border-color: #ccc;
+  background-color: #77b800;
+  border-color: #77b800;
 }
 /* line 53, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-default .badge {
-  color: #fff;
-  background-color: #333;
+  color: #77b800;
+  background-color: #fff;
 }
 
 /* line 71, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_buttons.scss */
@@ -6037,40 +6037,40 @@ tbody.collapse.in {
 }
 /* line 397, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  background-color: #43428A;
+  border-color: #383774;
 }
 /* line 401, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #eeeeee;
 }
 /* line 403, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #d5d5d5;
   background-color: transparent;
 }
 /* line 410, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-text {
-  color: #777;
+  color: #fff;
 }
 /* line 415, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+  color: #eeeeee;
 }
 /* line 418, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #333;
-  background-color: transparent;
+  color: #fff;
+  background-color: #4e4da0;
 }
 /* line 425, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #555;
-  background-color: #e7e7e7;
+  color: #fff;
+  background-color: #4e4da0;
 }
 /* line 433, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
   color: #ccc;
-  background-color: transparent;
+  background-color: #777777;
 }
 /* line 442, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-toggle {
@@ -6087,49 +6087,49 @@ tbody.collapse.in {
 /* line 453, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #e7e7e7;
+  border-color: #383774;
 }
 /* line 462, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #e7e7e7;
-  color: #555;
+  background-color: #4e4da0;
+  color: #fff;
 }
 @media (max-width: 767px) {
   /* line 473, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #777;
+    color: #eeeeee;
   }
   /* line 475, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #333;
-    background-color: transparent;
+    color: #fff;
+    background-color: #4e4da0;
   }
   /* line 482, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #555;
-    background-color: #e7e7e7;
+    color: #fff;
+    background-color: #4e4da0;
   }
   /* line 490, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #ccc;
-    background-color: transparent;
+    background-color: #777777;
   }
 }
 /* line 506, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-link {
-  color: #777;
+  color: #eeeeee;
 }
 /* line 508, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-link:hover {
-  color: #333;
+  color: #fff;
 }
 /* line 513, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .btn-link {
-  color: #777;
+  color: #eeeeee;
 }
 /* line 515, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .btn-link:hover, .navbar-default .btn-link:focus {
-  color: #333;
+  color: #fff;
 }
 /* line 521, ../../../../../.rvm/gems/ruby-2.3.1/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus, fieldset[disabled] .navbar-default .btn-link:hover, fieldset[disabled] .navbar-default .btn-link:focus {
@@ -8788,50 +8788,25 @@ button.close {
     display: none !important;
   }
 }
-/* line 17, ../../scss/styles.scss */
+/* line 16, ../../scss/styles.scss */
 body {
   font: 14px #000 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
 /* line 21, ../../scss/styles.scss */
-header {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: #ffffff;
-  height: 13em;
-  width: 102%;
-  box-shadow: 0px 1px 5px #444444;
-  padding: 0.5em;
-}
-
-/* line 32, ../../scss/styles.scss */
-header.home {
-  height: 7.7em;
-}
-
-/* line 36, ../../scss/styles.scss */
-header nav {
+#navbar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  background-color: #43428A;
-  padding-left: 2em;
+  height: 50px;
+  margin-bottom: 20px;
+  padding: 15px 15px;
+  color: #fff;
+  background: #43428A;
 }
-
-/* line 45, ../../scss/styles.scss */
-header nav ul {
-  margin: 0;
-}
-
-/* line 49, ../../scss/styles.scss */
-header nav ul li {
-  list-style-type: none;
-}
-
-/* line 53, ../../scss/styles.scss */
-header nav a {
+/* line 30, ../../scss/styles.scss */
+#navbar a {
   display: inline-block;
   padding: 2em 1em;
   top: 0;
@@ -8843,23 +8818,51 @@ header nav a {
   border-right: 1px solid #dddddd;
   color: #fff;
 }
-
-/* line 66, ../../scss/styles.scss */
-header nav a:hover {
+/* line 41, ../../scss/styles.scss */
+#navbar a:hover {
   background-color: #4544cb;
 }
+/* line 45, ../../scss/styles.scss */
+#navbar ul {
+  margin: 0;
+}
 
-/* line 70, ../../scss/styles.scss */
+/*
+header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #ffffff;
+	height: 13em;
+	width: 102%;
+	box-shadow: 0px 1px 5px #444444;
+	padding: 0.5em;
+}
+
+header.home {
+	height: 7.7em;
+}
+
+header nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #43428A;
+	padding-left: 2em;
+}
+*/
+/* line 74, ../../scss/styles.scss */
 ul li {
   list-style-type: none;
 }
 
-/* line 74, ../../scss/styles.scss */
+/* line 78, ../../scss/styles.scss */
 .footer a {
   color: #454545;
 }
 
-/* line 78, ../../scss/styles.scss */
+/* line 82, ../../scss/styles.scss */
 #disclaimer {
   width: 100%;
   text-align: center;
@@ -8870,7 +8873,7 @@ ul li {
   top: 3em;
 }
 
-/* line 88, ../../scss/styles.scss */
+/* line 92, ../../scss/styles.scss */
 #wrapper {
   width: 85%;
   top: 4em;
@@ -8878,7 +8881,7 @@ ul li {
   margin-right: auto;
 }
 
-/* line 95, ../../scss/styles.scss */
+/* line 99, ../../scss/styles.scss */
 #search-wrapper {
   position: absolute;
   left: 30%;
@@ -8887,7 +8890,7 @@ ul li {
   width: 80%;
 }
 
-/* line 103, ../../scss/styles.scss */
+/* line 107, ../../scss/styles.scss */
 #search-wrapper.home {
   left: 50%;
   top: 165px;
@@ -8895,13 +8898,13 @@ ul li {
   width: 610px;
 }
 
-/* line 110, ../../scss/styles.scss */
+/* line 114, ../../scss/styles.scss */
 #search {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 115, ../../scss/styles.scss */
+/* line 119, ../../scss/styles.scss */
 #search input[type=text] {
   padding: 0.5em;
   font-size: 1.5em;
@@ -8909,7 +8912,7 @@ ul li {
   width: 80%;
 }
 
-/* line 122, ../../scss/styles.scss */
+/* line 126, ../../scss/styles.scss */
 #search input[type=submit] {
   padding: 0.5em;
   font-size: 1.5em;
@@ -8918,7 +8921,7 @@ ul li {
   border: 2px solid #43428A;
 }
 
-/* line 130, ../../scss/styles.scss */
+/* line 134, ../../scss/styles.scss */
 #search input[type=submit]:hover {
   color: #43428A;
   background-color: white;
@@ -8926,7 +8929,7 @@ ul li {
   border: 1px solid #43428A;
 }
 
-/* line 137, ../../scss/styles.scss */
+/* line 141, ../../scss/styles.scss */
 .rent {
   font-size: 2em;
   font-weight: bold;

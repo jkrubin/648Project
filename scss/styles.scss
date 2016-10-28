@@ -9,15 +9,44 @@
 
 //===== Colors =====
 $theme-color: #43428A;
-$btn-color:		#77b800;
 
 
 
 
 body {
 	font: $font-size-base $gray-base $font-family-sans-serif;
+	background-color: $body-bg;
 }
 
+#navbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: $navbar-height;
+	margin-bottom: $navbar-margin-bottom;
+	padding: $navbar-padding-vertical $navbar-padding-horizontal;
+	color: $navbar-default-color;
+	background: $navbar-default-bg;
+	a {
+		display: inline-block;
+		padding: 2em 1em;
+		top: 0;
+		bottom: 0;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: bold;
+		border-left: 1px solid #dddddd;
+		border-right: 1px solid #dddddd;
+		color: #fff;
+		&:hover {
+			background-color: #4544cb;
+		}
+	}
+	ul {
+		margin: 0;
+	}
+}
+/*
 header {
 	position: absolute;
 	top: 0px;
@@ -41,32 +70,7 @@ header nav {
 	background-color: #43428A;
 	padding-left: 2em;
 }
-
-header nav ul {
-	margin: 0;
-}
-
-header nav ul li {
-	list-style-type: none;
-}
-
-header nav a {
-	display: inline-block;
-	padding: 2em 1em;
-	top: 0;
-	bottom: 0;
-	text-decoration: none;
-	font-size: 1em;
-	font-weight: bold;
-	border-left: 1px solid #dddddd;
-	border-right: 1px solid #dddddd;
-	color: #fff;
-}
-
-header nav a:hover {
-	background-color: #4544cb;
-}
-
+*/
 ul li {
 	list-style-type: none;
 }
