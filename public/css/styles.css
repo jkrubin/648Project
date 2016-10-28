@@ -8788,92 +8788,109 @@ button.close {
     display: none !important;
   }
 }
-/* line 16, ../../scss/styles.scss */
+/* line 10, ../../scss/styles.scss */
 body {
-  font: 14px #000 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  color: #000;
   background-color: #f4f4f4;
 }
+/* line 14, ../../scss/styles.scss */
+body.home {
+  background: url("../public/img/home-bg.jpg");
+}
 
-/* line 21, ../../scss/styles.scss */
+/* line 19, ../../scss/styles.scss */
+header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #ffffff;
+  width: 100%;
+  box-shadow: 0px 1px 5px #444444;
+  height: 200px;
+}
+/* line 27, ../../scss/styles.scss */
+header.home {
+  height: 100px;
+}
+
+/* line 32, ../../scss/styles.scss */
 #navbar {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
   height: 50px;
   margin-bottom: 20px;
   padding: 15px 15px;
   color: #fff;
   background: #43428A;
 }
-/* line 30, ../../scss/styles.scss */
+/* line 42, ../../scss/styles.scss */
 #navbar a {
   display: inline-block;
-  padding: 2em 1em;
   top: 0;
   bottom: 0;
   text-decoration: none;
   font-size: 1em;
   font-weight: bold;
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
   color: #fff;
 }
-/* line 41, ../../scss/styles.scss */
+/* line 50, ../../scss/styles.scss */
 #navbar a:hover {
   background-color: #4544cb;
 }
-/* line 45, ../../scss/styles.scss */
+/* line 54, ../../scss/styles.scss */
 #navbar ul {
   margin: 0;
 }
-
-/*
-header {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	background-color: #ffffff;
-	height: 13em;
-	width: 102%;
-	box-shadow: 0px 1px 5px #444444;
-	padding: 0.5em;
+/* line 56, ../../scss/styles.scss */
+#navbar ul li {
+  padding: 6px 12px;
 }
 
-header.home {
-	height: 7.7em;
-}
-
-header nav {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	background-color: #43428A;
-	padding-left: 2em;
-}
-*/
-/* line 74, ../../scss/styles.scss */
+/* line 62, ../../scss/styles.scss */
 ul li {
   list-style-type: none;
 }
 
-/* line 78, ../../scss/styles.scss */
+/* line 66, ../../scss/styles.scss */
+.navbar-right {
+  position: absolute;
+  top: 6px;
+  right: 48px;
+}
+/* line 70, ../../scss/styles.scss */
+.navbar-right .btn {
+  margin-right: 16px;
+  color: #fff;
+  background: #77b800;
+  border: 1px solid #77b800;
+}
+/* line 75, ../../scss/styles.scss */
+.navbar-right .btn:hover {
+  color: #77b800;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* line 83, ../../scss/styles.scss */
 .footer a {
   color: #454545;
 }
 
-/* line 82, ../../scss/styles.scss */
+/* line 87, ../../scss/styles.scss */
 #disclaimer {
   width: 100%;
-  text-align: center;
-  font-size: 2em;
+  font-size: 24px;
   font-weight: bold;
   color: #ff0000;
   position: absolute;
-  top: 3em;
+  top: 50px;
+  padding: 6px 12px;
 }
 
-/* line 92, ../../scss/styles.scss */
+/* line 97, ../../scss/styles.scss */
 #wrapper {
   width: 85%;
   top: 4em;
@@ -8881,7 +8898,7 @@ ul li {
   margin-right: auto;
 }
 
-/* line 99, ../../scss/styles.scss */
+/* line 105, ../../scss/styles.scss */
 #search-wrapper {
   position: absolute;
   left: 30%;
@@ -8890,7 +8907,7 @@ ul li {
   width: 80%;
 }
 
-/* line 107, ../../scss/styles.scss */
+/* line 113, ../../scss/styles.scss */
 #search-wrapper.home {
   left: 50%;
   top: 165px;
@@ -8898,13 +8915,13 @@ ul li {
   width: 610px;
 }
 
-/* line 114, ../../scss/styles.scss */
+/* line 120, ../../scss/styles.scss */
 #search {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 119, ../../scss/styles.scss */
+/* line 125, ../../scss/styles.scss */
 #search input[type=text] {
   padding: 0.5em;
   font-size: 1.5em;
@@ -8912,24 +8929,23 @@ ul li {
   width: 80%;
 }
 
-/* line 126, ../../scss/styles.scss */
+/* line 132, ../../scss/styles.scss */
 #search input[type=submit] {
   padding: 0.5em;
   font-size: 1.5em;
-  color: white;
-  background-color: #43428A;
-  border: 2px solid #43428A;
+  /*
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border: 2px solid $btn-default-border;
+  &:hover {
+  	color: $btn-default-bg;
+  	background-color: white;
+  	cursor: pointer;
+  	border: 1px solid $btn-default-border;
+  }*/
 }
 
-/* line 134, ../../scss/styles.scss */
-#search input[type=submit]:hover {
-  color: #43428A;
-  background-color: white;
-  cursor: pointer;
-  border: 1px solid #43428A;
-}
-
-/* line 141, ../../scss/styles.scss */
+/* line 147, ../../scss/styles.scss */
 .rent {
   font-size: 2em;
   font-weight: bold;

@@ -7,21 +7,33 @@
 // Import Bootstrap for Sass
 @import "bootstrap";
 
-//===== Colors =====
-$theme-color: #43428A;
-
-
-
-
 body {
-	font: $font-size-base $gray-base $font-family-sans-serif;
+	font: $font-size-base $font-family-sans-serif !important;
+	color: $gray-base;
 	background-color: $body-bg;
+	&.home {
+		background: url('../public/img/home-bg.jpg');
+	}
+}
+
+header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #ffffff;
+	width: 100%;
+	box-shadow: 0px 1px 5px #444444;
+	height: $navbar-height * 4;
+	&.home {
+		height: $navbar-height * 2;
+	}
 }
 
 #navbar {
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 100%;
 	height: $navbar-height;
 	margin-bottom: $navbar-margin-bottom;
 	padding: $navbar-padding-vertical $navbar-padding-horizontal;
@@ -29,14 +41,11 @@ body {
 	background: $navbar-default-bg;
 	a {
 		display: inline-block;
-		padding: 2em 1em;
 		top: 0;
 		bottom: 0;
 		text-decoration: none;
 		font-size: 1em;
 		font-weight: bold;
-		border-left: 1px solid #dddddd;
-		border-right: 1px solid #dddddd;
 		color: #fff;
 		&:hover {
 			background-color: #4544cb;
@@ -44,35 +53,31 @@ body {
 	}
 	ul {
 		margin: 0;
+		li {
+			padding: $padding-base-vertical $padding-base-horizontal;
+		}
 	}
 }
-/*
-header {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	background-color: #ffffff;
-	height: 13em;
-	width: 102%;
-	box-shadow: 0px 1px 5px #444444;
-	padding: 0.5em;
-}
 
-header.home {
-	height: 7.7em;
-}
-
-header nav {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	background-color: #43428A;
-	padding-left: 2em;
-}
-*/
 ul li {
 	list-style-type: none;
+}
+
+.navbar-right {
+	position: absolute;
+	top: $padding-base-vertical;
+	right: $padding-large-horizontal * 3;
+	.btn {
+		margin-right: $padding-large-horizontal;
+		color: $btn-default-color;
+		background: $btn-default-bg;
+		border: 1px solid $btn-default-border;
+		&:hover {
+			color: $btn-default-bg;
+			background-color: white;
+			cursor: pointer;
+		}
+	}
 }
 
 .footer a {
@@ -81,12 +86,12 @@ ul li {
 
 #disclaimer {
 	width: 100%;
-	text-align: center;
-	font-size: 2em;
+	font-size: $font-size-h3;
 	font-weight: bold;
 	color: #ff0000;
 	position: absolute;
-	top: 3em;
+	top: $navbar-height;
+	padding: $padding-base-vertical $padding-base-horizontal;
 }
 
 #wrapper {
@@ -94,6 +99,7 @@ ul li {
 	top: 4em;
 	margin-left: auto;
 	margin-right: auto;
+
 }
 
 #search-wrapper {
@@ -126,16 +132,16 @@ ul li {
 #search input[type=submit] {
 	padding: 0.5em;
 	font-size: 1.5em;
-	color: white;
-	background-color: #43428A;
-	border: 2px solid #43428A;
-}
-
-#search input[type=submit]:hover {
-	color: #43428A;
-	background-color: white;
-	cursor: pointer;
-	border: 1px solid #43428A;
+	/*
+	color: $btn-default-color;
+	background-color: $btn-default-bg;
+	border: 2px solid $btn-default-border;
+	&:hover {
+		color: $btn-default-bg;
+		background-color: white;
+		cursor: pointer;
+		border: 1px solid $btn-default-border;
+	}*/
 }
 
 .rent {

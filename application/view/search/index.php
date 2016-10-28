@@ -1,8 +1,8 @@
 <div id="wrapper">
 	<div id="search-wrapper">
-		<form id="search" class="home" action="<?php echo URL; ?>search/fetchListings" method="GET">
-			<input type="text" placeholder="Address, City, or ZIP code" />
-			<input type="submit" value="Search" />
+		<form id="search" class="home" action="<?php echo URL; ?>search" method="GET">
+			<input type="text" name="q" placeholder="Enter Address, City, or ZIP code" />
+			<input type="submit" class="btn btn-default" value="Search" />
 		</form>
 	</div>
 	<div id="results-wrapper">
