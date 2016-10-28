@@ -1,0 +1,151 @@
+// Import Bootstrap Compass integration
+@import "bootstrap-compass";
+
+// Import custom Bootstrap variables
+@import "bootstrap-variables";
+
+// Import Bootstrap for Sass
+@import "bootstrap";
+
+body {
+	font: $font-size-base $font-family-sans-serif !important;
+	color: $gray-base;
+	background-color: $body-bg;
+	&.home {
+		background: url('../public/img/home-bg.jpg');
+	}
+}
+
+header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #ffffff;
+	width: 100%;
+	box-shadow: 0px 1px 5px #444444;
+	height: $navbar-height * 4;
+	&.home {
+		height: $navbar-height * 2;
+	}
+}
+
+#navbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: $navbar-height;
+	margin-bottom: $navbar-margin-bottom;
+	padding: $navbar-padding-vertical $navbar-padding-horizontal;
+	color: $navbar-default-color;
+	background: $navbar-default-bg;
+	a {
+		display: inline-block;
+		top: 0;
+		bottom: 0;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: bold;
+		color: #fff;
+		&:hover {
+			background-color: #4544cb;
+		}
+	}
+	ul {
+		margin: 0;
+		li {
+			padding: $padding-base-vertical $padding-base-horizontal;
+		}
+	}
+}
+
+ul li {
+	list-style-type: none;
+}
+
+.navbar-right {
+	position: absolute;
+	top: $padding-base-vertical;
+	right: $padding-large-horizontal * 3;
+	.btn {
+		margin-right: $padding-large-horizontal;
+		color: $btn-default-color;
+		background: $btn-default-bg;
+		border: 1px solid $btn-default-border;
+		&:hover {
+			color: $btn-default-bg;
+			background-color: white;
+			cursor: pointer;
+		}
+	}
+}
+
+.footer a {
+	color: #454545;
+}
+
+#disclaimer {
+	width: 100%;
+	font-size: $font-size-h3;
+	font-weight: bold;
+	color: #ff0000;
+	position: absolute;
+	top: $navbar-height;
+	padding: $padding-base-vertical $padding-base-horizontal;
+}
+
+#wrapper {
+	width: 85%;
+	top: 4em;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+
+#search-wrapper {
+	position: absolute;
+	left: 30%;
+	top: 125px;
+	margin: 0 0 0 -305px;
+	width: 80%;
+}
+
+#search-wrapper.home {
+	left: 50%;
+	top: 165px;
+	margin: 0 0 0 -305px;
+	width: 610px;
+}
+
+#search {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#search input[type=text] {
+	padding: 0.5em;
+	font-size: 1.5em;
+	min-width: 20em;
+	width: 80%;
+}
+
+#search input[type=submit] {
+	padding: 0.5em;
+	font-size: 1.5em;
+	/*
+	color: $btn-default-color;
+	background-color: $btn-default-bg;
+	border: 2px solid $btn-default-border;
+	&:hover {
+		color: $btn-default-bg;
+		background-color: white;
+		cursor: pointer;
+		border: 1px solid $btn-default-border;
+	}*/
+}
+
+.rent {
+	font-size: 2em;
+	font-weight: bold;
+}
+
