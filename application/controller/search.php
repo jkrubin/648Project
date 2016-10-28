@@ -25,7 +25,7 @@ class Search extends Controller {
 		require APP . 'view/_templates/footer.php';
 	}
 
-	private function fetchListings():array {
+	public function fetchListings():array {
 		
 		$cities = array("oakland", "san francisco", "daly city", "san", "francisco", "daly", "city");
 		$streets = array("way", "street", "road");
