@@ -8856,30 +8856,29 @@ ul li {
 
 /* line 66, ../../scss/styles.scss */
 .navbar-right {
-  position: absolute;
-  top: 6px;
-  right: 48px;
+  top: -25px;
+  right: 220px;
 }
-/* line 70, ../../scss/styles.scss */
+/* line 69, ../../scss/styles.scss */
 .navbar-right .btn {
   margin-right: 16px;
   color: #fff;
   background: #77b800;
   border: 1px solid #77b800;
 }
-/* line 75, ../../scss/styles.scss */
+/* line 74, ../../scss/styles.scss */
 .navbar-right .btn:hover {
   color: #77b800;
   background-color: white;
   cursor: pointer;
 }
 
-/* line 83, ../../scss/styles.scss */
+/* line 82, ../../scss/styles.scss */
 .footer a {
   color: #454545;
 }
 
-/* line 87, ../../scss/styles.scss */
+/* line 86, ../../scss/styles.scss */
 #disclaimer {
   width: 100%;
   font-size: 24px;
@@ -8890,7 +8889,7 @@ ul li {
   padding: 6px 12px;
 }
 
-/* line 97, ../../scss/styles.scss */
+/* line 96, ../../scss/styles.scss */
 #wrapper {
   width: 85%;
   top: 4em;
@@ -8898,7 +8897,7 @@ ul li {
   margin-right: auto;
 }
 
-/* line 105, ../../scss/styles.scss */
+/* line 104, ../../scss/styles.scss */
 #search-wrapper {
   position: absolute;
   left: 30%;
@@ -8907,7 +8906,7 @@ ul li {
   width: 80%;
 }
 
-/* line 113, ../../scss/styles.scss */
+/* line 112, ../../scss/styles.scss */
 #search-wrapper.home {
   left: 50%;
   top: 165px;
@@ -8915,24 +8914,24 @@ ul li {
   width: 610px;
 }
 
-/* line 120, ../../scss/styles.scss */
+/* line 119, ../../scss/styles.scss */
 #lede {
   margin-bottom: 15px;
 }
-/* line 122, ../../scss/styles.scss */
+/* line 121, ../../scss/styles.scss */
 #lede h1 {
   font-size: 36px;
   color: #fff;
   text-align: center;
 }
 
-/* line 129, ../../scss/styles.scss */
+/* line 128, ../../scss/styles.scss */
 #search {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* line 134, ../../scss/styles.scss */
+/* line 133, ../../scss/styles.scss */
 #search input[type=text] {
   padding: 0.5em;
   font-size: 1.5em;
@@ -8940,7 +8939,7 @@ ul li {
   width: 80%;
 }
 
-/* line 141, ../../scss/styles.scss */
+/* line 140, ../../scss/styles.scss */
 #search input[type=submit] {
   padding: 0.5em;
   font-size: 1.5em;
@@ -8957,8 +8956,76 @@ ul li {
   }*/
 }
 
-/* line 157, ../../scss/styles.scss */
-.rent {
-  font-size: 2em;
+/* line 156, ../../scss/styles.scss */
+#results-wrapper {
+  position: absolute;
+  top: 250px;
+  width: 67%;
+}
+
+/* line 162, ../../scss/styles.scss */
+.listing {
+  display: block;
+  height: 250px;
+  position: relative;
+  clear: both;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 15px;
+  width: 100%;
+  background: #fff;
+  padding: 6px 12px;
+  -webkit-box-shadow: 10px 10px 10px #eeeeee;
+  box-shadow: 10px 10px 10px #eeeeee;
+}
+/* line 173, ../../scss/styles.scss */
+.listing-heading {
+  font-size: 24px;
   font-weight: bold;
+  height: 50px;
+  line-height: 50px;
+  clear: both;
+  border-bottom: 1px solid #777777;
+  margin-bottom: 15px;
+}
+/* line 181, ../../scss/styles.scss */
+.listing-heading-left {
+  position: relative;
+  float: left;
+  clear: left;
+}
+/* line 186, ../../scss/styles.scss */
+.listing-heading-right {
+  position: relative;
+  float: right;
+  clear: right;
+}
+/* line 193, ../../scss/styles.scss */
+.listing-details {
+  position: relative;
+}
+/* line 195, ../../scss/styles.scss */
+.listing-details-left {
+  clear: left;
+  float: left;
+}
+/* line 199, ../../scss/styles.scss */
+.listing-details-right {
+  clear: right;
+  float: left;
+  margin-left: 16px;
+}
+/* line 206, ../../scss/styles.scss */
+.listing .rent {
+  color: #4cae4c;
+}
+
+/* line 211, ../../scss/styles.scss */
+.bedrooms, .baths {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* line 216, ../../scss/styles.scss */
+.description {
+  margin-top: 30px;
 }
