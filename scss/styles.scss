@@ -64,8 +64,9 @@ ul li {
 }
 
 .navbar-right {
-	top: -25px;
-	right: 220px;
+	position: absolute;
+	top: $font-size-base / 2;
+	right: $font-size-h2;
 	.btn {
 		margin-right: $padding-large-horizontal;
 		color: $btn-default-color;
