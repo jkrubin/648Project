@@ -25,6 +25,11 @@ local.properties
 *.tmp
 *.bak
 *.swp
+*.*~
+
+# Sass Cache
+.sass-cache
+.sass-cache/*
 
 # Mac OS X
 .DS_Store
