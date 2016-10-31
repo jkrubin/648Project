@@ -39,7 +39,8 @@ class Search extends Controller {
 
 		$cities = preg_split("/ /", $unsplit_cities);
 
-		$streets = array("way", "street", "road", "court", "boulevard", "place");
+		$streets = array("way", "street", "road", "court", "boulevard", "blvd", "place", "avenue", "ave", "beach", "bch", "causeway", "circle", "drive", "dr", 
+						 "expressway", "heights", "ht", "junction", "jct", "lane", "ln", "plaza", "rd", "st", "ct", "square", "sq");
 		$splitQuery = array();
 		$sortedQuery = array();
 
