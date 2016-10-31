@@ -52,7 +52,7 @@ class Model {
 
 						case "zip":
 							if ($this->validate($value, "integer")) {
-								$sql .= " AND R.ZIP=$value";
+								$sql .= " AND R.ZIP='$value'";
 							}
 							break;
 
@@ -153,7 +153,14 @@ class Model {
 					}
 				}
 			}
-		$sql .= " LIMIT 10";
+		$sql .= " LIMIT 10;";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getCities(){
+		$sql = "SELECT City FROM Rentals";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);

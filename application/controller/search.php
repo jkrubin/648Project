@@ -26,9 +26,20 @@ class Search extends Controller {
 	}
 
 	public function fetchListings():array {
-		
-		$cities = array("oakland", "san francisco", "daly city", "san", "francisco", "daly", "city");
-		$streets = array("way", "street", "road");
+		$assoc_array = $this->model->getCities();
+		$unsplit_cities = "";
+		$temp_array = array();
+
+		foreach($assoc_array as $i => $row){
+			if(!(in_array($row["City"], $temp_array))) {
+				$unsplit_cities .= $unsplit_cities." ".strtolower($row["City"]);
+				array_push($temp_array, $row["City"]);
+			}
+		}
+
+		$cities = preg_split("/ /", $unsplit_cities);
+
+		$streets = array("way", "street", "road", "court", "boulevard", "place");
 		$splitQuery = array();
 		$sortedQuery = array();
 
