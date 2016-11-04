@@ -15,8 +15,9 @@ class Test extends Controller {
 	 * This method handles what happens when you move to http://yourproject/songs/index
 	 */
 	public function index() {
-		// getting all songs and amount of songs
+		// Calls the function createCoords($address, $city). Returns an associative array.
 		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
+		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
 		foreach($coords["results"] as $results){
 			foreach($results["geometry"] as $geometry => $location){
 				$latitude = $location["lat"];
@@ -24,16 +25,17 @@ class Test extends Controller {
 				break;
 			}
 		}
-		// load views. within the views we can echo out $songs and $amount_of_songs easily
+		// load views.
 		require APP . 'view/_templates/header.php';
 		require APP . 'view/test/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
-
+	//Retrieves the latitude and longitude of a Listing using it's listingId. Returns an associative array["Latitude" => $value, "Longitude" => $value]
 	public function getCoords($listingId){
 		return $this->model->getCoords($listingId);
 	}
 
+	//returns an associative array with the coords in it. Will eventually just return an array with the coordinates.
 	public function createCoords($address, $city){
 		return $this->model->createCoords($address,$city);
 	}

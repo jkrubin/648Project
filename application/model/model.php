@@ -167,20 +167,22 @@ class Model {
 	}
 
 	public function getCoords($listingId){
+		//creates the sql statement to search the database with
 		$sql = "SELECT Latitude, Longitude FROM Listings L WHERE L.ListingId=$listingId;";
+		//executes statement
 		$query = $this->db->prepare($sql);
 		$query->execute();
+		//returns the associative array
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function createCoords($address, $city){
+		//changes $address and $city into the format necessary to use google's API to return the JSON query.
 		$address = preg_replace("/ /", "+", $address);
 		$city = preg_replace("/ /", "+", $city);
 		
 		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$city,+CA&key=AIzaSyB0tYK7LSPYSS2ol0WpKrdCzbfz6HcTNPQ";
 
-		echo $url;
-		
 		return json_decode(file_get_contents($url), true);
 	}
 	/**

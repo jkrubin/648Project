@@ -1,6 +1,7 @@
 
 <html>
   <head>
+  	<!--Handles how big the map appears on the page-->
     <style>
        #map {
         height: 400px;
@@ -13,16 +14,20 @@
     <div id="map"></div>
     <script>
       function initMap() {
+      	//takes the longitude and latitude form the database and inserts it into coords. See test.php for details
         var coords = {lat: <?php echo $latitude;?> , lng: <?php echo $longitude; ?>
         };
+        //creates the google map object with a specified zoom and center-->
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 18,
           center: coords
         });
+        //places a marker at position on map
         var marker = new google.maps.Marker({
           position: coords,
           map: map
         });
+        //Creates a red circle on the map over the given center
         var circle = new google.maps.Circle(
         	{
             	strokeColor: '#FF0000',
@@ -36,6 +41,7 @@
         	});
       }
     </script>
+    <!--the google API key.-->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=initMap">
     </script>
