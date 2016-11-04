@@ -198,6 +198,16 @@ class Model {
 		return $coords;
 
 	}
+
+	public function obfuscate($coords){
+		$rand_1 = (0.001 + (0.001 - 0.0018) * (mt_rand() / mt_getrandmax()));
+		$rand_2 = (0.001 + (0.001 - 0.0018) * (mt_rand() / mt_getrandmax()));
+
+		$coords["Latitude"] -= $rand_1;
+		$coords["Longitude"] -= $rand_2;
+
+		return $coords;
+	}
 	/**
 	 * Get all songs from database
 	 */

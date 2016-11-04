@@ -17,7 +17,7 @@ class Test extends Controller {
 	public function index() {
 		// Calls the function createCoords($address, $city). Returns an associative array.
 		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
-		var_dump($coords);
+		$coords = $this->obfuscate($coords);
 		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
 		$latitude = $coords["Latitude"];
 		$longitude = $coords["Longitude"];
@@ -31,9 +31,14 @@ class Test extends Controller {
 		return $this->model->getCoords($listingId);
 	}
 
-	//returns an associative array["Latitude" => $value, "Longitutde" => $value] based on the address and city given.
+	//returns an associative array["Latitude" => $value, "Longitude" => $value] based on the address and city given.
 	public function createCoords($address, $city){
 		return $this->model->createCoords($address,$city);
+	}
+
+	//takes an associative array["Latitude" => $value, "Longitude" => $value] 
+	public function obfuscate($coords){
+		return $this->model->obfuscate($coords);
 	}
 
 	/**
