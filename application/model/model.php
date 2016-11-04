@@ -180,10 +180,23 @@ class Model {
 		//changes $address and $city into the format necessary to use google's API to return the JSON query.
 		$address = preg_replace("/ /", "+", $address);
 		$city = preg_replace("/ /", "+", $city);
-		
+		//create the google api url that will contain the JSON query
 		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$city,+CA&key=AIzaSyB0tYK7LSPYSS2ol0WpKrdCzbfz6HcTNPQ";
+		//json_decode changes the file from it's JSON representation to an associative array.
+		$file = json_decode(file_get_contents($url), true);
+		//searches through $file to get the latitude and longitude
+		foreach($file["results"] as $results){
+			foreach($results["geometry"] as $geometry => $location){
+				$latitude = $location["lat"];
+				$longitude = $location["lng"];
+				break;
+			}
+		}
+		//creates an associative array with keys "Latitude" and "Longitude"
+		$coords = array("Latitude" => $latitude, "Longitude" => $longitude);
 
-		return json_decode(file_get_contents($url), true);
+		return $coords;
+
 	}
 	/**
 	 * Get all songs from database

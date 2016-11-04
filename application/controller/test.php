@@ -17,14 +17,10 @@ class Test extends Controller {
 	public function index() {
 		// Calls the function createCoords($address, $city). Returns an associative array.
 		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
+		var_dump($coords);
 		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
-		foreach($coords["results"] as $results){
-			foreach($results["geometry"] as $geometry => $location){
-				$latitude = $location["lat"];
-				$longitude = $location["lng"];
-				break;
-			}
-		}
+		$latitude = $coords["Latitude"];
+		$longitude = $coords["Longitude"];
 		// load views.
 		require APP . 'view/_templates/header.php';
 		require APP . 'view/test/index.php';
@@ -35,7 +31,7 @@ class Test extends Controller {
 		return $this->model->getCoords($listingId);
 	}
 
-	//returns an associative array with the coords in it. Will eventually just return an array with the coordinates.
+	//returns an associative array["Latitude" => $value, "Longitutde" => $value] based on the address and city given.
 	public function createCoords($address, $city){
 		return $this->model->createCoords($address,$city);
 	}
