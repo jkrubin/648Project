@@ -158,6 +158,30 @@ class Model {
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
+        
+        
+        /** 
+         * Get all user emails & passwords
+         * 
+         */
+        public function loginInfo($email,$password) {
+            
+            $query =    "SELECT Address, Password".
+                        "FROM Emails, Users".
+			"WHERE Address = $email, Password = $password";
+               
+     
+            $result = mysql_query($query,$this->connection);
+            if(!$result || mysql_num_rows($result) <= 0)
+            {
+                $this->HandleError("Error logging in. ".
+                    "The email or password does not match");
+                return false;
+            }
+            return true;
+            }
+        
+        
 	/**
 	 * Get all songs from database
 	 */
