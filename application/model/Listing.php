@@ -30,6 +30,7 @@ class Listing {
     /*
      * GETTERS
      */
+    
     function getStreetNo() {
         return $this->streetNo;
     }
