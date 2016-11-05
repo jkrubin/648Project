@@ -24,9 +24,6 @@ Class listing_controller extends Controller{
             //Create new listing if we have post data from submit_listing
             if (isset($_POST["submit_listing"])){
                 
-                //$sql = "INSERT INTO Listing (GET ALL LISTING PARAMS)".
-                //        "VALUES($_POST ..."
-                //add listing to listing model
                 $parameters = array(':streetNo'=> $_POST["streetNo"], 
                     ':streetName'=> $_POST["streetName"],
                     ':city'=> $_POST["city"],
@@ -49,6 +46,8 @@ Class listing_controller extends Controller{
                     ':furnished'=> $_POST["furnished"],
                     ':startDate'=> $_POST["startDate"],
                     ':endDate'=> $_POST["endDate"]);
+                
+                $this->model->addListing($parameters);
 
             }
             
