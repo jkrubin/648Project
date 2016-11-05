@@ -3,7 +3,7 @@
 /* 
  * Class for a Lisitng
  */
-class Listing {
+class Listing extends Model{
     private $streetNo; 
     private $streetName; 
     private $city; 
@@ -27,6 +27,11 @@ class Listing {
     private $startDate;
     private $endDate;
     
+    function __construct($db) {
+       parent::__construct($db);
+    }
+    
+    function createListingFromPost()
     /*
      * GETTERS
      */
