@@ -158,7 +158,7 @@ class Model {
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
-
+	
 	public function get_cities(): array {
 		$sql = "SELECT City FROM Rentals";
 		$query = $this->db->prepare($sql);
