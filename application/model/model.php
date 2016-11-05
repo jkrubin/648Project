@@ -171,7 +171,7 @@ class Model {
      
                 if(!$result || mysql_num_rows($result) <= 0)
                 {
-                    $this->HandleError("Error logging in. ".
+                    $this->HandleError("Error logging in.".
                                     "The username or password does not match");
                     return false;
                 }
