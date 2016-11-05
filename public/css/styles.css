@@ -8967,7 +8967,8 @@ ul li {
 /* line 163, ../../scss/styles.scss */
 .listing {
   display: block;
-  height: 250px;
+  height: 380px;
+  top: 210px;
   position: relative;
   clear: both;
   border-bottom: 1px solid #eeeeee;
