@@ -18,15 +18,15 @@ class Search extends Controller {
 		// if we have POST data to create a new song entry
 
 
-		$listings = $this->fetchListings();
+		$listings = $this->fetch_listings();
 
 		require APP . 'view/_templates/header.php';
 		require APP . 'view/search/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
 
-	public function fetchListings():array {
-		$assoc_array = $this->model->getCities();
+	public function fetch_listings(): array {
+		$assoc_array = $this->model->get_cities();
 		$unsplit_cities = "";
 		$temp_array = array();
 
@@ -91,7 +91,7 @@ class Search extends Controller {
 				$i++;
 			}
 			
-		return $this->model->getListings($sortedQuery);
+		return $this->model->get_listings($sortedQuery);
 		}
 	}
 }
