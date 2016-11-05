@@ -25,6 +25,7 @@ class Model {
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
 				"WHERE R.RentalId=L.RentalId";
+                
 			/*
 			 *Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
 			 *Each key is then validated for the appropriate data type and then added to the SQL query.
@@ -160,13 +161,24 @@ class Model {
 	}
         
         /**
-         * NOT WORKING UNTILL I MAKE LISTING OBJ
-         *  -josh
+         * Takes in an array of Listing parameters, prepares and executes SQL
+         * Query to put it into DB
+         *  
          */
-        public function addListing() {
-		//$sql = "INSERT INTO listings ..." 
+        public function addListing($params) {
+            
+                $sql = "INSERT INTO listing (StreetNo, StreetName, City, ZIP, "
+                        . "Bedrooms, Baths, SqFt, MonthlyRent, Description, "
+                        . "Deposit, PetDeposit, KeyDeposit, "
+                        . "Electricity, Internet, Water, Gas, Television, Pets, "
+                        . "Smoking, Furnished, StartDate, EndDate "
+                        . " VALUES (:streetNo, :streetName, :city, :zipCode"
+                        . ",:bedrooms, :baths, :sqFt, :monthlyRent, :description"
+                        . ",:deposit, :petDeposit, :keyDeposit, :electricity"
+                        . ",:internet, :water, :gas, :television, :pets, :smoking"
+                        . ", :furnished, :startDate, :endDate)";
 		$query = $this->db->prepare($sql);
-		$parameters = array(/*the all the listing params go here*/);
+		$parameters = array($params);
 
 
 		$query->execute($parameters);

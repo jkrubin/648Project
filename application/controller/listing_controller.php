@@ -48,8 +48,7 @@ Class listing_controller extends Controller{
                     ':smoking'=> $_POST["smoking"],
                     ':furnished'=> $_POST["furnished"],
                     ':startDate'=> $_POST["startDate"],
-                    ':endDate'=> $_POST["endDate"],
-                    ':water'=> $_POST["water"],);
+                    ':endDate'=> $_POST["endDate"]);
 
             }
             
