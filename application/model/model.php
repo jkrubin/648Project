@@ -158,7 +158,7 @@ class Model {
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
-	
+
 	public function get_cities(): array {
 		$sql = "SELECT City FROM Rentals";
 		$query = $this->db->prepare($sql);
@@ -219,7 +219,7 @@ class Model {
 			$userId = intval($userId);
 
 			// Use the retrieved UserId to populate the Emails table
-			$sql = "INSERT INTO `Emails` (`Address`, `UserId`, `IsPrimary`) VALUES (N:address, :userId, 1)";
+			$sql = "INSERT INTO `Emails` (`Address`, `UserId`, `IsPrimary`) VALUES (:address, :userId, 1)";
 			$query = $this->db->prepare($sql);
 			$params = [':address' => $email, ':userId' => $userId];
 
@@ -247,7 +247,7 @@ class Model {
 		}
 
 		try {
-			$sql = "SELECT Address, Password FROM Users U, Email E WHERE U.UserId=E.UserId AND Email=N:email";
+			$sql = "SELECT Address, Password FROM Users U, Email E WHERE U.UserId=E.UserId AND Address=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
