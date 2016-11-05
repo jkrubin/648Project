@@ -159,6 +159,24 @@ class Model {
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+        /** Get emails and password from database
+         * 
+         */
+        public function loginInfo($email, $password) {
+                $qry = "SELECT Address, Password".
+                        "FROM Emails, Users".
+                        "WHERE Address = $email, Password = $password";
+     
+                $result = mysql_query($qry,$this->connection);
+     
+                if(!$result || mysql_num_rows($result) <= 0)
+                {
+                    $this->HandleError("Error logging in. ".
+                                    "The username or password does not match");
+                    return false;
+                }
+                return true;
+        }
 	public function getCities(){
 		$sql = "SELECT City FROM Rentals";
 		$query = $this->db->prepare($sql);
