@@ -52,7 +52,7 @@ class Model {
 
 						case "zip":
 							if ($this->validate($value, "integer")) {
-								$sql .= " AND R.ZIP=$value";
+								$sql .= " AND R.ZIP='$value'";
 							}
 							break;
 
@@ -153,10 +153,35 @@ class Model {
 					}
 				}
 			}
-		$sql .= " LIMIT 10";
+		$sql .= " LIMIT 10;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getCities(){
+		$sql = "SELECT City FROM Rentals";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getCoords($listingId){
+		$sql = "SELECT Latitude, Longitude FROM Listings L WHERE L.ListingId=$listingId;";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function createCoords($address, $city){
+		$address = preg_replace("/ /", "+", $address);
+		$city = preg_replace("/ /", "+", $city);
+		
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$city,+CA&key=AIzaSyB0tYK7LSPYSS2ol0WpKrdCzbfz6HcTNPQ";
+
+		echo $url;
+		
+		return json_decode(file_get_contents($url), true);
 	}
 	/**
 	 * Get all songs from database
