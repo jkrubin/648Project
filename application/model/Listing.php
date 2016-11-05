@@ -31,7 +31,6 @@ class Listing extends Model{
        parent::__construct($db);
     }
     
-    function createListingFromPost()
     /*
      * GETTERS
      */
