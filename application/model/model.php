@@ -184,13 +184,13 @@ class Model {
 		$name = $firstName . ' ' . $lastName;
 
 		// Regex pulled from StackOverflow - http://stackoverflow.com/a/2044909/845306
-		$namePattern = "/^([ \u00c0-\u01ffa-zA-Z'\-])+$/";
+		$namePattern = '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u';
 
 		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
-		$emailPattern = "/^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/";
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
 
 		// Regex for all ANSI keyboard characters
-		$passwordPattern = "/[A-Za-z0-9 ,/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\]]{8,70}/";
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
 
 		// Exit if any of the variables passed in do not pass the regex validation
 		if (preg_match($namePattern, $name) + preg_match($emailPattern, $email) + preg_match($passwordPattern, $password) !== 3) {
@@ -237,8 +237,8 @@ class Model {
 
 		$email = strtolower(trim($email));
 
-		$emailPattern = "/^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/";
-		$passwordPattern = "/[A-Za-z0-9 ,/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\]]{8,70}/";
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
 
 		if (!(preg_match($emailPattern, $email) && preg_match($passwordPattern, $password))) {
 			$response['status'] = 'error';
@@ -247,7 +247,7 @@ class Model {
 		}
 
 		try {
-			$sql = "SELECT Address, Password FROM Users U, Email E WHERE U.UserId=E.UserId AND Address=:email";
+			$sql = "SELECT Address, Password FROM Users U, Emails E WHERE U.UserId=E.UserId AND Address=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
