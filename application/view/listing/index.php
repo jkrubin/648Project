@@ -23,7 +23,7 @@
 			<input type="text" name="end" placeholder="Available To (Date)" /><br><br>
                         <input type="button" name="images" value="Upload Images of the Listing"/><br><br>
 			<input type="checkbox" name="agree"/>I agree to the terms
-			<input type="submit" class="btn btn-default" value="Create Listing" />
+			<input type="submit" class="btn btn-default" name ="submit_listing" value="Create Listing" />
 		</form>
 	</div>
 </div>
