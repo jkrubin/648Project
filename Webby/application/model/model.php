@@ -159,62 +159,111 @@ class Model {
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-        /** 
-         * Get emails and password from database 
-         */
-        public function login($email, $password) {
-            try
-            {
-                $stmt = $this->db->prepare("SELECT Address FROM Emails WHERE user_email=:umail LIMIT 1");
-                $stmt->execute(array(':umail'=>$umail));
-                $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
-                if($stmt->rowCount() > 0)
-                {
-                    if(password_verify($password, $userRow['user_pass']))
-                    {
-                        $_SESSION['user_session'] = $userRow['user_id'];
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }  
-                }
+        /**
+	 * Add user to database
+	 *
+	 * @param $firstName String
+	 * @param $lastName String
+	 * @param $email String
+	 * @param $password String
+	 * @return boolean Indicates whether the query was successfully executed
+	 */
+	public function add_user($firstName, $lastName, $email, $password): bool {
+
+		$firstName = trim($firstName);
+		$lastName = trim($lastName);
+		$email = strtolower(trim($email));
+
+		$name = $firstName . ' ' . $lastName;
+
+		// Regex pulled from StackOverflow - http://stackoverflow.com/a/2044909/845306
+		$namePattern = '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u';
+
+		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+
+		// Regex for all ANSI keyboard characters
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+
+		// Exit if any of the variables passed in do not pass the regex validation
+		/**if (preg_match($namePattern, $name) + preg_match($emailPattern, $email) + preg_match($passwordPattern, $password) !== 3) {
+			return false;
+		}
+                */
                 
-            }
-            catch(PDOException $e)
-            {
-                echo $e->getMessage();
-            }
-        }
-        
-        /**
-         * Registration of user
-         */
-        public function register($fname,$lname,$uname,$umail,$upass)
-        {
-            //  WORKING ON THIS CURRENTLY. 
-        }
-        
-        /**
-         *  Check if the user is logged in
-         */
-         public function is_loggedin()
-        {
-            if(isset($_SESSION['user_session']))
-            {
-                return true;
-            }
-        }
-        /**
-         * Logout function
-         */
-        public function logout()
-        {
-            session_destroy();
-            unset($_SESSION['user_session']);
-            return true;
-        }
+		try {
+			// Hash password for insertion into database
+			$options = ['cost' => 12];
+			$hash = password_hash($password, PASSWORD_BCRYPT, $options);
+
+			// Prep query for insertion of user info into Users table
+			$sql = "INSERT INTO `Users` (`FirstName`, `LastName`, `Password`) VALUES (:firstName, :lastName, :password)";
+			$query = $this->db->prepare($sql);
+			$params = [':firstName' => $firstName, ':lastName' => $lastName, ':password' => $hash];
+
+			// Insert user into Users table
+			$query->execute($params);
+
+			// Retrieve the UserId for the newly inserted data
+			$sql = "SELECT UserId FROM Users WHERE FirstName=:firstName AND LastName=:lastName AND Password=:password";
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$userId = $query->fetch()['UserId'];
+			$userId = intval($userId);
+
+			// Use the retrieved UserId to populate the Emails table
+			$sql = "INSERT INTO `Emails` (`Address`, `UserId`, `IsPrimary`) VALUES (:address, :userId, 1)";
+			$query = $this->db->prepare($sql);
+			$params = [':address' => $email, ':userId' => $userId];
+
+			$query->execute($params);
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+	}
+
+	public function authenticate_user($email, $password): array {
+
+		$response = array();
+
+		$email = strtolower(trim($email));
+
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+
+		if (!(preg_match($emailPattern, $email) && preg_match($passwordPattern, $password))) {
+			$response['status'] = 'error';
+			$response['message'] = 'Email and/or password cannot be found.';
+			return $response;
+		}
+
+		try {
+			$sql = "SELECT Address, Password FROM Users U, Emails E WHERE U.UserId=E.UserId AND Address=:email";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email];
+			$query->execute($params);
+
+			while ($results = $query->fetch()) {
+				if (strtolower($results['Address']) === $email) {
+					$verified = password_verify($password, $results['Password']);
+					if ($verified) {
+						$response['status'] = 'success';
+						// Will set login cookie later
+					}
+				}
+			}
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			$response['status'] = 'error';
+			$response['message'] = 'The database encountered an error.';
+		}
+
+		return $response;
+	}
+
  
                 
         
