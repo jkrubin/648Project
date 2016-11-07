@@ -160,11 +160,18 @@ ul li {
 	width: 67%;
 }
 
+#page-title {
+	position: absolute;
+	text-align: center;
+        top: $navbar-height;
+	width: 100%;
+}
 .listing{
 	display: block;
-	height: $navbar-height * 5;
+	height: $navbar-height * 2;
 	position: relative;
 	clear: both;
+        top: $navbar-height + 20;
 	border-bottom: 1px solid $gray-lighter;
 	margin-bottom: $form-group-margin-bottom;
 	width: 100%;
@@ -216,4 +223,5 @@ ul li {
 
 .description {
 	margin-top: $padding-large-vertical * 3;
+        width: 100%;
 }
