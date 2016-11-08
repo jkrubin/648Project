@@ -21,11 +21,59 @@ class Listing extends Controller {
 
 	}
         
-        public function fetchListing(){
+        public function addListing(){
+            
+            $rentalParameters = array(
+                'streetNo'=>'StreetNo',
+                'streetName'=>'StreetName',
+                'city'=>'City',
+                'zipCode'=>'ZIP',
+                'bedrooms'=>'Bedrooms',
+                'baths'=>'Baths',
+                'sqFt'=>'SqFt'
+            );
+            
+            $listingParameters = array(
+                'monthlyRent'=>'MonthlyRent',
+                'description'=>'Description',
+                'deposit'=>'Deposit',
+                'petDeposit'=>'PetDeposit',
+                'keyDeposit'=>'KeyDeposit',
+                'electricity'=>'Electricity',
+                'internet'=>'Internet',
+                'water'=>'Water',
+                'gas'=>'Gas',
+                'television'=>'Television',
+                'pets'=>'Pets',
+                'smoking'=>'Smoking',
+                'furnished'=>'Furnished',
+                'startDate'=>'StartDate',
+                'endDate'=>'EndDate',
+            );
+            
+            $rentalSQLPairs=array();
+            $listingSQLPairs=array();
             
             //Create new listing if we have post data from submit_listing
             if (isset($_POST["submit_listing"])){
                 
+                //Get Array of $_POST keys
+                $postKeys = array_keys($_POST);
+                
+                //Iterate through post keys
+                foreach($postKeys as $postKey){
+                    //check if post key is for rental or listing
+                    if(array_key_exists($postKey, $rentalParameters)){
+                        $rentalSQLPairs[$rentalParameters[$postKey]]=$_POST[$postKey];
+                    }
+                    if(array_key_exists($postKey, $listingParameters)){
+                        $listingSQLPairs[$listingParameters[$postKey]]=$_POST[$postKey];
+
+                    }
+                }
+                var_dump($listingSQLPairs);
+                var_dump($rentalSQLPairs);
+                /*
                 $parameters = array(':streetNo'=> $_POST["streetNo"], 
                     ':streetName'=> $_POST["streetName"],
                     ':city'=> $_POST["city"],
@@ -48,8 +96,8 @@ class Listing extends Controller {
                     ':furnished'=> $_POST["furnished"],
                     ':startDate'=> $_POST["startDate"],
                     ':endDate'=> $_POST["endDate"]);
-                
-                $this->model->addListing($parameters);
+                */
+                $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
 
             }
             
