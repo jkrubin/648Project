@@ -14,8 +14,7 @@ Class listing_controller extends Controller{
     	public function index() {
 		// load views
 		$isHome = true;
-		require APP . 'view/_templates/home_header.php';
-		require APP . /*doesnt exist yet*/;
+		require APP . 'view/test_listing/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
         

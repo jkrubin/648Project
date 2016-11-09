@@ -19,8 +19,8 @@ class Test extends Controller {
 		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
 		$coords = $this->obfuscate($coords);
 		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
-		$latitude = $coords["Latitude"];
-		$longitude = $coords["Longitude"];
+		$latitude = $coords[":latitude"];
+		$longitude = $coords[":longitude"];
 		// load views.
 		require APP . 'view/_templates/header.php';
 		require APP . 'view/test/index.php';

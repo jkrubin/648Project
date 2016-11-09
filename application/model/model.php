@@ -19,7 +19,8 @@ class Model {
 	public function getListings($query){
 		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
 				"dep", "pdep", "kdep", "electric", "internet", "water",
-				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
+				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
+				"rentmax", "rentmin");
 		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
@@ -35,19 +36,19 @@ class Model {
 					switch ($key) {
 						case "br":
 							if ($this->validate($value, "integer")) {
-								$sql .= " AND Bedrooms=$value";
+								$sql .= " AND R.Bedrooms=$value";
 							}
 							break;
 
 						case "bath":
 							if ($this->validate($value, "integer")) {
-								$sql .= " AND Bathrooms=$value";
+								$sql .= " AND R.Baths=$value";
 							}
 							break;
 
 						case "sqft":
 							if ($this->validate($value, "integer")) {
-								$sql .= " AND SqFt=$value";
+								$sql .= " AND R.SqFt=$value";
 							}
 							break;
 
@@ -64,77 +65,77 @@ class Model {
 							break;
 
 						case "dep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Deposit=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND L.Deposit=$value";
 							}
 							break;
 
 						case "pdep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND PetDeposit=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND L.PetDeposit=$value";
 							}
 							break;
 
 						case "kdep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND KeyDeposit=$value";
+							if ($this->validate($value, "integer")) {
+								$sql .= " AND L.KeyDeposit=$value";
 							}
 							break;
 
 						case "electric":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Electricity=$value";
+								$sql .= " AND L.Electricity=$value";
 							}
 							break;
 
 						case "internet":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Internet=$value";
+								$sql .= " AND L.Internet=$value";
 							}
 							break;
 
 						case "water":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Water=$value";
+								$sql .= " AND L.Water=$value";
 							}
 							break;
 
 						case "gas":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Gas=$value";
+								$sql .= " AND L.Gas=$value";
 							}
 							break;
 						case "tv":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Television=$value";
+								$sql .= " AND L.Television=$value";
 							}
 							break;
 
 						case "pet":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Pet=$value";
+								$sql .= " AND L.Pets=$value";
 							}
 							break;
 
 						case "smoke":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Smoking=$value";
+								$sql .= " AND L.Smoking=$value";
 							}
 							break;
 
 						case "furnished":
 							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Furnished=$value";
+								$sql .= " AND L.Furnished=$value";
 							}
 						case "startdate":
 							if ($this->validate($value, "date")) {
-								$sql .= " AND StartDate=$value";
+								$sql .= " AND L.StartDate=$value";
 							}
 							break;
 
 						case "enddate":
 							if ($this->validate($value, "date")) {
-								$sql .= " AND EndDate=$value";
+								$sql .= " AND L.EndDate=$value";
 							}
 							break;
 
@@ -147,6 +148,16 @@ class Model {
 						case "stno":
 							if ($this->validate($value, "integer")){
 								$sql .= " AND R.StreetNo LIKE '%$value%'";
+							}
+							break;
+						case "rentmax":
+							if($this->validate($value, "integer")){
+								$sql .= " AND L.MonthlyRent<$value";
+							}
+							break;
+						case "rentmin":
+							if($this->validate($value, "integer")){
+								$sql .=" AND L.MonthlyRent>$value";
 							}
 							break;
 						default:
@@ -194,7 +205,7 @@ class Model {
 			}
 		}
 		//creates an associative array with keys "Latitude" and "Longitude"
-		$coords = array("Latitude" => $latitude, "Longitude" => $longitude);
+		$coords = array(":latitude" => $latitude, ":longitude" => $longitude);
 
 		return $coords;
 
@@ -204,8 +215,8 @@ class Model {
 		$rand_1 = (0.001 + (0.001 - 0.0018) * (mt_rand() / mt_getrandmax()));
 		$rand_2 = (0.001 + (0.001 - 0.0018) * (mt_rand() / mt_getrandmax()));
 
-		$coords["Latitude"] -= $rand_1;
-		$coords["Longitude"] -= $rand_2;
+		$coords[":latitude"] -= $rand_1;
+		$coords[":longitude"] -= $rand_2;
 
 		return $coords;
 	}
@@ -215,23 +226,87 @@ class Model {
          * Query to put it into DB
          *  
          */
-        public function addListing($params) {
+    public function addListing($params) {
             
-                $sql = "INSERT INTO listing (StreetNo, StreetName, City, ZIP, "
+        $sql = "INSERT INTO listing (StreetNo, StreetName, City, ZIP, "
                         . "Bedrooms, Baths, SqFt, MonthlyRent, Description, "
                         . "Deposit, PetDeposit, KeyDeposit, "
                         . "Electricity, Internet, Water, Gas, Television, Pets, "
-                        . "Smoking, Furnished, StartDate, EndDate "
+                        . "Smoking, Furnished, StartDate, EndDate, Longitude, Latitude "
                         . " VALUES (:streetNo, :streetName, :city, :zipCode"
                         . ",:bedrooms, :baths, :sqFt, :monthlyRent, :description"
                         . ",:deposit, :petDeposit, :keyDeposit, :electricity"
                         . ",:internet, :water, :gas, :television, :pets, :smoking"
-                        . ", :furnished, :startDate, :endDate)";
+                        . ", :furnished, :startDate, :endDate, :longitude, :latitude)";
+		$address = $params[':streetNo']." ".$params[':streetName'];
+		$city = $params[':city'];
+
+		var_dump($params);
+		echo $sql;
+
+		$coords = createCoords($address, $city);
+		$coords = obfuscate($coords);
 		$query = $this->db->prepare($sql);
 		$parameters = array($params);
 
+		$parameters = array_merge($parameters, $coords);
+
 
 		$query->execute($parameters);
+	}
+
+	public function authenticate_user($email, $password): array {
+
+		$response = array();
+
+		$email = strtolower(trim($email));
+
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+
+		if (!(preg_match($emailPattern, $email) && preg_match($passwordPattern, $password))) {
+			$response['status'] = 'error';
+			$response['message'] = 'Email and/or password cannot be found.';
+			return $response;
+		}
+
+		try {
+			$sql = "SELECT Address, Password FROM Users U, Emails E WHERE U.UserId=E.UserId AND Address=:email";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email];
+			$query->execute($params);
+
+			while ($results = $query->fetch()) {
+				if (strtolower($results['Address']) === $email) {
+					$verified = password_verify($password, $results['Password']);
+					if ($verified) {
+						$response['status'] = 'success';
+						// Will set login cookie later
+					}
+				}
+			}
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			$response['status'] = 'error';
+			$response['message'] = 'The database encountered an error.';
+		}
+
+		return $response;
+	}
+
+	public function retrieve_listing($listingId): array{
+		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"FROM Listings L, Rentals R " .
+				"WHERE L.Listing=$listingId";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function save_listing(): array{
+
 	}
         
 	/**
@@ -352,7 +427,7 @@ class Model {
 			return ($type == "boolean");
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
-		if ($temp && $temp->format('Y-m-d') == $data) {
+		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$temp)) {
 			return ($type == "date");
 		}
 		return ($type == "string");
