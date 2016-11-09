@@ -3,11 +3,11 @@
 <div class="listing">
     <div>
         <form action="<?php echo URL; ?>listing/addListing" method="POST">
-            <input type="text" name="streetNo" placeholder="Street Number" />
+            <input type="text" name="streetNo" placeholder="Street Number" width="22%"/>
             <input type="text" name="streetName" placeholder="Street Name" />
             <input type="text" name="city" placeholder="City" />
             <input type="text" name="zipCode" placeholder="Zip Code" /><br><br>
-            <textarea cols="150" rows="3" name="description" placeholder="Description"></textarea><br><br>
+            <textarea cols="126" rows="3" name="description" placeholder="Description"></textarea><br><br>
             <input type="text" name="sqFt" placeholder="Square Feet" />
             <input type="text" name="monthlyRent" placeholder="Monthly Rent" />
             <input type="text" name="deposit" placeholder="Deposit" />
