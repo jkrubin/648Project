@@ -167,8 +167,46 @@ class Model {
          */
         public function addListing($rentalSQLParams, $listingSQLParams) {
             
-           
+            /*
+             *      ADD RENTAL TO DB
+             */
+            //Prepare Rental SQL
+            $rentalSQLParams["RentalTypeId"] = 1;
+            //Start of Sql statment
+            $rentalSQL = "INSERT INTO Rentals";
             
+            //Implode all keys 
+            $rentalSQL .=  " (".implode(" , ", array_keys($rentalSQLParams)).")";
+            //Implode all values
+            $rentalSQL .=  " VALUES('".implode("' , '",$rentalSQLParams)."')";
+            //Insert into Rentals Table
+            $this->db->query($rentalSQL);
+            
+            //Get the last inserted ID, which is the thing we just added
+            $last_id = $this->db->lastInsertID();
+            
+            /*
+             *      ADD LISTING TO DB
+             */
+            
+            //Add listing ID
+            $listingSQLParams["RentalId"] = $last_id;
+            //Dummy value for Landlord ID
+            $listingSQLParams["LandlordId"] = 42;
+            //Prepate Listing SQL
+            $listingSQL = "INSERT INTO Listings";
+
+            //Implode all keys 
+            $listingSQL .=  " (".implode(" , ", array_keys($listingSQLParams)).")";
+            //Implode all values
+            $listingSQL .=  " VALUES('".implode("' , '",$listingSQLParams)."')";
+            
+            //Insert into Listings Table
+            $this->db->query($listingSQL);
+            
+            //For testing only
+            //echo $rentalSQL;
+            echo "<br>" .$listingSQL;
             /*
                 $sql = "INSERT INTO Listings (StreetNo, StreetName, City, ZIP, "
                         . "Bedrooms, Baths, SqFt, MonthlyRent, Description, "
@@ -185,7 +223,7 @@ class Model {
 
             */
 
-		$query->execute($parameters);
+		//$query->execute($parameters);
 	}
         
 	/**
