@@ -1,7 +1,7 @@
 <?php
 
 
-Class  extends Controller{
+Class Api extends Controller{
         /*
          * Class for listings page (not yet created) 
          * 
