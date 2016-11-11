@@ -8968,7 +8968,7 @@ ul li {
 #dashboard-wrapper {
   position: absolute;
   top: 250px;
-  width: 67%;
+  width: 85%;
 }
 
 /* line 169, ../../scss/styles.scss */
@@ -8991,7 +8991,7 @@ ul li {
   width: 100%;
 }
 
-/* line 187, ../../scss/styles.scss */
+/* line 188, ../../scss/styles.scss */
 .listing {
   display: block;
   height: 250px;
@@ -9005,7 +9005,7 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 198, ../../scss/styles.scss */
+/* line 199, ../../scss/styles.scss */
 .listing-heading {
   font-size: 24px;
   font-weight: bold;
@@ -9015,39 +9015,39 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 206, ../../scss/styles.scss */
+/* line 207, ../../scss/styles.scss */
 .listing-heading-left {
   position: relative;
   float: left;
   clear: left;
 }
-/* line 211, ../../scss/styles.scss */
+/* line 212, ../../scss/styles.scss */
 .listing-heading-right {
   position: relative;
   float: right;
   clear: right;
 }
-/* line 218, ../../scss/styles.scss */
+/* line 219, ../../scss/styles.scss */
 .listing-details {
   position: relative;
 }
-/* line 220, ../../scss/styles.scss */
+/* line 221, ../../scss/styles.scss */
 .listing-details-left {
   clear: left;
   float: left;
 }
-/* line 224, ../../scss/styles.scss */
+/* line 225, ../../scss/styles.scss */
 .listing-details-right {
   clear: right;
   float: left;
   margin-left: 16px;
 }
-/* line 231, ../../scss/styles.scss */
+/* line 232, ../../scss/styles.scss */
 .listing .rent {
   color: #4cae4c;
 }
 
-/* line 235, ../../scss/styles.scss */
+/* line 236, ../../scss/styles.scss */
 .add-listing {
   font-size: 1.4em;
   display: block;
@@ -9067,31 +9067,31 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 253, ../../scss/styles.scss */
+/* line 254, ../../scss/styles.scss */
 .add-listing textarea {
   width: 97%;
 }
-/* line 257, ../../scss/styles.scss */
+/* line 258, ../../scss/styles.scss */
 .add-listing label {
   width: 10.3%;
 }
-/* line 261, ../../scss/styles.scss */
+/* line 262, ../../scss/styles.scss */
 .add-listing input[type=text], .add-listing input[type=number] {
   min-width: 10em;
   width: 21.6%;
   margin-right: 3%;
 }
-/* line 267, ../../scss/styles.scss */
+/* line 268, ../../scss/styles.scss */
 .add-listing input[type=date] {
   margin-right: 3.2%;
   width: 13.4%;
   font-size: .87em;
 }
-/* line 273, ../../scss/styles.scss */
+/* line 274, ../../scss/styles.scss */
 .add-listing #dates {
   width: 7.6%;
 }
-/* line 277, ../../scss/styles.scss */
+/* line 278, ../../scss/styles.scss */
 .add-listing text {
   display: inline-block;
   width: 24.6%;
@@ -9099,7 +9099,90 @@ ul li {
   visibility: hidden;
 }
 
-/* line 285, ../../scss/styles.scss */
+/* line 286, ../../scss/styles.scss */
+.edit-listing {
+  font-size: 1.4em;
+  display: block;
+  height: 250px;
+  position: relative;
+  clear: both;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 15px;
+  width: 100%;
+  background: #fff;
+  padding: 6px 12px;
+  -webkit-box-shadow: 10px 10px 10px #eeeeee;
+  box-shadow: 10px 10px 10px #eeeeee;
+}
+/* line 298, ../../scss/styles.scss */
+.edit-listing-heading {
+  font-size: 18px;
+  font-weight: bold;
+  height: 50px;
+  line-height: 50px;
+  clear: both;
+  border-bottom: 1px solid #777777;
+  margin-bottom: 15px;
+}
+/* line 306, ../../scss/styles.scss */
+.edit-listing-heading-left {
+  position: relative;
+  float: left;
+  clear: left;
+  width: 80%;
+}
+/* line 312, ../../scss/styles.scss */
+.edit-listing-heading-right {
+  position: relative;
+  float: right;
+  clear: right;
+  width: 16%;
+}
+/* line 320, ../../scss/styles.scss */
+.edit-listing-details {
+  position: relative;
+}
+/* line 322, ../../scss/styles.scss */
+.edit-listing-details-left {
+  clear: left;
+  float: left;
+}
+/* line 325, ../../scss/styles.scss */
+.edit-listing-details-left image {
+  float: left;
+}
+/* line 329, ../../scss/styles.scss */
+.edit-listing-details-right {
+  clear: right;
+  float: right;
+  margin-left: 16px;
+}
+/* line 338, ../../scss/styles.scss */
+.edit-listing textarea {
+  width: 50%;
+  height: 110pt;
+  font-size: .8em;
+}
+/* line 344, ../../scss/styles.scss */
+.edit-listing .address, .edit-listing input[type=text], .edit-listing input[type=number] {
+  width: 23%;
+  height: 55%;
+  margin-right: 1%;
+}
+/* line 350, ../../scss/styles.scss */
+.edit-listing .addressSmall {
+  width: 9%;
+  height: 55%;
+  margin-right: 1%;
+}
+/* line 356, ../../scss/styles.scss */
+.edit-listing .rent {
+  width: 90%;
+  height: 55%;
+  color: #4cae4c;
+}
+
+/* line 364, ../../scss/styles.scss */
 .bedrooms, .baths {
   font-size: 18px;
   font-weight: bold;

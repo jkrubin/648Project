@@ -163,7 +163,7 @@ ul li {
 #dashboard-wrapper {
     position: absolute;
     top: $navbar-height * 5;
-    width: 67%;
+    width: 85%;
 }
 
 #listing-wrapper {
@@ -184,6 +184,7 @@ ul li {
     top: $navbar-height*2;
     width: 100%;
 }
+
 .listing{
     display: block;
     height: $navbar-height * 5;
@@ -280,6 +281,84 @@ ul li {
         color: green;
         visibility: hidden;
     }
+}
+
+.edit-listing{
+    font-size: 1.4em;
+    display: block;
+    height: $navbar-height * 5;
+    position: relative;
+    clear: both;
+    border-bottom: 1px solid $gray-lighter;
+    margin-bottom: $form-group-margin-bottom;
+    width: 100%;
+    background: #fff;
+    padding: $padding-base-vertical $padding-base-horizontal;
+    @include box-shadow(10px 10px 10px $gray-lighter);
+    &-heading {
+        font-size: $font-size-h4;
+        font-weight: bold;
+        height: $navbar-height;
+        line-height: $navbar-height;
+        clear: both;
+        border-bottom: 1px solid $gray-light;
+        margin-bottom: $form-group-margin-bottom;
+        &-left {
+            position: relative;
+            float: left;
+            clear: left;
+            width: 80%;
+        }
+        &-right {
+            position: relative;
+            float: right;
+            clear: right;
+            width: 16%;
+        }
+    }
+
+    &-details {
+        position: relative;
+        &-left {
+            clear: left;
+            float: left;
+            image {
+                float: left;
+            }
+        }
+        &-right {
+            clear: right;
+            float: right;
+            margin-left: $padding-large-horizontal;
+
+
+        }
+    }
+
+    textarea {
+        width: 50%;
+        height: 110pt;
+        font-size: .8em;
+    }
+
+    .address, input[type=text], input[type=number] {
+        width: 23%;
+        height: 55%;
+        margin-right: 1%;
+    }
+
+    .addressSmall {
+        width: 9%;
+        height: 55%;
+        margin-right: 1%;
+    }
+
+    .rent {
+        width: 90%;
+        height: 55%;
+        color: #4cae4c;
+    }
+
 }
 
 .bedrooms, .baths {
