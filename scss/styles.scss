@@ -233,9 +233,9 @@ ul li {
     }
 }
 .add-listing{
-    font-size: 1.2em;
+    font-size: 1.4em;
     display: block;
-    height: $navbar-height * 15;
+    height: $navbar-height * 17;
     position: relative;
     clear: both;
     top: $navbar-height * 4;
@@ -254,16 +254,32 @@ ul li {
         width: 97%;
     }
 
-    & input[type=text] {
+    & label {
+        width: 10.3%;
+    }
+
+    & input[type=text], input[type=number] {
         min-width: 10em;
-        width: 21.67%;
+        width: 21.6%;
         margin-right: 3%;
     }
 
     & input[type=date] {
-        margin-right: 3%;
+        margin-right: 3.2%;
+        width: 13.4%;
+        font-size: .87em;
     }
 
+    & #dates {
+        width: 7.6%;
+    }
+
+    & text {
+        display: inline-block;
+        width: 24.6%;
+        color: green;
+        visibility: hidden;
+    }
 }
 
 .bedrooms, .baths {

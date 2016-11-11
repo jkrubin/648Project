@@ -9049,9 +9049,9 @@ ul li {
 
 /* line 235, ../../scss/styles.scss */
 .add-listing {
-  font-size: 1.2em;
+  font-size: 1.4em;
   display: block;
-  height: 750px;
+  height: 850px;
   position: relative;
   clear: both;
   top: 200px;
@@ -9072,17 +9072,34 @@ ul li {
   width: 97%;
 }
 /* line 257, ../../scss/styles.scss */
-.add-listing input[type=text] {
+.add-listing label {
+  width: 10.3%;
+}
+/* line 261, ../../scss/styles.scss */
+.add-listing input[type=text], .add-listing input[type=number] {
   min-width: 10em;
-  width: 21.67%;
+  width: 21.6%;
   margin-right: 3%;
 }
-/* line 263, ../../scss/styles.scss */
+/* line 267, ../../scss/styles.scss */
 .add-listing input[type=date] {
-  margin-right: 3%;
+  margin-right: 3.2%;
+  width: 13.4%;
+  font-size: .87em;
+}
+/* line 273, ../../scss/styles.scss */
+.add-listing #dates {
+  width: 7.6%;
+}
+/* line 277, ../../scss/styles.scss */
+.add-listing text {
+  display: inline-block;
+  width: 24.6%;
+  color: green;
+  visibility: hidden;
 }
 
-/* line 269, ../../scss/styles.scss */
+/* line 285, ../../scss/styles.scss */
 .bedrooms, .baths {
   font-size: 18px;
   font-weight: bold;
