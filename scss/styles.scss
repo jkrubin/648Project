@@ -235,36 +235,38 @@ ul li {
 .add-listing{
     font-size: 1.2em;
     display: block;
-    height: $navbar-height * 10;
+    height: $navbar-height * 15;
     position: relative;
     clear: both;
     top: $navbar-height * 4;
     border-bottom: 1px solid $gray-lighter;
     margin-top: 1%;
+    margin-bottom: 3%;
     margin-left: 3%;
     margin-right: 3%;
     padding: 3%;
+    padding-left: 5%;
     width: 94%;
     background: #fff;
     @include box-shadow(10px 10px 10px $gray-lighter);
 
     & textarea {
-        width: 100%;
+        width: 97%;
     }
 
     & input[type=text] {
         min-width: 10em;
-        width: 21%;
+        width: 21.67%;
         margin-right: 3%;
     }
+
+    & input[type=date] {
+        margin-right: 3%;
+    }
+
 }
 
 .bedrooms, .baths {
     font-size: $font-size-h4;
     font-weight: bold;
-}
-
-.description {
-    margin-top: $padding-large-vertical * 3;
-    column-count: 4;
 }

@@ -9051,39 +9051,39 @@ ul li {
 .add-listing {
   font-size: 1.2em;
   display: block;
-  height: 500px;
+  height: 750px;
   position: relative;
   clear: both;
   top: 200px;
   border-bottom: 1px solid #eeeeee;
   margin-top: 1%;
+  margin-bottom: 3%;
   margin-left: 3%;
   margin-right: 3%;
   padding: 3%;
+  padding-left: 5%;
   width: 94%;
   background: #fff;
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 251, ../../scss/styles.scss */
+/* line 253, ../../scss/styles.scss */
 .add-listing textarea {
-  width: 100%;
+  width: 97%;
 }
-/* line 255, ../../scss/styles.scss */
+/* line 257, ../../scss/styles.scss */
 .add-listing input[type=text] {
   min-width: 10em;
-  width: 21%;
+  width: 21.67%;
+  margin-right: 3%;
+}
+/* line 263, ../../scss/styles.scss */
+.add-listing input[type=date] {
   margin-right: 3%;
 }
 
-/* line 262, ../../scss/styles.scss */
+/* line 269, ../../scss/styles.scss */
 .bedrooms, .baths {
   font-size: 18px;
   font-weight: bold;
-}
-
-/* line 267, ../../scss/styles.scss */
-.description {
-  margin-top: 30px;
-  column-count: 4;
 }
