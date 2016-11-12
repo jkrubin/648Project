@@ -286,7 +286,7 @@ ul li {
 .edit-listing{
     font-size: 1.4em;
     display: block;
-    height: $navbar-height * 5;
+    height: $navbar-height * 7;
     position: relative;
     clear: both;
     border-bottom: 1px solid $gray-lighter;
@@ -295,6 +295,9 @@ ul li {
     background: #fff;
     padding: $padding-base-vertical $padding-base-horizontal;
     @include box-shadow(10px 10px 10px $gray-lighter);
+    input[type=number]{
+        step: .01;
+    }
     &-heading {
         font-size: $font-size-h4;
         font-weight: bold;
@@ -318,50 +321,103 @@ ul li {
     }
 
     &-details {
+        border-bottom: 1px solid $gray-light;
+        margin-bottom: $form-group-margin-bottom;
+        height: 220 - $navbar-height;
         position: relative;
         &-left {
-            clear: left;
+            position: relative;
             float: left;
+            clear: left;
+            width: 42%;
             image {
                 float: left;
             }
         }
-        &-right {
-            clear: right;
-            float: right;
-            margin-left: $padding-large-horizontal;
 
+        &-right {
+            font-size: .9em;
+            clear: right;
+            width: 58%;
+            height: 100%;
+            float: right;
+
+            #inputSmall {
+                font-size: .9em;
+                width: 90%;
+                height: 25%;
+                margin: 1%;
+            }
+            .col1{
+                width: 22%;
+                float: left;
+            }
+            .col2{
+                width: 22%;
+                float: left;
+            }
+            .col3{
+                width: 22%;
+                float: left;
+            }
+            .col4{
+                width: 30%;
+                float: left;
+            }
+            label {
+                font-size: .8em;
+            }
 
         }
     }
 
+    &-checkboxes{
+        bottom: 1%;
+        label {
+            width: 7%;
+            font-size: .8em;
+            margin-right: 2%;
+        }
+        button{
+            width: 115px;
+            float: right;
+        }
+        #save{
+            bottom: 2%;
+        }
+        #delete{
+            background-color: red;
+            float: left;
+            border-color: red;
+        }
+        #delete:hover{
+            background-color: darkred;
+            border-color: darkred;
+        }
+    }
+
     textarea {
-        width: 50%;
-        height: 110pt;
+        width: 52%;
+        height: 113pt;
         font-size: .8em;
     }
 
     .address, input[type=text], input[type=number] {
-        width: 23%;
+        width: 22.5%;
         height: 55%;
         margin-right: 1%;
     }
 
-    .addressSmall {
+    .inputSmall {
         width: 9%;
         height: 55%;
         margin-right: 1%;
     }
 
     .rent {
-        width: 90%;
+        width: 40%;
         height: 55%;
         color: #4cae4c;
     }
 
-}
-
-.bedrooms, .baths {
-    font-size: $font-size-h4;
-    font-weight: bold;
 }

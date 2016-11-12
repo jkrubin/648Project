@@ -9103,7 +9103,7 @@ ul li {
 .edit-listing {
   font-size: 1.4em;
   display: block;
-  height: 250px;
+  height: 350px;
   position: relative;
   clear: both;
   border-bottom: 1px solid #eeeeee;
@@ -9115,6 +9115,10 @@ ul li {
   box-shadow: 10px 10px 10px #eeeeee;
 }
 /* line 298, ../../scss/styles.scss */
+.edit-listing input[type=number] {
+  step: .01;
+}
+/* line 301, ../../scss/styles.scss */
 .edit-listing-heading {
   font-size: 18px;
   font-weight: bold;
@@ -9124,66 +9128,128 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 306, ../../scss/styles.scss */
+/* line 309, ../../scss/styles.scss */
 .edit-listing-heading-left {
   position: relative;
   float: left;
   clear: left;
   width: 80%;
 }
-/* line 312, ../../scss/styles.scss */
+/* line 315, ../../scss/styles.scss */
 .edit-listing-heading-right {
   position: relative;
   float: right;
   clear: right;
   width: 16%;
 }
-/* line 320, ../../scss/styles.scss */
+/* line 323, ../../scss/styles.scss */
 .edit-listing-details {
+  border-bottom: 1px solid #777777;
+  margin-bottom: 15px;
+  height: 170px;
   position: relative;
 }
-/* line 322, ../../scss/styles.scss */
+/* line 328, ../../scss/styles.scss */
 .edit-listing-details-left {
-  clear: left;
+  position: relative;
   float: left;
+  clear: left;
+  width: 42%;
 }
-/* line 325, ../../scss/styles.scss */
+/* line 333, ../../scss/styles.scss */
 .edit-listing-details-left image {
   float: left;
 }
-/* line 329, ../../scss/styles.scss */
-.edit-listing-details-right {
-  clear: right;
-  float: right;
-  margin-left: 16px;
-}
 /* line 338, ../../scss/styles.scss */
-.edit-listing textarea {
-  width: 50%;
-  height: 110pt;
+.edit-listing-details-right {
+  font-size: .9em;
+  clear: right;
+  width: 58%;
+  height: 100%;
+  float: right;
+}
+/* line 345, ../../scss/styles.scss */
+.edit-listing-details-right #inputSmall {
+  font-size: .9em;
+  width: 90%;
+  height: 25%;
+  margin: 1%;
+}
+/* line 351, ../../scss/styles.scss */
+.edit-listing-details-right .col1 {
+  width: 22%;
+  float: left;
+}
+/* line 355, ../../scss/styles.scss */
+.edit-listing-details-right .col2 {
+  width: 22%;
+  float: left;
+}
+/* line 359, ../../scss/styles.scss */
+.edit-listing-details-right .col3 {
+  width: 22%;
+  float: left;
+}
+/* line 363, ../../scss/styles.scss */
+.edit-listing-details-right .col4 {
+  width: 30%;
+  float: left;
+}
+/* line 367, ../../scss/styles.scss */
+.edit-listing-details-right label {
   font-size: .8em;
 }
-/* line 344, ../../scss/styles.scss */
+/* line 374, ../../scss/styles.scss */
+.edit-listing-checkboxes {
+  bottom: 1%;
+}
+/* line 376, ../../scss/styles.scss */
+.edit-listing-checkboxes label {
+  width: 7%;
+  font-size: .8em;
+  margin-right: 2%;
+}
+/* line 381, ../../scss/styles.scss */
+.edit-listing-checkboxes button {
+  width: 115px;
+  float: right;
+}
+/* line 385, ../../scss/styles.scss */
+.edit-listing-checkboxes #save {
+  bottom: 2%;
+}
+/* line 388, ../../scss/styles.scss */
+.edit-listing-checkboxes #delete {
+  background-color: red;
+  float: left;
+  border-color: red;
+}
+/* line 393, ../../scss/styles.scss */
+.edit-listing-checkboxes #delete:hover {
+  background-color: darkred;
+  border-color: darkred;
+}
+/* line 399, ../../scss/styles.scss */
+.edit-listing textarea {
+  width: 52%;
+  height: 113pt;
+  font-size: .8em;
+}
+/* line 405, ../../scss/styles.scss */
 .edit-listing .address, .edit-listing input[type=text], .edit-listing input[type=number] {
-  width: 23%;
+  width: 22.5%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 350, ../../scss/styles.scss */
-.edit-listing .addressSmall {
+/* line 411, ../../scss/styles.scss */
+.edit-listing .inputSmall {
   width: 9%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 356, ../../scss/styles.scss */
+/* line 417, ../../scss/styles.scss */
 .edit-listing .rent {
-  width: 90%;
+  width: 40%;
   height: 55%;
   color: #4cae4c;
-}
-
-/* line 364, ../../scss/styles.scss */
-.bedrooms, .baths {
-  font-size: 18px;
-  font-weight: bold;
 }
