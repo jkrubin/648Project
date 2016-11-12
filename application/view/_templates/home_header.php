@@ -31,8 +31,8 @@
 			<div class="navbar-right">
 				<ul>
 					<a href="<?php echo URL; ?>"><li class="btn btn-default">Add listing</li></a>
-					<a href="<?php echo URL; ?>"><li>Sign up</li></a>
-					<a href="<?php echo URL; ?>"><li>Log in</li></a>
+					<a href="<?php echo URL; ?>signup"><li>Sign up</li></a>
+					<a href="<?php echo URL; ?>login"><li>Log in</li></a>
 				</ul>
 			</div>
 		</nav>

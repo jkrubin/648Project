@@ -16,12 +16,13 @@ class Model {
 	 *Get all Listings from the database that match criteria $query
 	 *
 	 */
-	public function getListings($query){
+	public function get_listings($query): array {
 		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
 				"dep", "pdep", "kdep", "electric", "internet", "water",
 				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
 				"rentmax", "rentmin");
-		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
+
+		$sql = 	"SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
@@ -171,7 +172,7 @@ class Model {
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function getCities(){
+	public function get_cities(): array {
 		$sql = "SELECT City FROM Rentals";
 		$query = $this->db->prepare($sql);
 		$query->execute();
@@ -254,6 +255,75 @@ class Model {
 
 		$query->execute($parameters);
 	}
+	/**
+	 * Add user to database
+	 *
+	 * @param $firstName String
+	 * @param $lastName String
+	 * @param $email String
+	 * @param $password String
+	 * @return boolean Indicates whether the query was successfully executed
+	 */
+	public function add_user($firstName, $lastName, $email, $password): bool {
+
+		$firstName = trim($firstName);
+		$lastName = trim($lastName);
+		$email = strtolower(trim($email));
+
+		$name = $firstName . ' ' . $lastName;
+
+		// Exit if any of the variables passed in do not pass the regex validation
+		if ($this->validate_name($name) && $this->validate_email($email) && $this->validate_password($password)) {
+			return false;
+		}
+
+		try {
+			// Test to see if email already exists in database
+			$sql = "SELECT Email FROM Emails WHERE Email=:email";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email];
+			$query->execute($params);
+			$results = $query->fetchAll();
+			if (count($results) > 0) {
+				return false;
+			}
+
+			// Hash password for insertion into database
+			$options = ['cost' => 12];
+			$hash = password_hash($password, PASSWORD_BCRYPT, $options);
+
+			// Prep query for insertion of user info into Users table
+			$sql = "INSERT INTO `Users` (`FirstName`, `LastName`, `Password`) VALUES (:firstName, :lastName, :password)";
+			$query = $this->db->prepare($sql);
+			$params = [':firstName' => $firstName, ':lastName' => $lastName, ':password' => $hash];
+
+			// Insert user into Users table
+			$query->execute($params);
+
+			// Retrieve the UserId for the newly inserted data
+			$sql = "SELECT UserId FROM Users WHERE FirstName=:firstName AND LastName=:lastName AND Password=:password";
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$userId = $query->fetch()['UserId'];
+			$userId = intval($userId);
+
+			// Use the retrieved UserId to populate the Emails table
+			$sql = "INSERT INTO `Emails` (`Email`, `UserId`, `IsPrimary`) VALUES (:email, :userId, 1)";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email, ':userId' => $userId];
+
+			$query->execute($params);
+
+			$this->generate_auth_cookie($userId);
+
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+
+	}
 
 	public function authenticate_user($email, $password): array {
 
@@ -264,7 +334,7 @@ class Model {
 		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
 		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
 
-		if (!(preg_match($emailPattern, $email) && preg_match($passwordPattern, $password))) {
+		if (!(validate_email($email) && validate_password($password))) {
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
@@ -308,7 +378,91 @@ class Model {
 	public function save_listing(): array{
 
 	}
-        
+
+	private function validate_email($email): bool {
+		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+		return preg_match($emailPattern, $email);
+	}
+
+	private function validate_name($name): bool {
+		// Regex pulled from StackOverflow - http://stackoverflow.com/a/2044909/845306
+		$namePattern = '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u';
+		return preg_match($namePattern, $name);
+	}
+
+	private function validate_password($password): bool {
+		// Regex for all ANSI keyboard characters
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+		return preg_match($passwordPattern, $password);
+	}
+
+	private function generate_auth_cookie($userId): bool {
+		try {
+			$ONE_WEEK = 864000 * 7;
+
+			$selector = base64_encode(random_bytes(16));
+
+			$token = random_bytes(33);
+			$tokenHash = hash('sha256', $token);
+
+			$sql = "INSERT INTO `AuthTokens` (`UserId`, `TokenHash`, `Expiration`) VALUES (:userId, :tokenHash, :expiration)";
+			$query = $this->db->prepare($sql);
+			$params = [':userId' => $userId, ':tokenHash' => $tokenHash, ':expiration' => date('Y-m-d\TH:i:s', time() + $ONE_WEEK)];
+
+			$query->execute($params);
+
+			setcookie(
+					'rememberRentSFSU', // cookie field
+					$userId . ':' . $selector . ':' . base64_encode($token), time() + $ONE_WEEK, '/', // cookie value
+					'sfsuswe.com', // domain
+					false, // SSL only - currently false because site does not have SSL cert
+					true // HttpOnly
+			);
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+	}
+
+	public function check_auth_cookie(): bool {
+		try {
+			list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
+
+			$sql = "SELECT * FROM AuthTokens WHERE Selector=:selector";
+			$query = $this->db->prepare($sql);
+			$params = [':selector' => $selector];
+
+			$query->execute($params);
+			$row = $query->fetch();
+
+			if (hash_equals($row['TokenHash'], hash('sha256', base64_decode($token))) && $row['Expiration'] >= time()) {
+				$this->revoke_auth_cookie($userId, $selector);
+				$_SESSION['UserId'] = $row['UserId'];
+				$this->generate_auth_cookie($row['UserId']);
+				// Then regenerate login token as above
+			}
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+		return false;
+	}
+
+	public function revoke_auth_cookie($userId, $selector): bool {
+		try {
+			$sql = "DELETE FROM AuthTokens WHERE Selector=:selector AND UserId=:userId";
+			$query = $this->db->prepare($sql);
+			$params = [':selector' => $selector, ':userId' => $userId];
+
+			$query->execute($params);
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+	}
 	/**
 	 * Get all songs from database
 	 */
@@ -433,4 +587,5 @@ class Model {
 		return ($type == "string");
 	}
 }
+
 ?>

@@ -41,6 +41,7 @@
             position: coords,
             map: map
         });
+        marker.setVisible(false);
         google.maps.event.addListener(map, 'zoom_changed', function() {
           var zoom = map.getZoom();
 
