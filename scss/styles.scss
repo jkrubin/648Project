@@ -7,6 +7,13 @@
 // Import Bootstrap for Sass
 @import "bootstrap";
 
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 body {
 	font: $font-size-base $font-family-sans-serif !important;
 	color: $gray-base;
@@ -216,4 +223,16 @@ ul li {
 
 .description {
 	margin-top: $padding-large-vertical * 3;
+}
+
+.center{
+    @include centerer;
+}
+
+#form-wrapper{
+    text-align: center;
+}
+
+.form-input{
+    margin-bottom: 15px;
 }
