@@ -11,7 +11,9 @@
         
         <script src="<?php echo URL; ?>js/bootstrap/tab.js"></script>  
         
-        <script src="<?php echo URL; ?>js/bootstrap/modal.js"></script>      
+        <script src="<?php echo URL; ?>js/bootstrap/modal.js"></script> 
+        
+        <script src="<?php echo URL; ?>js/tab-select.js"></script> 
 
 </body>
 </html>
