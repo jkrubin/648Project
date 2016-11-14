@@ -193,6 +193,8 @@ class Model {
             $listingSQLParams["RentalId"] = $last_id;
             //Dummy value for Landlord ID
             $listingSQLParams["LandlordId"] = 42;
+            
+            
             //Prepate Listing SQL
             $listingSQL = "INSERT INTO Listings";
 
@@ -209,7 +211,7 @@ class Model {
             echo "<br>" .$listingSQL;
 
 	}
-        
+
 	/**
 	 * Get all songs from database
 	 */
