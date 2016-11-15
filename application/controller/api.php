@@ -58,7 +58,7 @@ Class Api extends Controller{
         }
         public function editListing(){
             try{
-
+                
             }
         }
         public function deleteListing(){
