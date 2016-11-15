@@ -2,14 +2,14 @@
 
 <div class="add-listing">
     <div>
-        <form data-toggle="validator" role="form" action="<?php echo URL; ?>dashboard" method="POST"><br>
+        <form data-toggle="validator" role="form" action="<?php echo URL; ?>listing/addlisting" method="POST"><br>
             <text id="showLabelSTNo">Street Number</text>
             <text id="showLabelSTName">Street Name</text>
             <text id="showLabelCity">City</text>
             <text id="showLabelZipCode">Zip Code</text><br>
             <div class="form-group has-feedback">
                 <div class="input-group">
-                    <input type="text" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
+                    <input type="number" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
                 </div>
                 <div class="help-block with-errors"></div>
             </div>

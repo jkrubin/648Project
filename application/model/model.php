@@ -210,6 +210,8 @@ class Model {
         //For testing only
         //echo $rentalSQL;
         echo "<br>" . $listingSQL;
+        header("Location: ../dashboard");
+        exit;
     }
 
     public function get_cities(): array {
