@@ -55,9 +55,7 @@
                 # Photos window
                 echo "		<div class='photos edit-listing-details-left'>\n";
                 echo "          <img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/>\n";
-                if (!empty($description)) {
-                    echo "			<textarea class='description'>$description</textarea>\n";
-                }
+                echo "			<textarea class='description'>$description</textarea>\n";
                 echo "		</div>\n";
 
 
