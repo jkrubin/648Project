@@ -188,7 +188,6 @@ class Model {
             /*
              *      ADD LISTING TO DB
              */
-            
             //Add listing ID
             $listingSQLParams["RentalId"] = $last_id;
             //Dummy value for Landlord ID
