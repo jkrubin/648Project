@@ -9067,39 +9067,48 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 254, ../../scss/styles.scss */
+/* line 255, ../../scss/styles.scss */
 .add-listing textarea {
   width: 97%;
 }
-/* line 258, ../../scss/styles.scss */
+/* line 259, ../../scss/styles.scss */
 .add-listing label {
   width: 10.3%;
 }
-/* line 262, ../../scss/styles.scss */
+/* line 263, ../../scss/styles.scss */
 .add-listing input[type=text], .add-listing input[type=number] {
   min-width: 10em;
-  width: 21.6%;
   margin-right: 3%;
+  font-size: 19px;
 }
-/* line 268, ../../scss/styles.scss */
+/* line 269, ../../scss/styles.scss */
 .add-listing input[type=date] {
   margin-right: 3.2%;
   width: 13.4%;
   font-size: .87em;
 }
-/* line 274, ../../scss/styles.scss */
+/* line 275, ../../scss/styles.scss */
 .add-listing #dates {
   width: 7.6%;
 }
-/* line 278, ../../scss/styles.scss */
+/* line 279, ../../scss/styles.scss */
 .add-listing text {
   display: inline-block;
   width: 24.6%;
   color: green;
   visibility: hidden;
 }
-
 /* line 286, ../../scss/styles.scss */
+.add-listing .form-group {
+  display: inline-block;
+  width: 24%;
+}
+/* line 291, ../../scss/styles.scss */
+.add-listing .input-group {
+  font-size: 19px;
+}
+
+/* line 296, ../../scss/styles.scss */
 .edit-listing {
   font-size: 1.4em;
   display: block;
@@ -9114,11 +9123,19 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 298, ../../scss/styles.scss */
+/* line 309, ../../scss/styles.scss */
+.edit-listing .input-group {
+  font-size: 19px;
+}
+/* line 312, ../../scss/styles.scss */
+.edit-listing .form-control {
+  display: inline-block;
+}
+/* line 316, ../../scss/styles.scss */
 .edit-listing input[type=number] {
   step: .01;
 }
-/* line 301, ../../scss/styles.scss */
+/* line 320, ../../scss/styles.scss */
 .edit-listing-heading {
   font-size: 18px;
   font-weight: bold;
@@ -9128,39 +9145,39 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 309, ../../scss/styles.scss */
+/* line 328, ../../scss/styles.scss */
 .edit-listing-heading-left {
   position: relative;
   float: left;
   clear: left;
   width: 80%;
 }
-/* line 315, ../../scss/styles.scss */
+/* line 334, ../../scss/styles.scss */
 .edit-listing-heading-right {
   position: relative;
   float: right;
   clear: right;
   width: 16%;
 }
-/* line 323, ../../scss/styles.scss */
+/* line 342, ../../scss/styles.scss */
 .edit-listing-details {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
   height: 170px;
   position: relative;
 }
-/* line 328, ../../scss/styles.scss */
+/* line 347, ../../scss/styles.scss */
 .edit-listing-details-left {
   position: relative;
   float: left;
   clear: left;
   width: 42%;
 }
-/* line 333, ../../scss/styles.scss */
+/* line 352, ../../scss/styles.scss */
 .edit-listing-details-left image {
   float: left;
 }
-/* line 338, ../../scss/styles.scss */
+/* line 357, ../../scss/styles.scss */
 .edit-listing-details-right {
   font-size: .9em;
   clear: right;
@@ -9168,86 +9185,86 @@ ul li {
   height: 100%;
   float: right;
 }
-/* line 345, ../../scss/styles.scss */
+/* line 364, ../../scss/styles.scss */
 .edit-listing-details-right #inputSmall {
   font-size: .9em;
   width: 90%;
   height: 25%;
   margin: 1%;
 }
-/* line 351, ../../scss/styles.scss */
+/* line 370, ../../scss/styles.scss */
 .edit-listing-details-right .col1 {
   width: 22%;
   float: left;
 }
-/* line 355, ../../scss/styles.scss */
+/* line 374, ../../scss/styles.scss */
 .edit-listing-details-right .col2 {
   width: 22%;
   float: left;
 }
-/* line 359, ../../scss/styles.scss */
+/* line 378, ../../scss/styles.scss */
 .edit-listing-details-right .col3 {
   width: 22%;
   float: left;
 }
-/* line 363, ../../scss/styles.scss */
+/* line 382, ../../scss/styles.scss */
 .edit-listing-details-right .col4 {
   width: 30%;
   float: left;
 }
-/* line 367, ../../scss/styles.scss */
+/* line 386, ../../scss/styles.scss */
 .edit-listing-details-right label {
   font-size: .8em;
 }
-/* line 374, ../../scss/styles.scss */
+/* line 393, ../../scss/styles.scss */
 .edit-listing-checkboxes {
   bottom: 1%;
 }
-/* line 376, ../../scss/styles.scss */
+/* line 395, ../../scss/styles.scss */
 .edit-listing-checkboxes label {
   width: 7%;
   font-size: .8em;
   margin-right: 2%;
 }
-/* line 381, ../../scss/styles.scss */
+/* line 400, ../../scss/styles.scss */
 .edit-listing-checkboxes button {
   width: 115px;
   float: right;
 }
-/* line 385, ../../scss/styles.scss */
+/* line 404, ../../scss/styles.scss */
 .edit-listing-checkboxes #save {
   bottom: 2%;
 }
-/* line 388, ../../scss/styles.scss */
+/* line 407, ../../scss/styles.scss */
 .edit-listing-checkboxes #delete {
   background-color: red;
   float: left;
   border-color: red;
 }
-/* line 393, ../../scss/styles.scss */
+/* line 412, ../../scss/styles.scss */
 .edit-listing-checkboxes #delete:hover {
   background-color: darkred;
   border-color: darkred;
 }
-/* line 399, ../../scss/styles.scss */
+/* line 418, ../../scss/styles.scss */
 .edit-listing textarea {
   width: 52%;
   height: 113pt;
   font-size: .8em;
 }
-/* line 405, ../../scss/styles.scss */
+/* line 424, ../../scss/styles.scss */
 .edit-listing .address, .edit-listing input[type=text], .edit-listing input[type=number] {
   width: 22.5%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 411, ../../scss/styles.scss */
+/* line 430, ../../scss/styles.scss */
 .edit-listing .inputSmall {
   width: 9%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 417, ../../scss/styles.scss */
+/* line 436, ../../scss/styles.scss */
 .edit-listing .rent {
   width: 40%;
   height: 55%;
