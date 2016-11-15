@@ -61,17 +61,17 @@
 			<div class="modal-body">
 				<div id="myTabContent" class="tab-content">
 					<div class=" tab-pane active" id="login">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator">
+						<form id="form-wrapper" method="post" action="" data-toggle="validator" onsubmit="return check_login(this)">
 
 							<div class="form-group">
-								<input class="form-input form-control" type="email" name="email" pattern='/^[-!#$%&\' *+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/'
+								<input class="form-input form-control" type="email" name="email"
 								placeholder="Email Address" data-error="email address invalid" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
 								<input class="form-input form-control" type="password" name="password"
-								       pattern='/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/' placeholder="Password"
+								       placeholder="Password"
 								data-error="password invalid" required/>
 								<div class="help-block with-errors"></div>
 							</div>
@@ -93,28 +93,28 @@
 					</div>
 
 					<div class=" tab-pane" id="signup">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator">
+						<form id="form-wrapper" method="post" action="" data-toggle="validator" onsubmit="return check_signup(this)">
 
 							<div class="form-group">
-								<input class="form-input form-control" type="email" name="email" pattern='/^[-!#$%&\' *+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/'
+								<input class="form-input form-control" type="email" name="email"
 								placeholder="Email Address" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 							<div class="form-group">
 								<input class="form-input form-control" type="text" name="firstname"
-								       pattern='/^([ \x{00c0}-\x{01ff}a-zA-Z\' \-])+$/u' placeholder="First Name" required />
+								       placeholder="First Name" required />
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
 								<input class="form-input form-control" type="text" name="lastname"
-								       pattern='/^([ \x{00c0}-\x{01ff}a-zA-Z\' \-])+$/u' placeholder="Last Name" required />
+								       placeholder="Last Name" required />
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
 								<input class="form-input form-control" id="inputPassword" type="password" name="password"
-								       pattern='/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/' placeholder="Password"
+								       placeholder="Password"
 								required />
 								<div class="help-block with-errors"></div>
 							</div>
@@ -122,7 +122,7 @@
 							<div class="form-group">
 								<input class="form-input form-control" type="password" data-match="#inputPassword"
 								       data-match-error="password does not match" name="repass"
-								       pattern='/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/' placeholder="Retype
+								       placeholder="Retype
 								Password" required />
 								<div class="help-block with-errors"></div>
 							</div>

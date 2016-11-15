@@ -72,12 +72,12 @@
                                                 <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
 
                                                 <div class="col-sm-4 col-sm-offset-4">
-                                                        <input class="form-input form-control" type="text" name="subject" pattern='/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/' placeholder="Subject"/>
+                                                        <input class="form-input form-control" type="text" name="subject" placeholder="Subject" required/>
                                                         <div class="help-block with-errors"></div>
                                                 </div>
                                         </div>
 					<div class="form-group">
-                                                <textarea class="form-control" id="inputComment" name="message" pattern="/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u" placeholder="Message" rows="10"></textarea>
+                                                <textarea class="form-control" id="inputComment" name="message" placeholder="Message" rows="10"></textarea>
 						<div class="help-block with-errors"></div>
 					</div>
 			

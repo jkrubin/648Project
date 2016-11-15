@@ -14,5 +14,9 @@
 
 <script src="<?php echo URL; ?>js/validator.js"></script>
 
+<script src="<?php echo URL; ?>js/check-login.js"></script>
+
+<script src="<?php echo URL; ?>js/check-signup.js"></script>
+
 </body>
 </html>
