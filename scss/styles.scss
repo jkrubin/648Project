@@ -7,6 +7,13 @@
 // Import Bootstrap for Sass
 @import "bootstrap";
 
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 body {
     font: $font-size-base $font-family-sans-serif !important;
     color: $gray-base;
@@ -247,6 +254,7 @@ ul li {
     margin-right: 3%;
     padding: 3%;
     padding-left: 5%;
+
     width: 94%;
     background: #fff;
     @include box-shadow(10px 10px 10px $gray-lighter);
@@ -261,8 +269,8 @@ ul li {
 
     & input[type=text], input[type=number] {
         min-width: 10em;
-        width: 21.6%;
         margin-right: 3%;
+        font-size: 19px;
     }
 
     & input[type=date] {
@@ -281,6 +289,15 @@ ul li {
         color: green;
         visibility: hidden;
     }
+
+    .form-group{
+        display: inline-block;
+        width: 24%;
+    }
+
+    .input-group{
+        font-size: 19px;
+    }
 }
 
 .edit-listing{
@@ -295,9 +312,18 @@ ul li {
     background: #fff;
     padding: $padding-base-vertical $padding-base-horizontal;
     @include box-shadow(10px 10px 10px $gray-lighter);
+
+    .input-group{
+        font-size: 19px;
+    }
+    .form-control{
+        display: inline-block;
+    }
+
     input[type=number]{
         step: .01;
     }
+
     &-heading {
         font-size: $font-size-h4;
         font-weight: bold;
@@ -420,4 +446,16 @@ ul li {
         color: #4cae4c;
     }
 
+}
+
+.center{
+    @include centerer;
+}
+
+#form-wrapper{
+    text-align: center;
+}
+
+.form-input{
+    margin-bottom: 15px;
 }
