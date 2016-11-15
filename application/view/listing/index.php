@@ -9,7 +9,7 @@
             <text id="showLabelZipCode">Zip Code</text><br>
             <div class="form-group has-feedback">
                 <div class="input-group">
-                    <input type="text" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
+                    <input type="number" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
                 </div>
                 <div class="help-block with-errors"></div>
             </div>
