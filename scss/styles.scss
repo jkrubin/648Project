@@ -447,3 +447,15 @@ ul li {
     }
 
 }
+
+.center{
+    @include centerer;
+}
+
+#form-wrapper{
+    text-align: center;
+}
+
+.form-input{
+    margin-bottom: 15px;
+}

@@ -9270,3 +9270,21 @@ ul li {
   height: 55%;
   color: #4cae4c;
 }
+
+/* line 451, ../../scss/styles.scss */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* line 455, ../../scss/styles.scss */
+#form-wrapper {
+  text-align: center;
+}
+
+/* line 459, ../../scss/styles.scss */
+.form-input {
+  margin-bottom: 15px;
+}

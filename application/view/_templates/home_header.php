@@ -30,7 +30,7 @@
                 </div>
                 <div class="navbar-right">
                     <ul>
-                        <a href="<?php echo URL; ?>listing"><li class="btn btn-default">Add listing</li></a>
+                        <a href="<?php echo URL; ?>listing"><li class="btn">Add listing</li></a>
                         <a href="#signup" data-toggle="modal" data-target=".bs-modal-sm" onClick="tab_select(this.hash)"><li>Sign up</li></a>
                         <a href="#login" data-toggle="modal" data-target=".bs-modal-sm" onClick="tab_select(this.hash)"><li>Log in</li></a>
                     </ul>
@@ -98,8 +98,3 @@
             </div>
         </div>
     </body>
-
-
-
-
-    >>>>>>> origin/m3
