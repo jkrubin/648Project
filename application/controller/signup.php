@@ -15,7 +15,7 @@ class Signup extends Controller {
 	 */
 	public function index() {
 
-		if (isset($_POST['submit'])) {
+		if (isset($_POST['signup'])) {
 			$check = $this->register_user();
 		}
 		// load views
