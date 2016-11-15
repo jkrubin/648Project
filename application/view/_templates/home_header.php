@@ -31,15 +31,15 @@
 		<div class="navbar-right">
 		    <ul>
 			<a href="<?php echo URL; ?>"><li class="btn btn-default">Add listing</li></a>
-			<a href="#signup" data-toggle="modal" data-target=".bs-modal-sm"><li>Sign up / Log in</li></a>			
+			<a href="#signup" data-toggle="modal" data-target=".member"><li>Sign up / Log in</li></a>			
 		    </ul>                                
 		</div>
 	    </nav>
 	    <div id="disclaimer">SFSU/FAU/Fulda Software Engineering Project, Fall 2016.  For Demonstration Only</div>
 	</header>
 
-        <!-- Modal -->
-        <div class="modal bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <!-- Sign up / Log in Modal -->
+        <div class="modal member" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	    <div class="modal-dialog modal-sm">
 		<div class="modal-content"><br>
 

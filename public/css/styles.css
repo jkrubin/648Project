@@ -9048,3 +9048,11 @@ ul li {
 .form-input {
   margin-bottom: 15px;
 }
+
+/* line 240, ../../scss/styles.scss */
+.bottom-right {
+  position: absolute;
+  top: 80%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+}

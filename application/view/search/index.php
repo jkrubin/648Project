@@ -28,14 +28,16 @@
 					echo "		<p class='rent listing-heading-right'>\$$rent</p>\n";
 					echo "  </div>\n";
 					
+                                        # contact landlord
+                                        echo " <a class='bottom-right btn btn-default' href='#contact' data-toggle='modal' data-target='.contact'>contact landlord</a>\n";
+                                        
 					# Listing details
 					echo "	<div class='listing-details'>\n";
 					# Photos window
 					echo "		<div class='photos listing-details-left'>\n";
 					echo "    	<img src='". URL ."public/img/placeholder.png' height='150px' width='150px'/>\n";
 					echo "		</div>\n";
-
-					
+		
 					# Listing summary
 					echo "		<div class='listing-details-right'>\n";
 					echo "			<ul>\n";
@@ -53,4 +55,42 @@
 			?>
 		</ul>
 	</div>
+        
+        <!-- contact landlord Modal -->
+        <div class="modal contact" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+		<div class="modal-content"><br>
+                    <div class="modal-header text-center">
+                            <h class="modal-title">Message Landlord</h>
+                    </div>
+		    <!-- Modal Forms-->
+		    <div class="modal-body">			      
+			    <div class=" tab-pane active">
+				<form id="form-wrapper" method="post" action="" data-toggle="validator">
+                                        <div class="form-group row">
+                                        
+                                                <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
+
+                                                <div class="col-sm-4 col-sm-offset-4">
+                                                        <input class="form-input form-control" type="text" name="subject" pattern='/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/' placeholder="Subject"/>
+                                                        <div class="help-block with-errors"></div>
+                                                </div>
+                                        </div>
+					<div class="form-group">
+                                                <textarea class="form-control" id="inputComment" name="message" pattern="/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u" placeholder="Message" rows="10"></textarea>
+						<div class="help-block with-errors"></div>
+					</div>
+			
+				    <input type="submit" name="sendMsg" class="form-input btn btn-default" value="Send"/>
+				    
+				</form>
+								
+			    </div>			    
+			
+		    </div>
+                    
+		</div>
+	    </div>
+        </div>
+        
 </div>
