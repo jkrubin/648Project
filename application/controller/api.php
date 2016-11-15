@@ -17,7 +17,6 @@ Class Api extends Controller{
             
             //Create new listing if we have post data from submit_listing
             if (isset($_POST["submit_listing"])){
-                
                 $parameters = array(':streetNo'=> $_POST["streetNo"], 
                     ':streetName'=> $_POST["streetName"],
                     ':city'=> $_POST["city"],
@@ -40,6 +39,7 @@ Class Api extends Controller{
                     ':furnished'=> $_POST["furnished"],
                     ':startDate'=> $_POST["startDate"],
                     ':endDate'=> $_POST["endDate"]);
+                    
                 
                 $this->model->addListing($parameters);
 
@@ -48,8 +48,8 @@ Class Api extends Controller{
         }
 
         public function retrieveListing(): array{
-            if(array_key_exists('listingId', _POST[])){
-                $response = $this->model->retrieve_listing(_POST['listingId']);
+            if(array_key_exists('listingId', $_POST[])){
+                $response = $this->model->retrieve_listing($_POST['listingId']);
             }else{
                 $response['status'] = 'error';
                 $response['message'] = 'cannot find listing';
@@ -57,7 +57,9 @@ Class Api extends Controller{
             return $response;
         }
         public function editListing(){
+            try{
 
+            }
         }
         public function deleteListing(){
 
@@ -75,9 +77,6 @@ Class Api extends Controller{
             return $response;
         }
 
-        public function signinUser(){
-
-        }
         public function fetchListings():array {
             $assoc_array = $this->model->getCities();
             $unsplit_cities = "";

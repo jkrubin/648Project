@@ -242,9 +242,6 @@ class Model {
 		$address = $params[':streetNo']." ".$params[':streetName'];
 		$city = $params[':city'];
 
-		var_dump($params);
-		echo $sql;
-
 		$coords = createCoords($address, $city);
 		$coords = obfuscate($coords);
 		$query = $this->db->prepare($sql);
@@ -375,8 +372,14 @@ class Model {
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	public function save_listing(): array{
-
+	public function save_listing($params): array{
+		$sql = 	"UPDATE Listings L, Rentals R " .
+				"SET R.StreetNo=$params['streetNo'], R.StreetName=$params['streetName'], R.City=$params['city'], R.ZIP=$params['zip'], L.Bedrooms=$params['bedrooms'], ". 
+				"L.Baths=$params['baths'], L.SqFt=$params['sqFt'], L.MonthlyRent=$params['monthlyRent'], ", 
+				"L.Description=$params['description'], L.Deposit=$params['deposit'], L.PetDeposit=$params['petDeposit'], L.KeyDeposit=$params['keyDeposit'], " .
+				"L.Electricity=$params['electricity'], L.Internet=$params['internet'], L.Water=$params['water'], L.Gas=$params['gas'], L.Television=$params['television'], ".
+				"L.Pets=$params['pets'], L.Smoking=$params['smoking'], L.Furnished=$params['furnished'], L.StartDate=$params['startDate'], L.EndDate=$params['endDate'] " .
+				"WHERE R.RentalId=L.RentalId AND L.ListingId=$params['ListingId']";
 	}
 
 	private function validate_email($email): bool {
