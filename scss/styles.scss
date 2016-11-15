@@ -7,6 +7,13 @@
 // Import Bootstrap for Sass
 @import "bootstrap";
 
+@mixin centerer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 body {
     font: $font-size-base $font-family-sans-serif !important;
     color: $gray-base;
