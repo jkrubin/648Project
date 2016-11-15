@@ -193,6 +193,8 @@ class Model {
             $listingSQLParams["RentalId"] = $last_id;
             //Dummy value for Landlord ID
             $listingSQLParams["LandlordId"] = 42;
+            
+            
             //Prepate Listing SQL
             $listingSQL = "INSERT INTO Listings";
 
@@ -207,25 +209,9 @@ class Model {
             //For testing only
             //echo $rentalSQL;
             echo "<br>" .$listingSQL;
-            /*
-                $sql = "INSERT INTO Listings (StreetNo, StreetName, City, ZIP, "
-                        . "Bedrooms, Baths, SqFt, MonthlyRent, Description, "
-                        . "Deposit, PetDeposit, KeyDeposit, "
-                        . "Electricity, Internet, Water, Gas, Television, Pets, "
-                        . "Smoking, Furnished, StartDate, EndDate)"
-                        . " VALUES (:streetNo, :streetName, :city, :zipCode"
-                        . ",:bedrooms, :baths, :sqFt, :monthlyRent, :description"
-                        . ",:deposit, :petDeposit, :keyDeposit, :electricity"
-                        . ",:internet, :water, :gas, :television, :pets, :smoking"
-                        . ", :furnished, :startDate, :endDate)";
-		$query = $this->db->prepare($sql);
-		$parameters = $params;
 
-            */
-
-		//$query->execute($parameters);
 	}
-        
+
 	/**
 	 * Get all songs from database
 	 */
