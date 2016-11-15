@@ -2,7 +2,7 @@
 
 <div class="add-listing">
     <div>
-        <form data-toggle="validator" role="form" action="<?php echo URL; ?>listing/addListing" method="POST"><br>
+        <form data-toggle="validator" role="form" action="<?php echo URL; ?>dashboard" method="POST"><br>
             <text id="showLabelSTNo">Street Number</text>
             <text id="showLabelSTName">Street Name</text>
             <text id="showLabelCity">City</text>
