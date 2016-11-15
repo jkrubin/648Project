@@ -12,6 +12,7 @@
 	<!-- please note: The JavaScript files are loaded in the footer to speed up page construction -->
 	<!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
 
+
 	<!-- CSS -->
 	<link href="<?php echo URL; ?>css/styles.css" rel="stylesheet" type="text/css"/>
 	<link href="<?php echo URL; ?>css/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
@@ -65,14 +66,14 @@
 
 							<div class="form-group">
 								<input class="form-input form-control" type="email" name="email"
-								placeholder="Email Address" data-error="email address invalid" required/>
+								       placeholder="Email Address" data-error="email address invalid" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
 								<input class="form-input form-control" type="password" name="password"
 								       placeholder="Password"
-								data-error="password invalid" required/>
+								       data-error="password invalid" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
@@ -93,29 +94,30 @@
 					</div>
 
 					<div class=" tab-pane" id="signup">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator" onsubmit="return check_signup(this)">
+						<form id="form-wrapper" method="post" action="" data-toggle="validator"
+						      onsubmit="return check_signup(this)">
 
 							<div class="form-group">
 								<input class="form-input form-control" type="email" name="email"
-								placeholder="Email Address" required/>
+								       placeholder="Email Address" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 							<div class="form-group">
 								<input class="form-input form-control" type="text" name="firstname"
-								       placeholder="First Name" required />
+								       placeholder="First Name" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
 								<input class="form-input form-control" type="text" name="lastname"
-								       placeholder="Last Name" required />
+								       placeholder="Last Name" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
 								<input class="form-input form-control" id="inputPassword" type="password" name="password"
 								       placeholder="Password"
-								required />
+								       required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
@@ -123,7 +125,7 @@
 								<input class="form-input form-control" type="password" data-match="#inputPassword"
 								       data-match-error="password does not match" name="repass"
 								       placeholder="Retype
-								Password" required />
+								Password" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
@@ -147,8 +149,4 @@
 		</div>
 	</div>
 </div>
-</body>
-
-
-
 
