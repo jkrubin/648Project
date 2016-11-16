@@ -4,6 +4,12 @@
 		<div id="lede"><h1>Find Apartments and Homes for Rent</h1></div>
 		<form id="search" class="home" method="get" action="<?php echo URL; ?>search">
 			<input type="text" name="q" placeholder="Enter City" />
+			<select name="br">
+				<option value="0">Studio</option>
+				<option value="1">1 Bedroom</option>
+				<option value="2">2 Bedroom</option>
+				<option value="3">3+ Bedroom</option>
+			</select>
 			<input type="submit" class="btn btn-default" value="Search" />
 		</form>
 	</div>
