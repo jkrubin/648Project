@@ -39,8 +39,9 @@ class Search extends Controller {
 
 		$cities = preg_split("/ /", $unsplit_cities);
 
-		$streets = array("way", "street", "road", "court", "boulevard", "blvd", "place", "avenue", "ave", "beach", "bch", "causeway", "circle", "drive", "dr",
-				"expressway", "heights", "ht", "junction", "jct", "lane", "ln", "plaza", "rd", "st", "ct", "square", "sq");
+		$streets = array("way", "street", "road", "court", "boulevard", "blvd", "place", "avenue", "ave", "beach", "bch", "causeway", "circle", "drive", "dr", 
+						 "expressway", "heights", "ht", "junction", "jct", "lane", "ln", "plaza", "rd", "st", "ct", "square", "sq");
+		$streetabb = array("street" => "st", "heights" => "ht", "road" => "rd", "lane" => "ln", "boulevard" => "blvd", "court" => "ct");
 		$splitQuery = array();
 		$sortedQuery = array();
 
@@ -57,10 +58,17 @@ class Search extends Controller {
 				} else if (in_array(strtolower($temp[$i]), $cities) && (count($temp) >= 2)) {
 					array_push($splitQuery, strtolower($temp[$i]) . " " . (strtolower($temp[$i + 1])));
 					$i++;
-				} else if (in_array(strtolower($temp[$i]), $streets) && (count($temp) >= 2)) {
-					array_push($splitQuery, strtolower($temp[$i - 1]) . " " . strtolower($temp[$i]));
-					$i++;
-				} else {
+
+				}elseif(in_array(strtolower($temp[$i]), $streets) && (count($temp) >= 2)){
+						$tempvar = strtolower($temp[$i]);
+						$tempvar = $streetabb[$tempvar];
+						array_push($splitQuery, strtolower($temp[$i - 1])." ".$tempvar);
+						$i++;
+				}elseif(in_array(strtolower($temp[$i]), $streets)){
+					$tempvar = strtolower($temp[$i]);
+					$tempvar = $streetabb[$tempvar];
+					array_push($splitQuery, strtolower($tempvar));
+				}else{
 					array_push($splitQuery, strtolower($temp[$i]));
 				}
 			}
@@ -91,7 +99,13 @@ class Search extends Controller {
 				$i++;
 			}
 
-			return $this->model->get_listings($sortedQuery);
+			foreach($_GET as $key => $value){
+				if($key != "q"){
+					$sortedQuery[$key] = $value;
+				}
+			}
+		return $this->model->get_listings($sortedQuery);
+
 		}
 	}
 }
