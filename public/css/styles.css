@@ -9352,3 +9352,11 @@ ul li {
   font-size: 26px;
   margin: -3px 0 0 12px;
 }
+
+/* line 521, ../../scss/styles.scss */
+.bottom-right {
+  position: absolute;
+  top: 80%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+}
