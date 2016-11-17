@@ -1,7 +1,7 @@
 <div id="wrapper" class="signup">
 
 	<div id="search-wrapper" class="signup">
-		<div id="lede"><h1>signup</h1></div>
+		<div id="lede"><h1>sign up</h1></div>
 		<form class="home" method="post" action="">
 			<center><input type="email" name="email" placeholder="Email Address" required="@"/></center>
 			<br>
