@@ -229,13 +229,14 @@ class Model {
 	 * Query to put it into DB
 	 *
 	 */    
-        public function addListing($rentalSQLParams, $listingSQLParams) {
-
+        public function addListing($rentalSQLParams, $listingSQLParams) {         
             /*
-             *      ADD RENTAL TO DB
+             *  Create Aditional Values for DB
              */
-            //Prepare Rental SQL
+            //RENTAL ID
             $rentalSQLParams["RentalTypeId"] = 1;
+            
+            
             //Start of Sql statment
             $rentalSQL = "INSERT INTO Rentals";
 
@@ -272,8 +273,8 @@ class Model {
             //For testing only
             //echo $rentalSQL;
             echo "<br>" . $listingSQL;
-            header("Location: ../dashboard");
-            exit;
+            //header("Location: ../dashboard");
+            //exit;
         }
 
 	/**
@@ -506,27 +507,6 @@ class Model {
 		return $query->fetchAll();
 	}
 
-	/**
-	 * Add a song to database
-	 * TODO put this explanation into readme and remove it from here
-	 * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
-	 * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
-	 * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
-	 * in the views (see the views for more info).
-	 * @param string $artist Artist
-	 * @param string $track Track
-	 * @param string $link Link
-	 */
-	public function addSong($artist, $track, $link) {
-		$sql = "INSERT INTO song (artist, track, link) VALUES (:artist, :track, :link)";
-		$query = $this->db->prepare($sql);
-		$parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link);
-
-		// useful for debugging: you can see the SQL behind above construction by using:
-		// echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-		$query->execute($parameters);
-	}
 
 	/**
 	 * Delete a song in the database
@@ -599,7 +579,7 @@ class Model {
 	}
 
 
-	private function validate($data, $type) {
+	public function validate($data, $type) {
 		if (is_numeric($data)) {
 			if (is_int(intval($data))) {
 				return ($type == "integer");
@@ -607,6 +587,9 @@ class Model {
 		}
 		if ($data == 'true' || $data == 'false') {
 			return ($type == "boolean");
+		}
+                if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $data)) {
+			return ($type == "date");
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
 		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $temp)) {
