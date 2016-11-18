@@ -48,9 +48,21 @@
 				# Listing summary
 				echo "		<div class='listing-details-right'>\n";
 				echo "			<ul>\n";
-				echo "				<li class='bedrooms'>$bedrooms bedrooms</li>\n";
-				echo "				<li class='baths'>$baths baths</li>\n";
+				if ($bedrooms == 0) {
+					echo "				<li class='bedrooms'>Studio</li>\n";
+				} else if ($bedrooms == 1) {
+					echo "				<li class='bedrooms'>$bedrooms bedroom</li>\n";
+				} else {
+					echo "				<li class='bedrooms'>$bedrooms bedrooms</li>\n";
+				}
+
+				if ($baths == 1) {
+					echo "				<li class='baths'>$baths bath</li>\n";
+				} else {
+					echo "				<li class='baths'>$baths baths</li>\n";
+				}
 				echo "			</ul>\n";
+
 				if (!empty($description)) {
 					echo "			<p class='description'>$description</p>\n";
 				}
@@ -78,8 +90,15 @@
 
 								<img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
 
-								<div class="col-sm-4 col-sm-offset-4">
-									<input class="form-input form-control" type="text" name="subject" placeholder="Subject" required/>
+								<div class="col-sm-8">
+									<div class="address">
+										<p>900 Folsom St</p>
+										<p>San Francisco, CA 94105</p>
+									</div>
+									<div class="rental-details">
+										<p><span class="bedrooms">Studio</span> &nbsp; <span class="baths">1 Bath</span></p>
+									</div>
+									<input class="form-input form-control" type="text" name="subject" placeholder="Subject" required="">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>

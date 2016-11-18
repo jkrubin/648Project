@@ -9395,3 +9395,17 @@ ul li {
 .hidden {
   display: none;
 }
+
+/* line 557, ../../scss/styles.scss */
+.modal.contact .address {
+  text-align: left;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+/* line 563, ../../scss/styles.scss */
+.modal.contact .rental-details {
+  text-align: left;
+  margin-bottom: 35px;
+  font-size: 14px;
+}
