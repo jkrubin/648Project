@@ -48,19 +48,21 @@
 				# Listing summary
 				echo "		<div class='listing-details-right'>\n";
 				echo "			<ul>\n";
+				echo "				<li class='bedrooms'>";
 				if ($bedrooms == 0) {
-					echo "				<li class='bedrooms'>Studio</li>\n";
+					echo "Studio";
 				} else if ($bedrooms == 1) {
-					echo "				<li class='bedrooms'>$bedrooms bedroom</li>\n";
+					echo "$bedrooms bedroom";
 				} else {
-					echo "				<li class='bedrooms'>$bedrooms bedrooms</li>\n";
+					echo "$bedrooms bedrooms";
 				}
+				echo "</li>\n";
 
-				if ($baths == 1) {
-					echo "				<li class='baths'>$baths bath</li>\n";
-				} else {
-					echo "				<li class='baths'>$baths baths</li>\n";
+				echo "				<li class='baths'>$baths bath";
+				if ($baths > 1) {
+					echo "s";
 				}
+				echo "</li>\n";
 				echo "			</ul>\n";
 
 				if (!empty($description)) {

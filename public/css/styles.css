@@ -9090,33 +9090,32 @@ ul li {
   font-size: 19px;
 }
 /* line 280, ../../scss/styles.scss */
-.add-listing input[type=date] {
+.add-listing input[type="date"] {
   margin-right: 3.2%;
-  width: 13.4%;
   font-size: .87em;
 }
-/* line 286, ../../scss/styles.scss */
+/* line 285, ../../scss/styles.scss */
 .add-listing #dates {
   width: 7.6%;
 }
-/* line 290, ../../scss/styles.scss */
+/* line 289, ../../scss/styles.scss */
 .add-listing text {
   display: inline-block;
   width: 24.6%;
   color: green;
   visibility: hidden;
 }
-/* line 297, ../../scss/styles.scss */
+/* line 296, ../../scss/styles.scss */
 .add-listing .form-group {
   display: inline-block;
   width: 24%;
 }
-/* line 302, ../../scss/styles.scss */
+/* line 301, ../../scss/styles.scss */
 .add-listing .input-group {
   font-size: 19px;
 }
 
-/* line 307, ../../scss/styles.scss */
+/* line 306, ../../scss/styles.scss */
 .edit-listing {
   font-size: 1.4em;
   display: block;
@@ -9131,19 +9130,19 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 320, ../../scss/styles.scss */
+/* line 319, ../../scss/styles.scss */
 .edit-listing .input-group {
   font-size: 19px;
 }
-/* line 323, ../../scss/styles.scss */
+/* line 322, ../../scss/styles.scss */
 .edit-listing .form-control {
   display: inline-block;
 }
-/* line 327, ../../scss/styles.scss */
+/* line 326, ../../scss/styles.scss */
 .edit-listing input[type=number] {
   step: .01;
 }
-/* line 331, ../../scss/styles.scss */
+/* line 330, ../../scss/styles.scss */
 .edit-listing-heading {
   font-size: 18px;
   font-weight: bold;
@@ -9153,39 +9152,39 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 339, ../../scss/styles.scss */
+/* line 338, ../../scss/styles.scss */
 .edit-listing-heading-left {
   position: relative;
   float: left;
   clear: left;
   width: 80%;
 }
-/* line 345, ../../scss/styles.scss */
+/* line 344, ../../scss/styles.scss */
 .edit-listing-heading-right {
   position: relative;
   float: right;
   clear: right;
   width: 16%;
 }
-/* line 353, ../../scss/styles.scss */
+/* line 352, ../../scss/styles.scss */
 .edit-listing-details {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
   height: 170px;
   position: relative;
 }
-/* line 358, ../../scss/styles.scss */
+/* line 357, ../../scss/styles.scss */
 .edit-listing-details-left {
   position: relative;
   float: left;
   clear: left;
   width: 42%;
 }
-/* line 363, ../../scss/styles.scss */
+/* line 362, ../../scss/styles.scss */
 .edit-listing-details-left image {
   float: left;
 }
-/* line 368, ../../scss/styles.scss */
+/* line 367, ../../scss/styles.scss */
 .edit-listing-details-right {
   font-size: .9em;
   clear: right;
@@ -9193,93 +9192,93 @@ ul li {
   height: 100%;
   float: right;
 }
-/* line 375, ../../scss/styles.scss */
+/* line 374, ../../scss/styles.scss */
 .edit-listing-details-right #inputSmall {
   font-size: .9em;
   width: 90%;
   height: 25%;
   margin: 1%;
 }
-/* line 381, ../../scss/styles.scss */
+/* line 380, ../../scss/styles.scss */
 .edit-listing-details-right .col1 {
   width: 22%;
   float: left;
 }
-/* line 385, ../../scss/styles.scss */
+/* line 384, ../../scss/styles.scss */
 .edit-listing-details-right .col2 {
   width: 22%;
   float: left;
 }
-/* line 389, ../../scss/styles.scss */
+/* line 388, ../../scss/styles.scss */
 .edit-listing-details-right .col3 {
   width: 22%;
   float: left;
 }
-/* line 393, ../../scss/styles.scss */
+/* line 392, ../../scss/styles.scss */
 .edit-listing-details-right .col4 {
   width: 30%;
   float: left;
 }
-/* line 397, ../../scss/styles.scss */
+/* line 396, ../../scss/styles.scss */
 .edit-listing-details-right label {
   font-size: .8em;
 }
-/* line 404, ../../scss/styles.scss */
+/* line 403, ../../scss/styles.scss */
 .edit-listing-checkboxes {
   bottom: 1%;
 }
-/* line 406, ../../scss/styles.scss */
+/* line 405, ../../scss/styles.scss */
 .edit-listing-checkboxes label {
   width: 7%;
   font-size: .8em;
   margin-right: 2%;
 }
-/* line 411, ../../scss/styles.scss */
+/* line 410, ../../scss/styles.scss */
 .edit-listing-checkboxes button {
   width: 115px;
   float: right;
 }
-/* line 415, ../../scss/styles.scss */
+/* line 414, ../../scss/styles.scss */
 .edit-listing-checkboxes #save {
   bottom: 2%;
 }
-/* line 418, ../../scss/styles.scss */
+/* line 417, ../../scss/styles.scss */
 .edit-listing-checkboxes #delete {
   background-color: red;
   float: left;
   border-color: red;
 }
-/* line 423, ../../scss/styles.scss */
+/* line 422, ../../scss/styles.scss */
 .edit-listing-checkboxes #delete:hover {
   background-color: darkred;
   border-color: darkred;
 }
-/* line 429, ../../scss/styles.scss */
+/* line 428, ../../scss/styles.scss */
 .edit-listing textarea {
   width: 52%;
   height: 113pt;
   font-size: .8em;
 }
-/* line 435, ../../scss/styles.scss */
+/* line 434, ../../scss/styles.scss */
 .edit-listing .address, .edit-listing input[type=text], .edit-listing input[type=number] {
   width: 22.5%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 441, ../../scss/styles.scss */
+/* line 440, ../../scss/styles.scss */
 .edit-listing .inputSmall {
   width: 9%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 447, ../../scss/styles.scss */
+/* line 446, ../../scss/styles.scss */
 .edit-listing .rent {
   width: 40%;
   height: 55%;
   color: #4cae4c;
 }
 
-/* line 455, ../../scss/styles.scss */
+/* line 454, ../../scss/styles.scss */
 .center {
   position: absolute;
   top: 50%;
@@ -9287,22 +9286,22 @@ ul li {
   transform: translate(-50%, -50%);
 }
 
-/* line 459, ../../scss/styles.scss */
+/* line 458, ../../scss/styles.scss */
 #form-wrapper {
   text-align: center;
 }
 
-/* line 463, ../../scss/styles.scss */
+/* line 462, ../../scss/styles.scss */
 .form-input {
   margin-bottom: 15px;
 }
 
-/* line 467, ../../scss/styles.scss */
+/* line 466, ../../scss/styles.scss */
 .required-field-block {
   position: relative;
 }
 
-/* line 471, ../../scss/styles.scss */
+/* line 470, ../../scss/styles.scss */
 .required-field-block .required-icon {
   display: inline-block;
   vertical-align: middle;
@@ -9324,7 +9323,7 @@ ul li {
   font-size: 75%;
 }
 
-/* line 492, ../../scss/styles.scss */
+/* line 491, ../../scss/styles.scss */
 .required-field-block .required-icon {
   background-color: transparent;
   position: absolute;
@@ -9341,7 +9340,7 @@ ul li {
   transition: color 0.2s ease;
 }
 
-/* line 508, ../../scss/styles.scss */
+/* line 507, ../../scss/styles.scss */
 .required-field-block .required-icon:after {
   position: absolute;
   content: "";
@@ -9360,14 +9359,14 @@ ul li {
   transition: border-color 0.2s ease;
 }
 
-/* line 526, ../../scss/styles.scss */
+/* line 525, ../../scss/styles.scss */
 .required-field-block .required-icon .text {
   color: #B80000;
   font-size: 26px;
   margin: -3px 0 0 12px;
 }
 
-/* line 532, ../../scss/styles.scss */
+/* line 531, ../../scss/styles.scss */
 .bottom-right {
   position: absolute;
   top: 80%;
@@ -9375,35 +9374,35 @@ ul li {
   transform: translate(-50%, -50%);
 }
 
-/* line 539, ../../scss/styles.scss */
+/* line 538, ../../scss/styles.scss */
 .invalid-input {
   border: 2px solid #d80000;
 }
 
-/* line 543, ../../scss/styles.scss */
+/* line 542, ../../scss/styles.scss */
 #query-error, #room-error {
   color: #d80000;
   text-align: center;
   margin-bottom: 50px;
 }
-/* line 547, ../../scss/styles.scss */
+/* line 546, ../../scss/styles.scss */
 #query-error h4, #room-error h4 {
   font-size: 18px !important;
 }
 
-/* line 552, ../../scss/styles.scss */
+/* line 551, ../../scss/styles.scss */
 .hidden {
   display: none;
 }
 
-/* line 557, ../../scss/styles.scss */
+/* line 556, ../../scss/styles.scss */
 .modal.contact .address {
   text-align: left;
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 15px;
 }
-/* line 563, ../../scss/styles.scss */
+/* line 562, ../../scss/styles.scss */
 .modal.contact .rental-details {
   text-align: left;
   margin-bottom: 35px;
