@@ -1,8 +1,14 @@
 <div id="wrapper">
 	<div id="search-wrapper">
-		<form id="search" class="home" action="<?php echo URL; ?>search" method="GET">
+		<form id="search" action="<?php echo URL; ?>search" method="GET">
 			<input type="text" name="q"
 			       placeholder="Enter City" <?php if (!empty($_GET['q'])) echo "value='" . $_GET["q"] . "'"; ?> />
+			<select name="br">
+				<option value="0" <?php if ($_GET["br"] === 0) echo "selected='selected'"; ?>>Studio</option>
+				<option value="1" <?php if ($_GET["br"] === 1) echo "selected='selected'"; ?>>1 Bedroom</option>
+				<option value="2" <?php if ($_GET["br"] === 2) echo "selected='selected'"; ?>>2 Bedroom</option>
+				<option value="3" <?php if ($_GET["br"] === 3) echo "selected='selected'"; ?>>3+ Bedroom</option>
+			</select>
 			<input type="submit" class="btn btn-default" value="Search"/>
 		</form>
 	</div>

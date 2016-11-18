@@ -7,22 +7,32 @@ $('#search').submit(function(event) {
 	// the number of bedrooms is greater than or equal to 0
 	// Rejects/halts form submission if it fails
 	if (query.match(queryRegex)[0].length !== query.length || rooms < 0) {
-		if (!queryRegex.test(query)) {
+		if (query.match(queryRegex)[0].length !== query.length) {
 			$('input[name="q"]').addClass("invalid-input");
-			$('#queryError').removeClass("hidden");
+			$('#query-error').removeClass("hidden");
 		} else {
 			$('input[name="q"]').removeClass("invalid-input");
-			$('#queryError').addClass("hidden");
+			$('#query-error').addClass("hidden");
 		}
 
-		if (!rooms >= 0) {
+		if (rooms < 0) {
 			$('select[name="br"]').addClass("invalid-input");
-			$('#roomError').removeClass("hidden");
+			$('#room-error').removeClass("hidden");
 		} else {
 			$('select[name="br"]').removeClass("invalid-input");
-			$('#roomError').addClass("hidden");
+			$('#room-error').addClass("hidden");
 		}
 
 		event.preventDefault();
 	}
+});
+
+$('input[name="q"]').change(function() {
+	$('input[name="q"]').removeClass("invalid-input");
+	$('#query-error').addClass("hidden");
+});
+
+$('select[name="br"]').change(function() {
+	$('select[name="br"]').removeClass("invalid-input");
+	$('#room-error').addClass("hidden");
 });
