@@ -5,6 +5,7 @@
 		<form id="search" class="home" method="get" action="<?php echo URL; ?>search">
 			<input type="text" name="q" placeholder="Enter City" />
 			<select name="br">
+				<option value="-1">-- Bedrooms</option>
 				<option value="0">Studio</option>
 				<option value="1">1 Bedroom</option>
 				<option value="2">2 Bedroom</option>
@@ -14,3 +15,5 @@
 		</form>
 	</div>
 </div>
+
+<script src="<?php echo URL; ?>js/search-validator.js"></script>
