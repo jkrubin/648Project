@@ -221,61 +221,60 @@ class Model {
 
 		return $coords;
 	}
-        
-        
+
 
 	/**
 	 * Takes in an array of Listing parameters, prepares and executes SQL
 	 * Query to put it into DB
 	 *
-	 */    
-        public function addListing($rentalSQLParams, $listingSQLParams) {         
-            /*
-             *  Create Aditional Values for DB
-             */
-            //RENTAL ID
-            $rentalSQLParams["RentalTypeId"] = 1;
-            
-            
-            //Start of Sql statment
-            $rentalSQL = "INSERT INTO Rentals";
-
-            //Implode all keys
-            $rentalSQL .= " (" . implode(" , ", array_keys($rentalSQLParams)) . ")";
-            //Implode all values
-            $rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
-            //Insert into Rentals Table
-            $this->db->query($rentalSQL);
-
-            //Get the last inserted ID, which is the thing we just added
-            $last_id = $this->db->lastInsertID();
-
-            /*
-             *      ADD LISTING TO DB
-             */
-            //Add listing ID
-            $listingSQLParams["RentalId"] = $last_id;
-            //Dummy value for Landlord ID
-            $listingSQLParams["LandlordId"] = 42;
+	 */
+	public function addListing($rentalSQLParams, $listingSQLParams) {
+		/*
+		 *  Create Aditional Values for DB
+		 */
+		//RENTAL ID
+		$rentalSQLParams["RentalTypeId"] = 1;
 
 
-            //Prepate Listing SQL
-            $listingSQL = "INSERT INTO Listings";
+		//Start of Sql statment
+		$rentalSQL = "INSERT INTO Rentals";
 
-            //Implode all keys
-            $listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
-            //Implode all values
-            $listingSQL .= " VALUES('" . implode("' , '", $listingSQLParams) . "')";
+		//Implode all keys
+		$rentalSQL .= " (" . implode(" , ", array_keys($rentalSQLParams)) . ")";
+		//Implode all values
+		$rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
+		//Insert into Rentals Table
+		$this->db->query($rentalSQL);
 
-            //Insert into Listings Table
-            $this->db->query($listingSQL);
+		//Get the last inserted ID, which is the thing we just added
+		$last_id = $this->db->lastInsertID();
 
-            //For testing only
-            //echo $rentalSQL;
-            echo "<br>" . $listingSQL;
-            //header("Location: ../dashboard");
-            //exit;
-        }
+		/*
+		 *      ADD LISTING TO DB
+		 */
+		//Add listing ID
+		$listingSQLParams["RentalId"] = $last_id;
+		//Dummy value for Landlord ID
+		$listingSQLParams["LandlordId"] = 42;
+
+
+		//Prepate Listing SQL
+		$listingSQL = "INSERT INTO Listings";
+
+		//Implode all keys
+		$listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
+		//Implode all values
+		$listingSQL .= " VALUES('" . implode("' , '", $listingSQLParams) . "')";
+
+		//Insert into Listings Table
+		$this->db->query($listingSQL);
+
+		//For testing only
+		//echo $rentalSQL;
+		echo "<br>" . $listingSQL;
+		//header("Location: ../dashboard");
+		//exit;
+	}
 
 	/**
 	 * Add user to database
@@ -588,7 +587,7 @@ class Model {
 		if ($data == 'true' || $data == 'false') {
 			return ($type == "boolean");
 		}
-                if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $data)) {
+		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $data)) {
 			return ($type == "date");
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
@@ -629,4 +628,5 @@ class Model {
 		$query->execute($parameters);
 	}
 }
+
 ?>
