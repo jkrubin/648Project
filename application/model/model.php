@@ -12,152 +12,465 @@ class Model {
 		}
 	}
 
-	/*
-	 *Get all Listings from the database that match criteria $query
-	 *
+	/**
+	 * Get all Listings from the database that match criteria $query
 	 */
-	public function getListings($query){
+	public function get_listings($query): array {
 		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
 				"dep", "pdep", "kdep", "electric", "internet", "water",
-				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd");
-		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
+				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
+				"rentmax", "rentmin");
+
+		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
 				"WHERE R.RentalId=L.RentalId";
-			/*
-			 *Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
-			 *Each key is then validated for the appropriate data type and then added to the SQL query.
-			 */
-			foreach ($query as $key => $value) {
-				if (in_array($key, $allowedKeys)) {
-					switch ($key) {
-						case "br":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND Bedrooms=$value";
-							}
-							break;
 
-						case "bath":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND Bathrooms=$value";
-							}
-							break;
+		/* Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
+		 * Each key is then validated for the appropriate data type and then added to the SQL query.
+		 */
+		foreach ($query as $key => $value) {
+			if (in_array($key, $allowedKeys)) {
+				switch ($key) {
+					case "br":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.Bedrooms=$value";
+						}
+						break;
 
-						case "sqft":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND SqFt=$value";
-							}
-							break;
+					case "bath":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.Baths=$value";
+						}
+						break;
 
-						case "zip":
-							if ($this->validate($value, "integer")) {
-								$sql .= " AND R.ZIP=$value";
-							}
-							break;
+					case "sqft":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.SqFt=$value";
+						}
+						break;
 
-						case "city":
-							if ($this->validate($value, "string")) {
-								$sql .= " AND R.city LIKE '%$value%'";
-							}
-							break;
+					case "zip":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.ZIP='$value'";
+						}
+						break;
 
-						case "dep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Deposit=$value";
-							}
-							break;
+					case "city":
+						if ($this->validate($value, "string")) {
+							$sql .= " AND R.city LIKE '%$value%'";
+						}
+						break;
 
-						case "pdep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND PetDeposit=$value";
-							}
-							break;
+					case "dep":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND L.Deposit=$value";
+						}
+						break;
 
-						case "kdep":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND KeyDeposit=$value";
-							}
-							break;
+					case "pdep":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND L.PetDeposit=$value";
+						}
+						break;
 
-						case "electric":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Electricity=$value";
-							}
-							break;
+					case "kdep":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND L.KeyDeposit=$value";
+						}
+						break;
 
-						case "internet":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Internet=$value";
-							}
-							break;
+					case "electric":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Electricity=$value";
+						}
+						break;
 
-						case "water":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Water=$value";
-							}
-							break;
+					case "internet":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Internet=$value";
+						}
+						break;
 
-						case "gas":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Gas=$value";
-							}
-							break;
-						case "tv":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Television=$value";
-							}
-							break;
+					case "water":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Water=$value";
+						}
+						break;
 
-						case "pet":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Pet=$value";
-							}
-							break;
+					case "gas":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Gas=$value";
+						}
+						break;
+					case "tv":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Television=$value";
+						}
+						break;
 
-						case "smoke":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Smoking=$value";
-							}
-							break;
+					case "pet":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Pets=$value";
+						}
+						break;
 
-						case "furnished":
-							if ($this->validate($value, "boolean")) {
-								$sql .= " AND Furnished=$value";
-							}
-						case "startdate":
-							if ($this->validate($value, "date")) {
-								$sql .= " AND StartDate=$value";
-							}
-							break;
+					case "smoke":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Smoking=$value";
+						}
+						break;
 
-						case "enddate":
-							if ($this->validate($value, "date")) {
-								$sql .= " AND EndDate=$value";
-							}
-							break;
+					case "furnished":
+						if ($this->validate($value, "boolean")) {
+							$sql .= " AND L.Furnished=$value";
+						}
+						break;
 
-						case "stadd":
-							if ($this->validate($value, "string")){
-								$sql .= " AND R.StreetName LIKE '%$value%'";
-							}
-							break;
+					case "startdate":
+						if ($this->validate($value, "date")) {
+							$sql .= " AND L.StartDate=$value";
+						}
+						break;
 
-						case "stno":
-							if ($this->validate($value, "integer")){
-								$sql .= " AND R.StreetNo LIKE '%$value%'";
-							}
-							break;
-						default:
-							break;
-					}
+					case "enddate":
+						if ($this->validate($value, "date")) {
+							$sql .= " AND L.EndDate=$value";
+						}
+						break;
+
+					case "stadd":
+						if ($this->validate($value, "string")) {
+							$sql .= " AND R.StreetName LIKE '%$value%'";
+						}
+						break;
+
+					case "stno":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.StreetNo LIKE '%$value%'";
+						}
+						break;
+
+					case "rentmax":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND L.MonthlyRent<$value";
+						}
+						break;
+					case "rentmin":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND L.MonthlyRent>$value";
+						}
+						break;
+
+					default:
+						break;
 				}
 			}
-		$sql .= " LIMIT 10";
+		}
+		$sql .= " LIMIT 10;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
+
+
+	public function get_cities(): array {
+		$sql = "SELECT City FROM Rentals";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getCoords($listingId) {
+		//creates the sql statement to search the database with
+		$sql = "SELECT Latitude, Longitude FROM Listings L WHERE L.ListingId=$listingId;";
+		//executes statement
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		//returns the associative array
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function createCoords($address, $city) {
+		//changes $address and $city into the format necessary to use google's API to return the JSON query.
+		$address = preg_replace("/ /", "+", $address);
+		$city = preg_replace("/ /", "+", $city);
+		//create the google api url that will contain the JSON query
+		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$city,+CA&key=AIzaSyB0tYK7LSPYSS2ol0WpKrdCzbfz6HcTNPQ";
+		//json_decode changes the file from it's JSON representation to an associative array.
+		$file = json_decode(file_get_contents($url), true);
+		//searches through $file to get the latitude and longitude
+		foreach ($file["results"] as $results) {
+			foreach ($results["geometry"] as $geometry => $location) {
+				$latitude = $location["lat"];
+				$longitude = $location["lng"];
+				break;
+			}
+		}
+		//creates an associative array with keys "Latitude" and "Longitude"
+		$coords = array(":latitude" => $latitude, ":longitude" => $longitude);
+
+		return $coords;
+
+	}
+
+	public function obfuscate($coords) {
+		$rand_1 = (0.001 + (0.001 - 0.0018) * (mt_rand() / mt_getrandmax()));
+		$rand_2 = (0.001 + (0.001 - 0.0018) * (mt_rand() / mt_getrandmax()));
+
+		$coords[":latitude"] -= $rand_1;
+		$coords[":longitude"] -= $rand_2;
+
+		return $coords;
+	}
+
+	/**
+	 * Takes in an array of Listing parameters, prepares and executes SQL
+	 * Query to put it into DB
+	 *
+	 */
+	public function addListing($params) {
+
+		$sql = "INSERT INTO listing (StreetNo, StreetName, City, ZIP, "
+				. "Bedrooms, Baths, SqFt, MonthlyRent, Description, "
+				. "Deposit, PetDeposit, KeyDeposit, "
+				. "Electricity, Internet, Water, Gas, Television, Pets, "
+				. "Smoking, Furnished, StartDate, EndDate, Longitude, Latitude "
+				. " VALUES (:streetNo, :streetName, :city, :zipCode"
+				. ",:bedrooms, :baths, :sqFt, :monthlyRent, :description"
+				. ",:deposit, :petDeposit, :keyDeposit, :electricity"
+				. ",:internet, :water, :gas, :television, :pets, :smoking"
+				. ", :furnished, :startDate, :endDate, :longitude, :latitude)";
+		$address = $params[':streetNo'] . " " . $params[':streetName'];
+		$city = $params[':city'];
+
+		$coords = createCoords($address, $city);
+		$coords = obfuscate($coords);
+		$query = $this->db->prepare($sql);
+		$parameters = array($params);
+
+		$parameters = array_merge($parameters, $coords);
+
+
+		$query->execute($parameters);
+
+	}
+
+	/**
+	 * Add user to database
+	 *
+	 * @param $firstName String
+	 * @param $lastName String
+	 * @param $email String
+	 * @param $password String
+	 * @return boolean Indicates whether the query was successfully executed
+	 */
+	public function add_user($firstName, $lastName, $email, $password): bool {
+
+		$firstName = trim($firstName);
+		$lastName = trim($lastName);
+		$email = strtolower(trim($email));
+
+		$name = $firstName . ' ' . $lastName;
+
+		// Exit if any of the variables passed in do not pass the regex validation
+		if ($this->validate_name($name) && $this->validate_email($email) && $this->validate_password($password)) {
+			return false;
+		}
+
+		try {
+			// Test to see if email already exists in database
+			$sql = "SELECT Email FROM Emails WHERE Email=:email";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email];
+			$query->execute($params);
+			$results = $query->fetchAll();
+			if (count($results) > 0) {
+				return false;
+			}
+
+			// Hash password for insertion into database
+			$options = ['cost' => 12];
+			$hash = password_hash($password, PASSWORD_BCRYPT, $options);
+
+			// Prep query for insertion of user info into Users table
+			$sql = "INSERT INTO `Users` (`FirstName`, `LastName`, `Password`) VALUES (:firstName, :lastName, :password)";
+			$query = $this->db->prepare($sql);
+			$params = [':firstName' => $firstName, ':lastName' => $lastName, ':password' => $hash];
+
+			// Insert user into Users table
+			$query->execute($params);
+
+			// Retrieve the UserId for the newly inserted data
+			$sql = "SELECT UserId FROM Users WHERE FirstName=:firstName AND LastName=:lastName AND Password=:password";
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$userId = $query->fetch()['UserId'];
+			$userId = intval($userId);
+
+			// Use the retrieved UserId to populate the Emails table
+			$sql = "INSERT INTO `Emails` (`Email`, `UserId`, `IsPrimary`) VALUES (:email, :userId, 1)";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email, ':userId' => $userId];
+
+			$query->execute($params);
+
+			$this->generate_auth_cookie($userId);
+
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+	}
+
+	public function authenticate_user($email, $password): array {
+
+		$response = array();
+
+		$email = strtolower(trim($email));
+
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+
+		if (!(validate_email($email) && validate_password($password))) {
+			$response['status'] = 'error';
+			$response['message'] = 'Email and/or password cannot be found.';
+			return $response;
+		}
+
+		try {
+			$sql = "SELECT Address, Password FROM Users U, Emails E WHERE U.UserId=E.UserId AND Address=:email";
+			$query = $this->db->prepare($sql);
+			$params = [':email' => $email];
+			$query->execute($params);
+
+			while ($results = $query->fetch()) {
+				if (strtolower($results['Address']) === $email) {
+					$verified = password_verify($password, $results['Password']);
+					if ($verified) {
+						$response['status'] = 'success';
+						// Will set login cookie later
+					}
+				}
+			}
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			$response['status'] = 'error';
+			$response['message'] = 'The database encountered an error.';
+		}
+
+		return $response;
+	}
+
+	public function retrieve_listing($listingId): array {
+		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"FROM Listings L, Rentals R " .
+				"WHERE L.Listing=$listingId";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	/*	public function save_listing($params): array{
+			$sql = 	"UPDATE Listings L, Rentals R " .
+					"SET R.StreetNo=$params['streetNo'], R.StreetName=$params['streetName'], R.City=$params['city'], R.ZIP=$params['zip'], L.Bedrooms=$params['bedrooms'], ".
+					"L.Baths=$params['baths'], L.SqFt=$params['sqFt'], L.MonthlyRent=$params['monthlyRent'], ",
+					"L.Description=$params['description'], L.Deposit=$params['deposit'], L.PetDeposit=$params['petDeposit'], L.KeyDeposit=$params['keyDeposit'], " .
+					"L.Electricity=$params['electricity'], L.Internet=$params['internet'], L.Water=$params['water'], L.Gas=$params['gas'], L.Television=$params['television'], ".
+					"L.Pets=$params['pets'], L.Smoking=$params['smoking'], L.Furnished=$params['furnished'], L.StartDate=$params['startDate'], L.EndDate=$params['endDate'] " .
+					"WHERE R.RentalId=L.RentalId AND L.ListingId=$params['ListingId']";
+		} */
+
+	private function validate_email($email): bool {
+		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
+		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+		return preg_match($emailPattern, $email);
+	}
+
+	private function validate_name($name): bool {
+		// Regex pulled from StackOverflow - http://stackoverflow.com/a/2044909/845306
+		$namePattern = '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u';
+		return preg_match($namePattern, $name);
+	}
+
+	private function validate_password($password): bool {
+		// Regex for all ANSI keyboard characters
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+		return preg_match($passwordPattern, $password);
+	}
+
+	private function generate_auth_cookie($userId): bool {
+		try {
+			$ONE_WEEK = 864000 * 7;
+
+			$selector = base64_encode(random_bytes(16));
+
+			$token = random_bytes(33);
+			$tokenHash = hash('sha256', $token);
+
+			$sql = "INSERT INTO `AuthTokens` (`UserId`, `TokenHash`, `Expiration`) VALUES (:userId, :tokenHash, :expiration)";
+			$query = $this->db->prepare($sql);
+			$params = [':userId' => $userId, ':tokenHash' => $tokenHash, ':expiration' => date('Y-m-d\TH:i:s', time() + $ONE_WEEK)];
+
+			$query->execute($params);
+
+			setcookie(
+					'rememberRentSFSU', // cookie field
+					$userId . ':' . $selector . ':' . base64_encode($token), time() + $ONE_WEEK, '/', // cookie value
+					'sfsuswe.com', // domain
+					false, // SSL only - currently false because site does not have SSL cert
+					true // HttpOnly
+			);
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+	}
+
+	public function check_auth_cookie(): bool {
+		try {
+			list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
+
+			$sql = "SELECT * FROM AuthTokens WHERE Selector=:selector";
+			$query = $this->db->prepare($sql);
+			$params = [':selector' => $selector];
+
+			$query->execute($params);
+			$row = $query->fetch();
+
+			if (hash_equals($row['TokenHash'], hash('sha256', base64_decode($token))) && $row['Expiration'] >= time()) {
+				$this->revoke_auth_cookie($userId, $selector);
+				$_SESSION['UserId'] = $row['UserId'];
+				$this->generate_auth_cookie($row['UserId']);
+				// Then regenerate login token as above
+			}
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+		return false;
+	}
+
+	public function revoke_auth_cookie($userId, $selector): bool {
+		try {
+			$sql = "DELETE FROM AuthTokens WHERE Selector=:selector AND UserId=:userId";
+			$query = $this->db->prepare($sql);
+			$params = [':selector' => $selector, ':userId' => $userId];
+
+			$query->execute($params);
+			return true;
+		} catch (Exception $e) {
+			echo 'Caught exception: ', $e->getMessage(), '\n';
+			return false;
+		}
+	}
+
 	/**
 	 * Get all songs from database
 	 */
@@ -265,7 +578,6 @@ class Model {
 		return $query->fetch()->amount_of_songs;
 	}
 
-
 	private function validate($data, $type) {
 		if (is_numeric($data)) {
 			if (is_int(intval($data))) {
@@ -276,10 +588,21 @@ class Model {
 			return ($type == "boolean");
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
-		if ($temp && $temp->format('Y-m-d') == $data) {
+
+		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $temp)) {
 			return ($type == "date");
 		}
 		return ($type == "string");
+		$sql = "SELECT id, artist, track, link FROM song";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+
+		// fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
+		// core/controller.php! If you prefer to get an associative array as the result, then do
+		// $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
+		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
+		return $query->fetchAll();
 	}
 }
+
 ?>
