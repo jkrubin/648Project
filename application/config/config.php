@@ -13,8 +13,8 @@
 define('ENVIRONMENT', 'development');
 
 if (ENVIRONMENT == 'development' || ENVIRONMENT == 'dev') {
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
 }
 
 /**
@@ -54,7 +54,7 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  */
 define('DB_TYPE', 'mysql');
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'mini');
-define('DB_USER', 'mini');
-define('DB_PASS', 'mini');
+define('DB_NAME', 'f16g11');
+define('DB_USER', 'f16g11');
+define('DB_PASS', 'headset showdown overjoyed');
 define('DB_CHARSET', 'utf8');

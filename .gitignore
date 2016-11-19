@@ -7,6 +7,8 @@ build
 build/*
 dist
 dist/*
+nbproject
+nbproject/*
 nbproject/private
 nbproject/private/*
 
@@ -25,6 +27,11 @@ local.properties
 *.tmp
 *.bak
 *.swp
+*.*~
+
+# Sass Cache
+.sass-cache
+.sass-cache/*
 
 # Mac OS X
 .DS_Store
