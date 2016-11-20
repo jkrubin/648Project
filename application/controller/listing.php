@@ -22,59 +22,58 @@ class Listing extends Controller {
     }
 
     public function addListing(){
-
+        
         /*********************************************
-         *              RENTAL PARAMETERS
+         *              Parameter Properties
          * 
-         *      HTML FROM TAGS --> SQL QUERY TAGS
+         *Mapping of HTML tags to all their properties
          ********************************************/
-        $rentalParameters = array(
-            'streetNo'=>'StreetNo',
-            'streetName'=>'StreetName',
-            'city'=>'City',
-            'zipCode'=>'ZIP',
-            'bedrooms'=>'Bedrooms',
-            'baths'=>'Baths',
-            'sqFt'=>'SqFt'
-        );
 
-        /*********************************************
-         *              LISTING PARAMETERS
-         * 
-         *      HTML FROM TAGS --> SQL QUERY TAGS
-         ********************************************/
-        $listingParameters = array(
-            'monthlyRent'=>'MonthlyRent',
-            'description'=>'Description',
-            'deposit'=>'Deposit',
-            'petDeposit'=>'PetDeposit',
-            'keyDeposit'=>'KeyDeposit',
-            'electricity'=>'Electricity',
-            'internet'=>'Internet',
-            'water'=>'Water',
-            'gas'=>'Gas',
-            'television'=>'Television',
-            'pets'=>'Pets',
-            'smoking'=>'Smoking',
-            'furnished'=>'Furnished',
-            'startDate'=>'StartDate',
-            'endDate'=>'EndDate',
-        );
-
-        /*********************************************
-         *    ARRAY OF KEYS THAT NEED INPUT CHANGED
-         * 
-         *      HTML FROM TAGS --> SQL QUERY TAGS
-         ********************************************/
-        $inputChange = array(
-            'electricity'=>'Electricity',
-            'internet'=>'Internet',
-            'water'=>'Water',
-            'gas'=>'Gas',
-            'television'=>'Television',
-            'pets'=>'Pets',
-            'smoking'=>'Smoking',
-            'furnished'=>'Furnished',
+        $formProperties = array(
+        'streetNo' => array(
+            'sqlVal'=>'StreetNo','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+        'streetName' => array(
+            'sqlVal'=>'StreetName','table'=>'Rentals','datatype'=>'string','isCheckBox'=>FALSE),
+        'city' => array(
+            'sqlVal'=>'City','table'=>'Rentals','datatype'=>'string','isCheckBox'=>FALSE),
+	'zipCode' => array(
+            'sqlVal'=>'ZIP','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+        'bedrooms' => array(
+            'sqlVal'=>'Bedrooms','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+        'baths' => array(
+            'sqlVal'=>'Baths','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+        'sqFt' => array(
+            'sqlVal'=>'SqFt','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+	'monthlyRent'=>array(
+            'sqlVal'=>'MonthlyRent','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),
+	'description'=>array(
+            'sqlVal'=>'Description','table'=>'Listings','datatype'=>'string','isCheckBox'=>FALSE),            
+	'deposit'=>array(
+            'sqlVal'=>'Deposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
+	'petDeposit'=>array(
+            'sqlVal'=>'PetDeposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
+	'keyDeposit' => array(
+            'sqlVal'=>'KeyDeposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
+	'electricity' => array(
+            'sqlVal'=>'Electricity','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),        
+        'internet' => array(
+            'sqlVal'=>'Internet','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+        'water' => array(
+            'sqlVal'=>'Water','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+        'gas' => array(
+            'sqlVal'=>'Gas','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+        'television' => array(
+            'sqlVal'=>'Television','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+        'pets' => array(
+            'sqlVal'=>'Pets','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),
+        'smoking' => array(
+            'sqlVal'=>'Smoking','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE), 
+        'furnished' => array(
+            'sqlVal'=>'Furnished','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE), 
+        'startDate' => array(
+            'sqlVal'=>'StartDate','table'=>'Listings','datatype'=>'date','isCheckBox'=>FALSE), 
+        'endDate' => array(
+            'sqlVal'=>'EndDate','table'=>'Listings','datatype'=>'date','isCheckBox'=>FALSE)
         );
                     
         /*********************************************
@@ -91,29 +90,50 @@ class Listing extends Controller {
             //Get Array of $_POST keys
             $postKeys = array_keys($_POST);
 
-            //Iterate through post keys
+                        //Iterate through post keys
             foreach($postKeys as $postKey){
-                
+
                 //check if post key is for rental or listing
-                if(array_key_exists($postKey, $rentalParameters)){
-                    //If key is a rental Param, add key and value to Rental SQL
-                    $rentalSQLPairs[$rentalParameters[$postKey]]=$_POST[$postKey];
-                }
-                if(array_key_exists($postKey, $listingParameters)){
-                    //If key is a rental Param, add key and value to Rental SQL
-                    if(array_key_exists($postKey,$inputChange)){
-                        //Input of check mark forms change to 1 in stead of 'on'
-                        $listingSQLPairs[$listingParameters[$postKey]]=1;                            
+                
+                if(array_key_exists($postKey, $formProperties) and 
+                        $formProperties[$postKey]['table'] == 'Rentals'){
+                    //PostKey is a rental parameter
+
+                    //Validate the type
+                    if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
+                        //Type is valid, add to Arr
+                        $rentalSQLPairs[$formProperties[$postKey]['sqlVal']]=$_POST[$postKey];
                     }else{
-                        $listingSQLPairs[$listingParameters[$postKey]]=$_POST[$postKey];
+                        echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";                    }
+                }
+                if(array_key_exists($postKey, $formProperties) and 
+                        $formProperties[$postKey]['table'] == 'Listings'){
+                    //Post key is a Listings Parameter
+                    
+                    //Validate the type
+                    if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
+                        if($formProperties[$postKey]['isCheckBox'] == TRUE){
+                            //Input of check mark forms change to 1 in stead of 'on'
+                            //Change input and put into array
+                            $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=1;                            
+                        }else{
+                            //No need to change iput, put right into array
+                            $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=$_POST[$postKey];
+                        }
+                    }else{
+                        echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";
+                        echo "Type was: " . gettype($_POST[$postKey])."<br>";
                     }
+
                 }
             }
             
             /*
              * PRINTING FOR TEST PURPOSES ONLY
              */
+            echo "<br>Listings array: <br>";
             var_dump($listingSQLPairs);
+            echo "<br>Rentals array: <br>";
             var_dump($rentalSQLPairs);
             
             $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
