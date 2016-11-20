@@ -31,49 +31,49 @@ class Listing extends Controller {
 
         $formProperties = array(
         'streetNo' => array(
-            'sqlVal'=>'StreetNo','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE),
+            'sqlVal'=>'StreetNo','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
         'streetName' => array(
-            'sqlVal'=>'StreetName','table'=>'Rentals','datatype'=>'string','inputCH'=>FALSE),
+            'sqlVal'=>'StreetName','table'=>'Rentals','datatype'=>'string','isCheckBox'=>FALSE),
         'city' => array(
-            'sqlVal'=>'City','table'=>'Rentals','datatype'=>'string','inputCH'=>FALSE),
+            'sqlVal'=>'City','table'=>'Rentals','datatype'=>'string','isCheckBox'=>FALSE),
 	'zipCode' => array(
-            'sqlVal'=>'ZIP','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE),
+            'sqlVal'=>'ZIP','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
         'bedrooms' => array(
-            'sqlVal'=>'Bedrooms','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE),
+            'sqlVal'=>'Bedrooms','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
         'baths' => array(
-            'sqlVal'=>'Baths','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE),
+            'sqlVal'=>'Baths','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
         'sqFt' => array(
-            'sqlVal'=>'SqFt','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE),
+            'sqlVal'=>'SqFt','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
 	'monthlyRent'=>array(
-            'sqlVal'=>'MonthlyRent','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE),
+            'sqlVal'=>'MonthlyRent','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),
 	'description'=>array(
-            'sqlVal'=>'Description','table'=>'Listings','datatype'=>'string','inputCH'=>FALSE),            
+            'sqlVal'=>'Description','table'=>'Listings','datatype'=>'string','isCheckBox'=>FALSE),            
 	'deposit'=>array(
-            'sqlVal'=>'Deposit','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE),            
+            'sqlVal'=>'Deposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
 	'petDeposit'=>array(
-            'sqlVal'=>'PetDeposit','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE),            
+            'sqlVal'=>'PetDeposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
 	'keyDeposit' => array(
-            'sqlVal'=>'KeyDeposit','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE),            
+            'sqlVal'=>'KeyDeposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
 	'electricity' => array(
-            'sqlVal'=>'Electricity','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE),        
+            'sqlVal'=>'Electricity','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),        
         'internet' => array(
-            'sqlVal'=>'Internet','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE),  
+            'sqlVal'=>'Internet','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
         'water' => array(
-            'sqlVal'=>'Water','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE),  
+            'sqlVal'=>'Water','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
         'gas' => array(
-            'sqlVal'=>'Gas','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE),  
+            'sqlVal'=>'Gas','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
         'television' => array(
-            'sqlVal'=>'Television','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE),  
+            'sqlVal'=>'Television','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
         'pets' => array(
-            'sqlVal'=>'Pets','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE),
+            'sqlVal'=>'Pets','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),
         'smoking' => array(
-            'sqlVal'=>'Smoking','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE), 
+            'sqlVal'=>'Smoking','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE), 
         'furnished' => array(
-            'sqlVal'=>'Furnished','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE), 
+            'sqlVal'=>'Furnished','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE), 
         'startDate' => array(
-            'sqlVal'=>'StartDate','table'=>'Listings','datatype'=>'date','inputCH'=>FALSE), 
+            'sqlVal'=>'StartDate','table'=>'Listings','datatype'=>'date','isCheckBox'=>FALSE), 
         'endDate' => array(
-            'sqlVal'=>'EndDate','table'=>'Listings','datatype'=>'date','inputCH'=>FALSE)
+            'sqlVal'=>'EndDate','table'=>'Listings','datatype'=>'date','isCheckBox'=>FALSE)
         );
                     
         /*********************************************
@@ -112,7 +112,7 @@ class Listing extends Controller {
                     
                     //Validate the type
                     if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
-                        if($formProperties[$postKey]['inputCH'] == TRUE){
+                        if($formProperties[$postKey]['isCheckBox'] == TRUE){
                             //Input of check mark forms change to 1 in stead of 'on'
                             //Change input and put into array
                             $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=1;                            
