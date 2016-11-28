@@ -234,6 +234,17 @@ class Model {
 		 */
 		//RENTAL ID
 		$rentalSQLParams["RentalTypeId"] = 1;
+                
+                //Long and Lat for maps API
+                $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
+                $city = $rentalSQLParams['City'];
+                $coordinates = $this -> createCoords($addr,$city);
+                $coordinates = $this -> obfuscate($coordinates);
+                
+                $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
+                $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
+                $listingSQLParams['Latitude'] = $coordinates[":latitude"];
+                $listingSQLParams['Longitude'] = $coordinates[":longitude"];
 
 
 		//Start of Sql statment
@@ -252,11 +263,15 @@ class Model {
 		/*
 		 *      ADD LISTING TO DB
 		 */
-		//Add listing ID
-		$listingSQLParams["RentalId"] = $last_id;
-		//Dummy value for Landlord ID
-		$listingSQLParams["LandlordId"] = 42;
-
+                
+                try{
+                    //Add listing ID
+                    $listingSQLParams["RentalId"] = $last_id;
+                    //Dummy value for Landlord ID
+                    $listingSQLParams["LandlordId"] = 42;
+                }catch(PDOException $e){
+                    echo 'Database entry Failed:'. $e->getMessage();
+                }
 
 		//Prepate Listing SQL
 		$listingSQL = "INSERT INTO Listings";
@@ -266,8 +281,12 @@ class Model {
 		//Implode all values
 		$listingSQL .= " VALUES('" . implode("' , '", $listingSQLParams) . "')";
 
-		//Insert into Listings Table
-		$this->db->query($listingSQL);
+                try{
+                    //Insert into Listings Table
+                    $this->db->query($listingSQL);
+                }catch(PDOException $e){
+                    echo 'Database entry Failed:'. $e->getMessage();
+                }
 
 		//For testing only
 		//echo $rentalSQL;
@@ -613,7 +632,7 @@ class Model {
 	 * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
 	 * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
 	 * in the views (see the views for more info).
-	 * @param string $artist Artist
+	 * @param string $artist Artist 
 	 * @param string $track Track
 	 * @param string $link Link
 	 */
