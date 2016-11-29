@@ -17,6 +17,9 @@ class Home extends Controller {
 		// load views
 		$isHome = true;
 		require APP . 'view/_templates/home_header.php';
+		if (empty($_SESSION) && empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/login_modal.php';
+		}
 		require APP . 'view/home/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
