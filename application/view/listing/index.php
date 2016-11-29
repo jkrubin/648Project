@@ -9,7 +9,7 @@
             <text id="showLabelZipCode">Zip Code</text><br>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="number" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
+                    <input type="number" id="streetNo" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="text" onkeydown="showLabel('showLabelSTName')" name="streetName" placeholder="Street Name" required class="form-control"/>
+                    <input type="text" id="streetName" onkeydown="showLabel('showLabelSTName')" name="streetName" placeholder="Street Name" required class="form-control"/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="text" class="form-control" onkeydown="showLabel('showLabelCity')" name="city" placeholder="City" required/>
+                    <input type="text" id="city" class="form-control" onkeydown="showLabel('showLabelCity')" name="city" placeholder="City" required/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="number" class="form-control" min="0" onkeydown="showLabel('showLabelZipCode')" name="zipCode" placeholder="Zip Code" required>
+                    <input type="number" id="zipCode" class="form-control" min="0" onkeydown="showLabel('showLabelZipCode')" name="zipCode" placeholder="Zip Code" required>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -44,30 +44,55 @@
                 <div class="help-block with-errors"></div>
             </div>
             <br>
+            <text></text>
+            <text></text>
             <text id="showLabelMoRent">Monthly Rent</text>
             <text id="showLabelDeposit">Deposit</text>
+            <br>
+            <div class="form-group has-feedback">
+                <div class="input-group required-field-block">
+                    <span class="input-group-addon">Start Date</span>
+                    <input type="date" id="sDate" name="startDate" style="margin-right: -60px; padding-right: 10px;" placeholder="Available From (Date)" required class="form-control"/>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="input-group required-field-block">
+                    <span class="input-group-addon">End  Date</span>
+                    <input type="date" id="eDate" name="endDate" style="margin-right: -60px; padding-right: 10px;" placeholder="Available To (Date)" required class="form-control"/>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="input-group required-field-block">
+                    <span class="input-group-addon">$</span>
+                    <input type="number" id="monthlyDate" min="0" onkeydown="showLabel('showLabelMoRent')" pattern="0-9" class="form-control" name="monthlyRent" placeholder="Monthly Rent" required/>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="input-group required-field-block">
+                    <span class="input-group-addon">$</span>
+                    <input type="number" id="deposit" min="0" step=".1" onkeydown="showLabel('showLabelDeposit')" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+            <br>
             <text id="showLabelNoRooms">Bedrooms</text>
             <text id="showLabelNoRoomsBath">Bathrooms</text>
-            <div class="form-group has-feedback">
-                <div class="input-group required-field-block">
-                    <span class="input-group-addon">$</span>
-                    <input type="number" min="0" onkeydown="showLabel('showLabelMoRent')" pattern="0-9" class="form-control" name="monthlyRent" placeholder="Monthly Rent" required/>
-                    <div class="required-icon">
-                        <div class="text">*</div>
-                    </div>
-                </div>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="form-group has-feedback">
-                <div class="input-group required-field-block">
-                    <span class="input-group-addon">$</span>
-                    <input type="number" min="0" step=".1" onkeydown="showLabel('showLabelDeposit')" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
-                    <div class="required-icon">
-                        <div class="text">*</div>
-                    </div>
-                </div>
-                <div class="help-block with-errors"></div>
-            </div>
+            <br>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
                     <input type="number" class="form-control" min="0" onkeydown="showLabel('showLabelNoRooms')" name="bedrooms" id="bedrooms" placeholder="Number of Rooms" required/>
@@ -88,29 +113,9 @@
             </div><br>
 
             <div class="help-block with-errors"></div>
-    </div><br>
-    <div class="form-group has-feedback">
-        <div class="input-group required-field-block">
-            <span class="input-group-addon">Start Date</span>
-            <input type="date" name="startDate" style="margin-right: -60px; padding-right: 10px;" placeholder="Available From (Date)" required class="form-control"/>
-            <div class="required-icon">
-                <div class="text">*</div>
-            </div>
-        </div>
-        <div class="help-block with-errors"></div>
-    </div>
-    <div class="form-group has-feedback">
-        <div class="input-group required-field-block">
-            <span class="input-group-addon">End  Date</span>
-            <input type="date" name="endDate" style="margin-right: -60px; padding-right: 10px;" placeholder="Available To (Date)" required class="form-control"/>
-            <div class="required-icon">
-                <div class="text">*</div>
-            </div>
-        </div>
-        <div class="help-block with-errors"></div>
     </div>
     <text id="showLabelDescription">Description</text><br>
-    <textarea cols="126" rows="3" onkeydown="showLabel('showLabelDescription')" name ="description" placeholder="Description"></textarea><br><br>
+    <textarea cols="126" id="description" rows="3" onkeydown="showLabel('showLabelDescription')" name ="description" placeholder="Description"></textarea><br><br>
     <text id="showLabelSqFt">Square Feet</text>
     <text id="showLabelPetDeposit">Pet Deposit</text>
     <text id="showLabelKeyDeposit">Key Deposit</text><br>
@@ -146,8 +151,7 @@
     <input type="checkbox" id="furished" name="furnished"/> <label for="furnished">Furnished</label><br><br><br>
     Add images:<br><br>
     <input type="file" name="images" value="Upload Images of the Listing"/><br><br><br>
-    <input type="checkbox" name="agree"/> I agree to the terms
-    <input type="submit" class="btn btn-default" name ="submit_listing" value="Create Listing" />
+    <input type="checkbox" name="agree"/> By checking, I accept the <a href="#">Terms of Service</a>
+    <input type="submit" id="button" class="btn btn-default" name ="submit_listing" value="Create Listing" />
 </form>
-</div>
 </div>

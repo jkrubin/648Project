@@ -1,11 +1,14 @@
 // Import Bootstrap Compass integration
 @import "bootstrap-compass";
-
 // Import custom Bootstrap variables
 @import "bootstrap-variables";
-
 // Import Bootstrap for Sass
 @import "bootstrap";
+@import "compass/css3/border-radius";
+
+$sfsu-purple:      #43428a;
+$purple-hover:     lighten($sfsu-purple, 10%);
+$theme-green:      #77b800;
 
 @mixin centerer {
     position: absolute;
@@ -55,7 +58,7 @@ header {
         font-weight: bold;
         color: #fff;
         &:hover {
-            background-color: #4544cb;
+            background-color: $purple-hover;
         }
     }
     ul {
@@ -106,7 +109,6 @@ ul li {
     top: 4em;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 #search-wrapper {
@@ -120,8 +122,8 @@ ul li {
 #search-wrapper.home {
     left: 50%;
     top: 165px;
-    margin: 0 0 0 -305px;
-    width: 610px;
+    margin: 0 0 0 -445px;
+    width: 750px;
 }
 
 #lede {
@@ -136,29 +138,35 @@ ul li {
 #search {
     margin-left: auto;
     margin-right: auto;
-}
+    &.home {
+        text-align: center;
+    }
+    input[type=text], select {
+        padding: $font-size-large / 2;
+        font-size: $font-size-large;
+    }
+    input[type=text] {
+        width: 55%;
+    }
+    select {
+        @include border-radius(none);
+        width: 20%;
+    }
+    input[type=submit] {
+        padding: $font-size-large / 2;
+        font-size: $font-size-large;
+        margin-left: $form-group-margin-bottom;
 
-#search input[type=text] {
-    padding: 0.5em;
-    font-size: 1.5em;
-    min-width: 20em;
-    width: 80%;
-}
-
-#search input[type=submit] {
-    padding: 0.5em;
-    font-size: 1.5em;
-    margin-left: $form-group-margin-bottom;
-    /*
-    color: $btn-default-color;
-    background-color: $btn-default-bg;
-    border: 2px solid $btn-default-border;
-    &:hover {
+        color: $btn-default-color;
+        background-color: $btn-default-bg;
+        border: 2px solid $btn-default-border;
+        &:hover {
             color: $btn-default-bg;
             background-color: white;
             cursor: pointer;
             border: 1px solid $btn-default-border;
-    }*/
+        }
+    }
 }
 
 #results-wrapper {
@@ -181,7 +189,6 @@ ul li {
     width: 8%;
 }
 
-
 #page-title {
     font-size: 24pt;
     padding: 2%;
@@ -192,7 +199,7 @@ ul li {
     width: 100%;
 }
 
-.listing{
+.listing {
     display: block;
     height: $navbar-height * 5;
     position: relative;
@@ -233,6 +240,7 @@ ul li {
             clear: right;
             float: left;
             margin-left: $padding-large-horizontal;
+            width: 65%;
         }
     }
 
@@ -240,61 +248,58 @@ ul li {
         color: #4cae4c;
     }
 }
-.add-listing{
-    font-size: 1.4em;
+
+.add-listing {
+    font-size: 12pt;
     display: block;
     height: $navbar-height * 17;
     position: relative;
     clear: both;
     top: $navbar-height * 4;
     border-bottom: 1px solid $gray-lighter;
-    margin-top: 1%;
-    margin-bottom: 3%;
-    margin-left: 3%;
-    margin-right: 3%;
-    padding: 3%;
-    padding-left: 5%;
-
+    margin: 1% 3% 3%;
+    padding: 3% 3% 3% 5%;
     width: 94%;
-    background: #fff;
+    background: white;
     @include box-shadow(10px 10px 10px $gray-lighter);
 
-    & textarea {
+    textarea {
         width: 97%;
     }
 
-    & label {
+    label {
         width: 10.3%;
     }
 
-    & input[type=text], input[type=number], input[type=date] {
+    .input-group{
         min-width: 10em;
-        margin-right: 3%;
-        font-size: 19px;
     }
 
-    & #dates {
+    input[type="date"] {
+        margin-right: 3.2%;
+    }
+
+    #dates {
         width: 7.6%;
     }
 
-    & text {
+    text {
         display: inline-block;
         width: 24.6%;
         color: green;
         visibility: hidden;
     }
 
-    .form-group{
+    .form-group {
         display: inline-block;
-        width: 24%;
+        width: 21.4%;
+        margin-right: 3.3%;
+        font-size: 12pt;
     }
 
-    .input-group{
-        font-size: 19px;
-    }
 }
 
-.edit-listing{
+.edit-listing {
     font-size: 1.4em;
     display: block;
     height: $navbar-height * 7;
@@ -307,14 +312,14 @@ ul li {
     padding: $padding-base-vertical $padding-base-horizontal;
     @include box-shadow(10px 10px 10px $gray-lighter);
 
-    .input-group{
+    .input-group {
         font-size: 19px;
     }
-    .form-control{
+    .form-control {
         display: inline-block;
     }
 
-    input[type=number]{
+    input[type=number] {
         step: .01;
     }
 
@@ -368,19 +373,19 @@ ul li {
                 height: 25%;
                 margin: 1%;
             }
-            .col1{
+            .col1 {
                 width: 22%;
                 float: left;
             }
-            .col2{
+            .col2 {
                 width: 22%;
                 float: left;
             }
-            .col3{
+            .col3 {
                 width: 22%;
                 float: left;
             }
-            .col4{
+            .col4 {
                 width: 30%;
                 float: left;
             }
@@ -391,26 +396,26 @@ ul li {
         }
     }
 
-    &-checkboxes{
+    &-checkboxes {
         bottom: 1%;
         label {
             width: 7%;
             font-size: .8em;
             margin-right: 2%;
         }
-        button{
+        button {
             width: 115px;
             float: right;
         }
-        #save{
+        #save {
             bottom: 2%;
         }
-        #delete{
+        #delete {
             background-color: red;
             float: left;
             border-color: red;
         }
-        #delete:hover{
+        #delete:hover {
             background-color: darkred;
             border-color: darkred;
         }
@@ -442,15 +447,15 @@ ul li {
 
 }
 
-.center{
+.center {
     @include centerer;
 }
 
-#form-wrapper{
+#form-wrapper {
     text-align: center;
 }
 
-.form-input{
+.form-input {
     margin-bottom: 15px;
 }
 
@@ -462,8 +467,8 @@ ul li {
     display: inline-block;
     vertical-align: middle;
     margin: -0.25em 0.25em 0em;
-    background-color: #E8E8E8;
-    border-color: #E8E8E8;
+    background-color: $gray-lighter;
+    border-color: $gray-lighter;
     padding: 0.5em 0.8em;
     color: rgba(0, 0, 0, 0.65);
     text-transform: uppercase;
@@ -518,9 +523,41 @@ ul li {
     font-size: 26px;
     margin: -3px 0 0 12px;
 }
-.bottom-right{
+
+.bottom-right {
     position: absolute;
     top: 80%;
     left: 85%;
     transform: translate(-50%, -50%);
+}
+
+.invalid-input {
+    border: 2px solid #d80000;
+}
+
+#query-error, #room-error {
+    color: #d80000;
+    text-align: center;
+    margin-bottom: $navbar-height;
+    h4 {
+        font-size: $font-size-h4 !important;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.modal.contact {
+    .address {
+        text-align: left;
+        font-weight: bold;
+        font-size: $font-size-h4;
+        margin-bottom: 15px;
+    }
+    .rental-details {
+        text-align: left;
+        margin-bottom: 35px;
+        font-size: $font-size-base;
+    }
 }
