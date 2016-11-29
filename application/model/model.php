@@ -12,9 +12,8 @@ class Model {
 		}
 	}
 
-	/*
-	 *Get all Listings from the database that match criteria $query
-	 *
+	/**
+	 * Get all Listings from the database that match criteria $query
 	 */
 	public function get_listings($query): array {
 		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
@@ -28,9 +27,8 @@ class Model {
 				"FROM Listings L, Rentals R " .
 				"WHERE R.RentalId=L.RentalId";
 
-		/*
-		 *Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
-		 *Each key is then validated for the appropriate data type and then added to the SQL query.
+		/* Each key in the array is compared to the keys allowed in an SQL query, and only adds it to the string if $key is in $allowedKeys
+		 * Each key is then validated for the appropriate data type and then added to the SQL query.
 		 */
 		foreach ($query as $key => $value) {
 			if (in_array($key, $allowedKeys)) {
@@ -128,6 +126,8 @@ class Model {
 						if ($this->validate($value, "boolean")) {
 							$sql .= " AND L.Furnished=$value";
 						}
+						break;
+
 					case "startdate":
 						if ($this->validate($value, "date")) {
 							$sql .= " AND L.StartDate=$value";
@@ -151,6 +151,7 @@ class Model {
 							$sql .= " AND R.StreetNo LIKE '%$value%'";
 						}
 						break;
+
 					case "rentmax":
 						if ($this->validate($value, "integer")) {
 							$sql .= " AND L.MonthlyRent<$value";
@@ -161,6 +162,7 @@ class Model {
 							$sql .= " AND L.MonthlyRent>$value";
 						}
 						break;
+
 					default:
 						break;
 				}
@@ -171,6 +173,7 @@ class Model {
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
+
 
 	public function get_cities(): array {
 		$sql = "SELECT City FROM Rentals";
@@ -362,7 +365,6 @@ class Model {
 			echo 'Caught exception: ', $e->getMessage(), '\n';
 			return false;
 		}
-
 	}
 
 	public function authenticate_user($email, $password): array {
@@ -610,6 +612,7 @@ class Model {
 			return ($type == "date");
 		}
 		$temp = DateTime::createFromFormat('Y-m-d', $data);
+
 		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $temp)) {
 			return ($type == "date");
 		}

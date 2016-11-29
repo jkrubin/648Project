@@ -9110,7 +9110,7 @@ ul li {
   font-size: 12pt;
 }
 
-/* line 302, ../../scss/styles.scss */
+/* line 301, ../../scss/styles.scss */
 .edit-listing {
   font-size: 1.4em;
   display: block;
@@ -9125,19 +9125,19 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 315, ../../scss/styles.scss */
+/* line 314, ../../scss/styles.scss */
 .edit-listing .input-group {
   font-size: 19px;
 }
-/* line 318, ../../scss/styles.scss */
+/* line 317, ../../scss/styles.scss */
 .edit-listing .form-control {
   display: inline-block;
 }
-/* line 322, ../../scss/styles.scss */
+/* line 321, ../../scss/styles.scss */
 .edit-listing input[type=number] {
   step: .01;
 }
-/* line 326, ../../scss/styles.scss */
+/* line 325, ../../scss/styles.scss */
 .edit-listing-heading {
   font-size: 18px;
   font-weight: bold;
@@ -9147,39 +9147,39 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 334, ../../scss/styles.scss */
+/* line 333, ../../scss/styles.scss */
 .edit-listing-heading-left {
   position: relative;
   float: left;
   clear: left;
   width: 80%;
 }
-/* line 340, ../../scss/styles.scss */
+/* line 339, ../../scss/styles.scss */
 .edit-listing-heading-right {
   position: relative;
   float: right;
   clear: right;
   width: 16%;
 }
-/* line 348, ../../scss/styles.scss */
+/* line 347, ../../scss/styles.scss */
 .edit-listing-details {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
   height: 170px;
   position: relative;
 }
-/* line 353, ../../scss/styles.scss */
+/* line 352, ../../scss/styles.scss */
 .edit-listing-details-left {
   position: relative;
   float: left;
   clear: left;
   width: 42%;
 }
-/* line 358, ../../scss/styles.scss */
+/* line 357, ../../scss/styles.scss */
 .edit-listing-details-left image {
   float: left;
 }
-/* line 363, ../../scss/styles.scss */
+/* line 362, ../../scss/styles.scss */
 .edit-listing-details-right {
   font-size: .9em;
   clear: right;
@@ -9187,64 +9187,64 @@ ul li {
   height: 100%;
   float: right;
 }
-/* line 370, ../../scss/styles.scss */
+/* line 369, ../../scss/styles.scss */
 .edit-listing-details-right #inputSmall {
   font-size: .9em;
   width: 90%;
   height: 25%;
   margin: 1%;
 }
-/* line 376, ../../scss/styles.scss */
+/* line 375, ../../scss/styles.scss */
 .edit-listing-details-right .col1 {
   width: 22%;
   float: left;
 }
-/* line 380, ../../scss/styles.scss */
+/* line 379, ../../scss/styles.scss */
 .edit-listing-details-right .col2 {
   width: 22%;
   float: left;
 }
-/* line 384, ../../scss/styles.scss */
+/* line 383, ../../scss/styles.scss */
 .edit-listing-details-right .col3 {
   width: 22%;
   float: left;
 }
-/* line 388, ../../scss/styles.scss */
+/* line 387, ../../scss/styles.scss */
 .edit-listing-details-right .col4 {
   width: 30%;
   float: left;
 }
-/* line 392, ../../scss/styles.scss */
+/* line 391, ../../scss/styles.scss */
 .edit-listing-details-right label {
   font-size: .8em;
 }
-/* line 399, ../../scss/styles.scss */
+/* line 398, ../../scss/styles.scss */
 .edit-listing-checkboxes {
   bottom: 1%;
 }
-/* line 401, ../../scss/styles.scss */
+/* line 400, ../../scss/styles.scss */
 .edit-listing-checkboxes label {
   width: 7%;
   font-size: .8em;
   margin-right: 2%;
 }
 /* line 406, ../../scss/styles.scss */
-.edit-listing-checkboxes button {
+.edit-listing button {
   width: 115px;
   float: right;
 }
 /* line 410, ../../scss/styles.scss */
-.edit-listing-checkboxes #save {
+.edit-listing #save {
   bottom: 2%;
 }
 /* line 413, ../../scss/styles.scss */
-.edit-listing-checkboxes #delete {
+.edit-listing #delete {
   background-color: red;
   float: left;
   border-color: red;
 }
 /* line 418, ../../scss/styles.scss */
-.edit-listing-checkboxes #delete:hover {
+.edit-listing #delete:hover {
   background-color: darkred;
   border-color: darkred;
 }

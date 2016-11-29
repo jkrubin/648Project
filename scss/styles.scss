@@ -298,7 +298,6 @@ ul li {
     }
 
 }
-
 .edit-listing {
     font-size: 1.4em;
     display: block;
@@ -403,23 +402,24 @@ ul li {
             font-size: .8em;
             margin-right: 2%;
         }
-        button {
-            width: 115px;
-            float: right;
-        }
-        #save {
-            bottom: 2%;
-        }
-        #delete {
-            background-color: red;
-            float: left;
-            border-color: red;
-        }
-        #delete:hover {
-            background-color: darkred;
-            border-color: darkred;
-        }
     }
+    button {
+        width: 115px;
+        float: right;
+    }
+    #save {
+        bottom: 2%;
+    }
+    #delete {
+        background-color: red;
+        float: left;
+        border-color: red;
+    }
+    #delete:hover {
+        background-color: darkred;
+        border-color: darkred;
+    }
+
 
     textarea {
         width: 52%;
