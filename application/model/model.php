@@ -254,6 +254,32 @@ class Model {
 
 
 		$query->execute($parameters);
+                
+                //Insert distance from school
+                $sql = "INSERT INTO Rentals ('Distance') VALUES (:distance)";
+                $baseUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+                $listingAddress = "&origins=".$params[':streetNo'] . "+" . $params[':streetName'] . "+" . $params[':city'];
+                $school = "&destinations=place_id:ChIJEaQJfqV9j4ARm8dWmX2G82s";
+                $key = "&key=AIzaSyB7EOI6z0RYwDHp5JE7IDcqDhXeRXrcurk";
+                
+                $request = $baseUrl.$listingAddress.$school.$key;
+                $ch = \curl_init();
+                
+                curl_setopt($ch, CURLOPT_URL, $request);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+ 
+                // parse the json distance object
+                $response = curl_exec($ch);
+                curl_close($ch);
+                $result = json_decode($response,true);
+                
+                // distance value from json
+                $distance= $result['rows'][0]['elements'][0]['distance']['text'];
+                
+                $query = $this->db->prepare(sql);
+                $parameters = array('Distance'=>$distance);
+                $query->execute($parameters);
 
 	}
 
