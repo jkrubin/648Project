@@ -23,7 +23,7 @@
 							</div>
 
 							<div class="form-group">
-								<input class="form-input form-control" type="password" name="password"
+								<input class="form-input form-control" type="password" name="password" placeholder="Password"
 								       required/>
 								<div class="help-block with-errors"></div>
 							</div>
@@ -34,7 +34,8 @@
 
 
 						<?php
-						if (isset($_POST['login'])) {
+						if (isset($_POST['email']) && isset($_POST['password'])) {
+							$check_login = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
 							if ($check_login['status'] == 'success') {
 								echo "<center>log in successful =D</center>";
 							} elseif ($check_login['status'] == 'error') {

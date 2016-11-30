@@ -9,10 +9,19 @@
 				<a href="<?php echo URL; ?>listing">
 					<li class="btn btn-default">Add listing</li>
 				</a>
+				<a href="<?php echo URL; ?>dashboard">
+					<li class="logout">Manage listings</li>
+				</a>
+				<a href="<?php echo URL; ?>messages">
+					<li class="logout">Messages</li>
+				</a>
 				<a href="<?php echo URL; ?>account">
 					<li class="username"><?php
 						echo $_SESSION['Name'];
 					?></li>
+				</a>
+				<a href="<?php echo URL; ?>logout">
+					<li id="logout">Log out</li>
 				</a>
 			</ul>
 		</div>

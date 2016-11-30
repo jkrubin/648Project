@@ -347,13 +347,13 @@ class Model {
 		}
 	}
 
-	public function authenticate_user($email, $password): array {
+	public function authenticate_user($email, $password, $url): array {
 
 		$response = array();
 
 		$email = strtolower(trim($email));
 
-		if (!(validate_email($email) && validate_password($password))) {
+		if (!($this->validate_email($email) && $this->validate_password($password))) {
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
@@ -368,15 +368,22 @@ class Model {
 			$query->execute($params);
 
 			while ($results = $query->fetch()) {
-				if (strtolower($results['Address']) === $email) {
+				if (strtolower($results['Email']) === $email) {
 					$verified = password_verify($password, $results['Password']);
 					if ($verified) {
 						$response['status'] = 'success';
 						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
-						$this->init_session($results['U.UserId'], $name);
-						$this->generate_auth_cookie($results['U.UserId']);
+						$response['name'] = $name;
+						$response['userId'] = $results['UserId'];
+						$this->init_session($results['UserId'], $name);
+						$this->generate_auth_cookie($results['UserId']);
+						header('Location: ' . URL . $url);
 					}
 				}
+			}
+			if (empty($_SESSION)) {
+				$response['status'] = 'error';
+				$response['message'] = 'Username and/or password do not match.';
 			}
 		} catch (Exception $e) {
 			echo 'Caught exception: ', $e->getMessage(), '\n';
@@ -387,10 +394,14 @@ class Model {
 		return $response;
 	}
 
-	private function init_session($userId, $name) {
-		session_start();
-		$_SESSION['UserId'] = $userId;
-		$_SESSION['Name'] = $row['FirstName'] . ' ' . substr($row['LastName'], 0, 1) . '.';
+	private function init_session($userId, $name): bool {
+		if (session_start()) {
+			$_SESSION['UserId'] = $userId;
+			$_SESSION['Name'] = $name;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private function validate_email($email): bool {
