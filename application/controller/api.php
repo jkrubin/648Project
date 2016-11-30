@@ -48,11 +48,11 @@ Class Api extends Controller{
         }
 
         public function retrieveListing(): array{
-            if(array_key_exists('listingId', $_POST[])){
-                $response = $this->model->retrieve_listing($_POST['listingId']);
-            }else{
-                $response['status'] = 'error';
-                $response['message'] = 'cannot find listing';
+            try{
+                $response = $this->model->retrieve_listing($_POST[]);
+            }catch(Exception $e){
+                echo 'Caught exception: ', $e->getMessage(), '\n';
+			    return false;
             }
             return $response;
         }
