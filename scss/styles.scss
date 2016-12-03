@@ -530,7 +530,7 @@ ul li {
 
 .bottom-right {
 	position: absolute;
-	top: 80%;
+	bottom: 5%;
 	left: 85%;
 	transform: translate(-50%, -50%);
 }
@@ -564,4 +564,49 @@ ul li {
 		margin-bottom: 35px;
 		font-size: $font-size-base;
 	}
+}
+
+.detail-listing{
+    
+	font-size: 1.4em;
+	display: block;
+	bottom: auto;
+	position: relative;
+	top: $navbar-height * 5;
+	padding: 3% 3% 3% 5%;
+	width: 94%;
+	background: white;
+	margin: 1% 3% 3%;
+	@include box-shadow(10px 10px 10px $gray-lighter);
+    
+	.address {
+		font-weight: bold;
+
+	}
+	
+	.rent {
+		color: #4cae4c;
+	}
+	
+	.picture {
+		margin: 2%;
+	}
+	
+	.description {
+		margin-top: 4%;
+	}
+}
+
+#return-button {
+	font-size: 24pt;
+	padding: 2%;
+	height: 80px;
+	position: absolute;
+	top: $navbar-height*2;
+	width: 100%;
+}
+
+#map {
+        height: 400px;
+        width: 50%;
 }

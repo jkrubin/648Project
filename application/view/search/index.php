@@ -16,13 +16,15 @@
 		<ul id="listings">
 			<?php
 			foreach ($listings as $i => $row) {
-
+				
 				$rent = $row["MonthlyRent"];
 				$address = $row["StreetNo"] . ' ' . $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
 				$bedrooms = $row['Bedrooms'];
 				$baths = $row['Baths'];
 				$sqft = $row['SqFt'];
 				$description = $row['Description'];
+				#convert $row into URL rncoded query string
+				$query = http_build_query(array('detail' => $row));
 
 				echo "<li class='listing'>\n";
 
@@ -42,7 +44,9 @@
 				echo "	<div class='listing-details'>\n";
 				# Photos window
 				echo "		<div class='photos listing-details-left'>\n";
-				echo "    	<img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/>\n";
+				echo "    	<a href='" . URL . "listing_detail?$query'> ";
+				echo "			<img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/> ";
+				echo "		</a>\n";
 				echo "		</div>\n";
 
 				# Listing summary
