@@ -47,7 +47,7 @@
 	<?php
 	$row = $_GET["detail"];
 	$rent = $row["MonthlyRent"];
-	$address = $row["StreetNo"] . ' ' . $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
+	$address = $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
 	$bedrooms = $row['Bedrooms'];
 	$baths = $row['Baths'];
 	$sqft = $row['SqFt'];
