@@ -9,7 +9,7 @@
             <text id="showLabelZipCode">Zip Code</text><br>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="number" id="streetNo" onkeydown="showLabel('showLabelSTNo')" class="form-control" name="streetNo" placeholder="Street Number" required/>
+                    <input type="number" id="streetNo" class="form-control" name="streetNo" placeholder="Street Number" required/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="text" id="streetName" onkeydown="showLabel('showLabelSTName')" name="streetName" placeholder="Street Name" required class="form-control"/>
+                    <input type="text" id="streetName" name="streetName" placeholder="Street Name" required class="form-control"/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="text" id="city" class="form-control" onkeydown="showLabel('showLabelCity')" name="city" placeholder="City" required/>
+                    <input type="text" id="city" class="form-control" name="city" placeholder="City" required/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="number" id="zipCode" class="form-control" min="0" onkeydown="showLabel('showLabelZipCode')" name="zipCode" placeholder="Zip Code" required>
+                    <input type="number" id="zipCode" class="form-control" min="0" name="zipCode" placeholder="Zip Code" required>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -72,7 +72,7 @@
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
                     <span class="input-group-addon">$</span>
-                    <input type="number" id="monthlyDate" min="0" onkeydown="showLabel('showLabelMoRent')" pattern="0-9" class="form-control" name="monthlyRent" placeholder="Monthly Rent" required/>
+                    <input type="number" id="monthlyRent" min="0" pattern="0-9" class="form-control" name="monthlyRent" placeholder="Monthly Rent" required/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -82,7 +82,7 @@
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
                     <span class="input-group-addon">$</span>
-                    <input type="number" id="deposit" min="0" step=".1" onkeydown="showLabel('showLabelDeposit')" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
+                    <input type="number" id="deposit" min="0" step=".1" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -95,7 +95,7 @@
             <br>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="number" class="form-control" min="0" onkeydown="showLabel('showLabelNoRooms')" name="bedrooms" id="bedrooms" placeholder="Number of Rooms" required/>
+                    <input type="number" class="form-control" min="0" name="bedrooms" id="bedrooms" placeholder="Number of Rooms" required/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -104,7 +104,7 @@
             </div>
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
-                    <input type="number" min="0" onkeydown="showLabel('showLabelNoRoomsBath')" name="baths" id="baths" placeholder="Number of Bathrooms" required class="form-control">
+                    <input type="number" min="0" name="baths" id="baths" placeholder="Number of Bathrooms" required class="form-control">
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -115,27 +115,27 @@
             <div class="help-block with-errors"></div>
     </div>
     <text id="showLabelDescription">Description</text><br>
-    <textarea cols="126" id="description" rows="3" onkeydown="showLabel('showLabelDescription')" name ="description" placeholder="Description"></textarea><br><br>
+    <textarea cols="126" id="description" rows="3" name ="description" placeholder="Description"></textarea><br><br>
     <text id="showLabelSqFt">Square Feet</text>
     <text id="showLabelPetDeposit">Pet Deposit</text>
     <text id="showLabelKeyDeposit">Key Deposit</text><br>
     <div class="form-group has-feedback">
         <div class="input-group">
-            <input type="number" pattern="0-9" class="form-control" onkeydown="showLabel('showLabelSqFt')" name="sqFt" placeholder="Square Feet">
+            <input type="number" pattern="0-9" class="form-control" name="sqFt" id="sqFt" placeholder="Square Feet">
         </div>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group has-feedback">
         <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input type="number" pattern="0-9" class="form-control" onkeydown="showLabel('showLabelPetDeposit')" name="petDeposit" placeholder="Pet Deposit"/>
+            <input type="number" pattern="0-9" class="form-control" name="petDeposit" id="petDeposit" placeholder="Pet Deposit"/>
         </div>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group has-feedback">
         <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input type="number" min="0" onkeydown="showLabel('showLabelKeyDeposit')" name="keyDeposit" placeholder="Key Deposit" pattern="0-9" min="0" class="form-control">
+            <input type="number" min="0" name="keyDeposit" id="keyDeposit" placeholder="Key Deposit" pattern="0-9" min="0" class="form-control">
         </div>
         <div class="help-block with-errors"></div>
 
