@@ -12,6 +12,10 @@ Class Api extends Controller{
         require APP . 'view/problem/index.php';
 		require APP . 'view/_templates/footer.php';
         }
+
+        public function getCoords($listingId){
+		    return $this->model->getCoords($listingId);
+    	}
         
         public function addListing(){
             

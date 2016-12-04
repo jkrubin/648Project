@@ -1,8 +1,8 @@
 
-<html>
+ <!--  <html>
   <head>
   	<!--Handles how big the map appears on the page-->
-    <style>
+  <!--  <style>
        #map {
         height: 400px;
         width: 50%;
@@ -19,7 +19,7 @@
       	//takes the longitude and latitude form the database and inserts it into coords. See test.php for details
         var coords = {lat: <?php echo $latitude;?> , lng: <?php echo $longitude; ?>
         };
-        //creates the google map object with a specified zoom and center-->
+        //creates the google map object with a specified zoom and center
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 18,
           center: coords
@@ -51,13 +51,84 @@
       }
     </script>
     <!--the google API key.-->
+   <!-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=initMap">
+    </script>
+  </body>
+</html> -->
+
+
+
+
+<html>
+  <head>
+  	<!--Handles how big the map appears on the page-->
+    <style>
+       #map {
+        height: 400px;
+        width: 50%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      var index = 0;
+      function makeMap() {
+
+        var sf = {lat: 37.7219, lng: -122.4782};
+        var coords = [
+        <?php 
+            foreach($coords as $value){
+                $lat = $value[":latitude"];
+                $lng = $value[":longitude"];
+                echo "[$lat, $lng]";
+                if($value != end($coords)){
+                    echo ',';
+                }
+
+            }            
+
+
+
+
+        ?>];
+        //creates the google map object with a specified zoom and center-->
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: sf
+        });
+        var marker = new Array();
+        var circle = new Array();
+
+        //Creates a red circle on the map over the given center
+        for(i=0; i< coords.length; i++){
+            var spot = new google.maps.LatLng(coords[i][0], coords[i][1]);
+            circle[i] = new google.maps.Circle(
+        	    {
+          	    strokeColor: '#FF0000',
+          	    strokeOpacity: 0.8,
+          	    strokeWeight: 2,
+          	    fillColor: '#FF0000',
+          	    fillOpacity: 0.35,
+          	    map: map,
+          	    center: spot,
+          	    radius: 100
+        	    });
+            marker[i] = new google.maps.Marker({
+                position: spot,
+                map: map
+                });
+            circle[i].setVisible(false);
+            
+        }
+        
+      }
+    </script>
+    <!--the google API key.-->
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=makeMap">
     </script>
   </body>
 </html>
-<?php
-
-echo "Testing";
-
-?>
