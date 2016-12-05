@@ -406,12 +406,14 @@ class Model {
 		return $response;
 	}
 
-	public function retrieve_listing($listingId): array {
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+	public function retrieve_listing($listingsParams): array {
+        $streetNo = $lisitingParams['StreetNo'];
+        $streetName = $listingParams['StreetName'];
+		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.Listing=$listingId";
+				"WHERE R.StreetNo=$streetName AND R.StreetName=$streetName";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -512,6 +514,56 @@ class Model {
 		}
 	}
 
+    
+    public function send_message($params){
+        $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
+                    VALUES(:senderId, :recipientId, :listingId, :title, :body, :true);";
+        $query = $this->db->prepare($sql);
+        var_dump($params);
+        $query->execute($params);
+    }
+
+    public function get_new_messages($userId){
+        $sql = "SELECT MessageId ,SenderId, RecipientId, ListingId, Title, Body 
+                FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=1;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function view_message($messageId){
+        $sql = "UPDATE Messages M 
+                SET IsUnread=0
+                WHERE M.MessageId=$messageId;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        
+
+        $sql_1 = "SELECT SenderId, RecipientId, ListingId, Title, Body 
+                  FROM Messages M 
+                  WHERE M.MessageId=$messageId;";
+        $query_1 = $this->db->prepare($sql_1);
+        $query_1->execute();
+        return $query_1->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_old_messages($userId){
+        $sql = "SELECT MessageId, SenderId, RecipientId, ListingId, Title, Body
+                FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=0;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query_1->fetchAll(PDO::Fetch_ASSOC);
+
+    }
+    
+    public function delete_message($messageId){
+        $sql = "DELETE FROM Messages
+                WHERE MessageId=$messageId";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+    }
+
 	/**
 	 * Get all songs from database
 	 */
@@ -562,6 +614,7 @@ class Model {
 		return $query->fetch();
 	}
 
+
 	/**
 	 * Update a song in database
 	 * // TODO put this explaination into readme and remove it from here
@@ -600,6 +653,7 @@ class Model {
 
 
 	public function validate($data, $type) {
+
 		if (is_numeric($data)) {
 			if (is_int(intval($data))) {
 				return ($type == "integer");
@@ -626,28 +680,6 @@ class Model {
 		// $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
 		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
 		return $query->fetchAll();
-	}
-
-	/**
-	 * Add a song to database
-	 * TODO put this explanation into readme and remove it from here
-	 * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
-	 * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
-	 * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
-	 * in the views (see the views for more info).
-	 * @param string $artist Artist 
-	 * @param string $track Track
-	 * @param string $link Link
-	 */
-	public function addSong($artist, $track, $link) {
-		$sql = "INSERT INTO song (artist, track, link) VALUES (:artist, :track, :link)";
-		$query = $this->db->prepare($sql);
-		$parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link);
-
-		// useful for debugging: you can see the SQL behind above construction by using:
-		// echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-		$query->execute($parameters);
 	}
 }
 
