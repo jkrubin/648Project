@@ -96,7 +96,7 @@
         ?>];
         //creates the google map object with a specified zoom and center-->
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
+          zoom: 12,
           center: sf
         });
         var marker = new Array();
