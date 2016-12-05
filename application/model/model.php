@@ -623,6 +623,10 @@ class Model {
         }
         
         public function disable_account($userId, $message = NULL){
+            //VERIFY ADMIN PRIVILAGES;
+                //INSERT CODE HERE
+            
+            //Execute sequence
             $sql = "UPDATE Users "
                     . "SET Disabled = 1, LoginMsg = $message "
                     . "WHERE UserId = $userId";
@@ -631,6 +635,10 @@ class Model {
         }
         
         public function enable_account($userId, $message = NULL){
+            //VERIFY ADMIN PRIVILAGES;
+                //INSERT CODE HERE
+            
+            //Execute sequence
             $sql = "UPDATE Users "
                     . "SET Disabled = 0, LoginMsg = $message "
                     . "WHERE UserId = $userId";
