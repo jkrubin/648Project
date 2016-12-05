@@ -143,7 +143,11 @@ class Listing extends Controller {
             echo "<br>Rentals array: <br>";
             var_dump($rentalSQLPairs);
             
-            $this->handle_blob();
+            echo" <br>fuck me <br>_files arr: ";
+            var_dump($_FILES);
+            echo "<br>";
+            var_dump($_POST);
+            //$this->handle_blob();
                         
             $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
 
