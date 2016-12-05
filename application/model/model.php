@@ -627,6 +627,57 @@ class Model {
 		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
 		return $query->fetchAll();
 	}
+        
+        public function submit_blob($img_info, $img_temp){
+            
+            $width = $img_info[0];
+            $height = $img_info[1];
+            $type = $img_info ['mime'];
+            
+            $listing_id = 1;
+
+            if(strpos($type, 'image/')!==FALSE){
+                $temp_type = explode('/', $type);
+                $type = $temp_type[1];
+            
+                $primary = 0;
+                $order = 1;
+
+                $blob = fopen($img_temp, 'rb');
+
+                $sql = "INSERT INTO Photos(`ListingId`,`Primary`, `Order`, `Height`, `Width`, `Data`, `Format`) "
+                        . "VALUES(:id, :primary, :place, :height, :width, :blob, :mime)";
+
+                $stmt = $this->db->prepare($sql);
+
+                $stmt->bindParam(':id', $listing_id);
+                $stmt->bindParam(':primary', $primary);
+                $stmt->bindParam(':place', $order);
+                $stmt->bindParam(':height', $height);
+                $stmt->bindParam(':width', $width);
+                $stmt->bindParam(':blob', $blob, PDO::PARAM_LOB);
+                $stmt->bindParam(':mime', $type);
+
+                $stmt->execute();
+                
+                $last_id = $this->db->lastInsertID();
+                
+                echo 'lastID: '.$last_id;
+
+                $sql = "SELECT * FROM Photos WHERE PhotoId = $last_id";
+		//executes statement
+		$query = $this->db->prepare($sql);
+		$query->execute();
+                $photo = $query->fetchAll(PDO::FETCH_ASSOC);
+                
+                echo '<img src="data:image/'.$photo[0]["Format"].';base64,'.base64_encode( $photo[0]["Data"] ).'"/>';
+                       
+            }else {
+                echo 'File is not an image. bye';
+                
+            }
+
+        }
 
 	/**
 	 * Add a song to database
