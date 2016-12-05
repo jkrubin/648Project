@@ -687,6 +687,7 @@ class Model {
                 return $query->fetchAll(PDO::FETCH_ASSOC);
                 
                 //DISPLAY IMAGE USING
+                //$photo = retrieve_blob_by_listing($listingId);
                 //echo '<img src="data:image/'.$photo[0]["Format"].';base64,'.base64_encode( $photo[0]["Data"] ).'"/>';      
         }
         
