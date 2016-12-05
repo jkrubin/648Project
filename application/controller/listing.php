@@ -142,7 +142,26 @@ class Listing extends Controller {
             echo "<br>Rentals array: <br>";
             var_dump($rentalSQLPairs);
 
-            $this->model->addListing($rentalSQLPairs, $listingSQLPairs);
+//            echo" <br>fuck me <br>_files arr: ";
+//            var_dump($_FILES);
+//            echo "<br>";
+//            var_dump($_POST);
+
+            $id = $this->model->addListing($rentalSQLPairs, $listingSQLPairs);
+
+            $this->handle_blob($id);
+        }
+    }
+
+    public function handle_blob($id) {
+
+        if (isset($_FILES["images"])) {
+
+            $img_info = getimagesize($_FILES['images']['tmp_name']);
+
+            $img_temp = $_FILES['images']['tmp_name'];
+
+            $this->model->submit_blob($img_info, $img_temp, $id);
         }
     }
 

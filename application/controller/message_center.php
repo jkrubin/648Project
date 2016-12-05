@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 Class Message_Center extends Controller {
 
     public function index() {

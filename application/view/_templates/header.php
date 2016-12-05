@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,10 @@
 	<!-- JS -->
 	<!-- please note: The JavaScript files are loaded in the footer to speed up page construction -->
 	<!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
+	<!-- define the project's URL (to make AJAX calls possible, even when using this in sub-folders etc) -->
+	<script>
+		var url = "<?php echo URL; ?>";
+	</script>
 
 	<!-- CSS -->
 	<link href="<?php echo URL; ?>css/styles.css" rel="stylesheet" type="text/css"/>
@@ -23,7 +28,7 @@
 	<!-- jQuery, imported for feature freeze -->
 	<script src="<?php echo URL; ?>js/jquery-3.1.1.min.js"></script>
 
-	<!-- define the project's URL (to make AJAX calls possible, even when using this in sub-folders etc) -->
+        <!-- define the project's URL (to make AJAX calls possible, even when using this in sub-folders etc) -->
 	<script>
 		var url = "<?php echo URL; ?>";
 	</script>
@@ -153,3 +158,5 @@
 		</div>
 	</div>
 </div>
+</head>
+<body>

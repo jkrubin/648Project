@@ -1,3 +1,5 @@
+
+
 <?php
 
 class Model {
@@ -225,78 +227,58 @@ class Model {
 		return $coords;
 	}
 
-
 	/**
 	 * Takes in an array of Listing parameters, prepares and executes SQL
 	 * Query to put it into DB
 	 *
 	 */
-	public function addListing($rentalSQLParams, $listingSQLParams) {
-		/*
-		 *  Create Aditional Values for DB
-		 */
-		//RENTAL ID
-		$rentalSQLParams["RentalTypeId"] = 1;
-                
-                //Long and Lat for maps API
-                $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
-                $city = $rentalSQLParams['City'];
-                $coordinates = $this -> createCoords($addr,$city);
-                $coordinates = $this -> obfuscate($coordinates);
-                
-                $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
-                $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
-                $listingSQLParams['Latitude'] = $coordinates[":latitude"];
-                $listingSQLParams['Longitude'] = $coordinates[":longitude"];
+	public function addListing($params) {
+
+		$sql = "INSERT INTO listing (StreetNo, StreetName, City, ZIP, "
+				. "Bedrooms, Baths, SqFt, MonthlyRent, Description, "
+				. "Deposit, PetDeposit, KeyDeposit, "
+				. "Electricity, Internet, Water, Gas, Television, Pets, "
+				. "Smoking, Furnished, StartDate, EndDate, Longitude, Latitude "
+				. " VALUES (:streetNo, :streetName, :city, :zipCode"
+				. ",:bedrooms, :baths, :sqFt, :monthlyRent, :description"
+				. ",:deposit, :petDeposit, :keyDeposit, :electricity"
+				. ",:internet, :water, :gas, :television, :pets, :smoking"
+				. ", :furnished, :startDate, :endDate, :longitude, :latitude)";
+		$address = $params[':streetNo'] . " " . $params[':streetName'];
+		$city = $params[':city'];
+
+		$coords = createCoords($address, $city);
+		$coords = obfuscate($coords);
+		$query = $this->db->prepare($sql);
+		$parameters = array($params);
+
+		$parameters = array_merge($parameters, $coords);
 
 
-		//Start of Sql statment
-		$rentalSQL = "INSERT INTO Rentals";
+		$query->execute($parameters);
 
-		//Implode all keys
-		$rentalSQL .= " (" . implode(" , ", array_keys($rentalSQLParams)) . ")";
-		//Implode all values
-		$rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
-		//Insert into Rentals Table
-		$this->db->query($rentalSQL);
-
-		//Get the last inserted ID, which is the thing we just added
-		$last_id = $this->db->lastInsertID();
-
-		/*
-		 *      ADD LISTING TO DB
-		 */
-                
-                try{
-                    //Add listing ID
-                    $listingSQLParams["RentalId"] = $last_id;
-                    //Dummy value for Landlord ID
-                    $listingSQLParams["LandlordId"] = 42;
-                }catch(PDOException $e){
-                    echo 'Database entry Failed:'. $e->getMessage();
-                }
-
-		//Prepate Listing SQL
-		$listingSQL = "INSERT INTO Listings";
-
-		//Implode all keys
-		$listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
-		//Implode all values
-		$listingSQL .= " VALUES('" . implode("' , '", $listingSQLParams) . "')";
-
-                try{
-                    //Insert into Listings Table
-                    $this->db->query($listingSQL);
-                }catch(PDOException $e){
-                    echo 'Database entry Failed:'. $e->getMessage();
-                }
-
-		//For testing only
-		//echo $rentalSQL;
-		echo "<br>" . $listingSQL;
-		//header("Location: ../dashboard");
-		//exit;
 	}
+
+	public function retrieve_listing($listingId): array {
+		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"FROM Listings L, Rentals R " .
+				"WHERE L.Listing=$listingId";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	/*	public function save_listing($params): array{
+			$sql = 	"UPDATE Listings L, Rentals R " .
+					"SET R.StreetNo=$params['streetNo'], R.StreetName=$params['streetName'], R.City=$params['city'], R.ZIP=$params['zip'], L.Bedrooms=$params['bedrooms'], ".
+					"L.Baths=$params['baths'], L.SqFt=$params['sqFt'], L.MonthlyRent=$params['monthlyRent'], ",
+					"L.Description=$params['description'], L.Deposit=$params['deposit'], L.PetDeposit=$params['petDeposit'], L.KeyDeposit=$params['keyDeposit'], " .
+					"L.Electricity=$params['electricity'], L.Internet=$params['internet'], L.Water=$params['water'], L.Gas=$params['gas'], L.Television=$params['television'], ".
+					"L.Pets=$params['pets'], L.Smoking=$params['smoking'], L.Furnished=$params['furnished'], L.StartDate=$params['startDate'], L.EndDate=$params['endDate'] " .
+					"WHERE R.RentalId=L.RentalId AND L.ListingId=$params['ListingId']";
+		} */
 
 	/**
 	 * Add user to database
@@ -367,35 +349,43 @@ class Model {
 		}
 	}
 
-	public function authenticate_user($email, $password): array {
+	public function authenticate_user($email, $password, $url): array {
 
 		$response = array();
 
 		$email = strtolower(trim($email));
 
-		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
-		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
-
-		if (!(validate_email($email) && validate_password($password))) {
+		if (!($this->validate_email($email) && $this->validate_password($password))) {
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
 		}
 
 		try {
-			$sql = "SELECT Address, Password FROM Users U, Emails E WHERE U.UserId=E.UserId AND Address=:email";
+			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password 
+			        FROM Users U, Emails E 
+			        WHERE U.UserId=E.UserId AND Email=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
 
 			while ($results = $query->fetch()) {
-				if (strtolower($results['Address']) === $email) {
+				if (strtolower($results['Email']) === $email) {
 					$verified = password_verify($password, $results['Password']);
 					if ($verified) {
 						$response['status'] = 'success';
-						// Will set login cookie later
+						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
+						$response['name'] = $name;
+						$response['userId'] = $results['UserId'];
+						$this->init_session($results['UserId'], $name);
+						$this->generate_auth_cookie($results['UserId']);
+						header('Location: ' . URL . $url);
 					}
 				}
+			}
+			if (empty($_SESSION)) {
+				$response['status'] = 'error';
+				$response['message'] = 'Username and/or password do not match.';
 			}
 		} catch (Exception $e) {
 			echo 'Caught exception: ', $e->getMessage(), '\n';
@@ -406,28 +396,15 @@ class Model {
 		return $response;
 	}
 
-	public function retrieve_listing($listingsParams): array {
-        $streetNo = $lisitingParams['StreetNo'];
-        $streetName = $listingParams['StreetName'];
-		$sql =  "SELECT StreetNo, StreetName, City, ZIP, " .
-				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
-				"FROM Listings L, Rentals R " .
-				"WHERE R.StreetNo=$streetName AND R.StreetName=$streetName";
-		$query = $this->db->prepare($sql);
-		$query->execute();
-		return $query->fetchAll(PDO::FETCH_ASSOC);
+	private function init_session($userId, $name): bool {
+		if (session_start()) {
+			$_SESSION['UserId'] = $userId;
+			$_SESSION['Name'] = $name;
+			return true;
+		} else {
+			return false;
+		}
 	}
-
-	/*	public function save_listing($params): array{
-			$sql = 	"UPDATE Listings L, Rentals R " .
-					"SET R.StreetNo=$params['streetNo'], R.StreetName=$params['streetName'], R.City=$params['city'], R.ZIP=$params['zip'], L.Bedrooms=$params['bedrooms'], ".
-					"L.Baths=$params['baths'], L.SqFt=$params['sqFt'], L.MonthlyRent=$params['monthlyRent'], ",
-					"L.Description=$params['description'], L.Deposit=$params['deposit'], L.PetDeposit=$params['petDeposit'], L.KeyDeposit=$params['keyDeposit'], " .
-					"L.Electricity=$params['electricity'], L.Internet=$params['internet'], L.Water=$params['water'], L.Gas=$params['gas'], L.Television=$params['television'], ".
-					"L.Pets=$params['pets'], L.Smoking=$params['smoking'], L.Furnished=$params['furnished'], L.StartDate=$params['startDate'], L.EndDate=$params['endDate'] " .
-					"WHERE R.RentalId=L.RentalId AND L.ListingId=$params['ListingId']";
-		} */
 
 	private function validate_email($email): bool {
 		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
@@ -456,9 +433,15 @@ class Model {
 			$token = random_bytes(33);
 			$tokenHash = hash('sha256', $token);
 
-			$sql = "INSERT INTO `AuthTokens` (`UserId`, `TokenHash`, `Expiration`) VALUES (:userId, :tokenHash, :expiration)";
+			$sql = "INSERT INTO `AuthTokens` (`UserId`, `Selector`, `TokenHash`, `Expiration`) 
+			        VALUES (:userId, :selector, :tokenHash, :expiration)";
 			$query = $this->db->prepare($sql);
-			$params = [':userId' => $userId, ':tokenHash' => $tokenHash, ':expiration' => date('Y-m-d\TH:i:s', time() + $ONE_WEEK)];
+			$params = [
+					':userId' => $userId,
+					':selector' => $selector,
+					':tokenHash' => $tokenHash,
+					':expiration' => date('Y-m-d\TH:i:s', time() + $ONE_WEEK)
+			];
 
 			$query->execute($params);
 
@@ -480,7 +463,8 @@ class Model {
 		try {
 			list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
 
-			$sql = "SELECT * FROM AuthTokens WHERE Selector=:selector";
+			$sql = "SELECT A.UserId, FirstName, LastName, Selector, TokenHash, Expiration 
+			        FROM AuthTokens A, Users U WHERE Selector=:selector AND A.UserId=U.UserId";
 			$query = $this->db->prepare($sql);
 			$params = [':selector' => $selector];
 
@@ -489,8 +473,9 @@ class Model {
 
 			if (hash_equals($row['TokenHash'], hash('sha256', base64_decode($token))) && $row['Expiration'] >= time()) {
 				$this->revoke_auth_cookie($userId, $selector);
-				$_SESSION['UserId'] = $row['UserId'];
-				$this->generate_auth_cookie($row['UserId']);
+				$name = $row['FirstName'] . ' ' . substr($row['LastName'], 0, 1) . '.';
+				$this->init_session($userId, $name);
+				$this->generate_auth_cookie($row['A.UserId']);
 				// Then regenerate login token as above
 			}
 		} catch (Exception $e) {
@@ -514,106 +499,18 @@ class Model {
 		}
 	}
 
-    
-    public function send_message($params){
-        $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
-                    VALUES(:senderId, :recipientId, :listingId, :title, :body, :true);";
-        $query = $this->db->prepare($sql);
-        var_dump($params);
-        $query->execute($params);
-    }
+	public function logout() {
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			return;
+		}
+		list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
 
-    public function get_new_messages($userId){
-        $sql = "SELECT MessageId ,SenderId, RecipientId, ListingId, Title, Body 
-                FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=1;";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-
-    }
-
-    public function view_message($messageId){
-        $sql = "UPDATE Messages M 
-                SET IsUnread=0
-                WHERE M.MessageId=$messageId;";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        
-
-        $sql_1 = "SELECT SenderId, RecipientId, ListingId, Title, Body 
-                  FROM Messages M 
-                  WHERE M.MessageId=$messageId;";
-        $query_1 = $this->db->prepare($sql_1);
-        $query_1->execute();
-        return $query_1->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function get_old_messages($userId){
-        $sql = "SELECT MessageId, SenderId, RecipientId, ListingId, Title, Body
-                FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=0;";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query_1->fetchAll(PDO::Fetch_ASSOC);
-
-    }
-    
-    public function delete_message($messageId){
-        $sql = "DELETE FROM Messages
-                WHERE MessageId=$messageId";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-    }
-
-	/**
-	 * Get all songs from database
-	 */
-	public function getAllSongs() {
-		$sql = "SELECT id, artist, track, link FROM song";
-		$query = $this->db->prepare($sql);
-		$query->execute();
-
-		// fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
-		// core/controller.php! If you prefer to get an associative array as the result, then do
-		// $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
-		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
-		return $query->fetchAll();
+		unset($_SESSION['UserId']);
+		unset($_SESSION['Name']);
+		unset($_SESSION);
+		session_destroy();
+		$this->revoke_auth_cookie($userId, $selector);
 	}
-
-
-	/**
-	 * Delete a song in the database
-	 * Please note: this is just an example! In a real application you would not simply let everybody
-	 * add/update/delete stuff!
-	 * @param int $song_id Id of song
-	 */
-	public function deleteSong($song_id) {
-		$sql = "DELETE FROM song WHERE id = :song_id";
-		$query = $this->db->prepare($sql);
-		$parameters = array(':song_id' => $song_id);
-
-		// useful for debugging: you can see the SQL behind above construction by using:
-		// echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-		$query->execute($parameters);
-	}
-
-	/**
-	 * Get a song from database
-	 */
-	public function getSong($song_id) {
-		$sql = "SELECT id, artist, track, link FROM song WHERE id = :song_id LIMIT 1";
-		$query = $this->db->prepare($sql);
-		$parameters = array(':song_id' => $song_id);
-
-		// useful for debugging: you can see the SQL behind above construction by using:
-		// echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-		$query->execute($parameters);
-
-		// fetch() is the PDO method that get exactly one result
-		return $query->fetch();
-	}
-
 
 	/**
 	 * Update a song in database
@@ -637,50 +534,7 @@ class Model {
 
 		$query->execute($parameters);
 	}
-
-	/**
-	 * Get simple "stats". This is just a simple demo to show
-	 * how to use more than one model in a controller (see application/controller/songs.php for more)
-	 */
-	public function getAmountOfSongs() {
-		$sql = "SELECT COUNT(id) AS amount_of_songs FROM song";
-		$query = $this->db->prepare($sql);
-		$query->execute();
-
-		// fetch() is the PDO method that get exactly one result
-		return $query->fetch()->amount_of_songs;
-	}
-
-
-	public function validate($data, $type) {
-
-		if (is_numeric($data)) {
-			if (is_int(intval($data))) {
-				return ($type == "integer");
-			}
-		}
-		if ($data == 'true' || $data == 'false') {
-			return ($type == "boolean");
-		}
-		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $data)) {
-			return ($type == "date");
-		}
-		$temp = DateTime::createFromFormat('Y-m-d', $data);
-
-		if (preg_match("/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $temp)) {
-			return ($type == "date");
-		}
-		return ($type == "string");
-		$sql = "SELECT id, artist, track, link FROM song";
-		$query = $this->db->prepare($sql);
-		$query->execute();
-
-		// fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
-		// core/controller.php! If you prefer to get an associative array as the result, then do
-		// $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
-		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
-		return $query->fetchAll();
-	}
 }
 
 ?>
+
