@@ -12,453 +12,463 @@ $sfsu-purple:      #43428a;
 $purple-hover:     lighten($sfsu-purple, 10%);
 $theme-green:      #77b800;
 
+@import "compass/css3/border-radius";
+
 @mixin centerer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 body {
-    font: $font-size-base $font-family-sans-serif !important;
-    color: $gray-base;
-    background-color: $body-bg;
-    &.home {
-        background: url('../public/img/home-bg.jpg') no-repeat fixed top center;
-    }
+	font: $font-size-base $font-family-sans-serif !important;
+	color: $gray-base;
+	background-color: $body-bg;
+	&.home {
+		background: url('../public/img/home-bg.jpg') no-repeat fixed top center;
+	}
 }
 
 header {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: #ffffff;
-    width: 100%;
-    box-shadow: 0px 1px 5px #444444;
-    height: $navbar-height * 4;
-    &.home {
-        height: $navbar-height * 2;
-    }
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #ffffff;
+	width: 100%;
+	box-shadow: 0px 1px 5px #444444;
+	height: $navbar-height * 4;
+	&.home {
+		height: $navbar-height * 2;
+	}
 }
 
 #navbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: $navbar-height;
-    margin-bottom: $navbar-margin-bottom;
-    padding: $navbar-padding-vertical $navbar-padding-horizontal;
-    color: $navbar-default-color;
-    background: $navbar-default-bg;
-    a {
-        display: inline-block;
-        top: 0;
-        bottom: 0;
-        text-decoration: none;
-        font-size: 1em;
-        font-weight: bold;
-        color: #fff;
-        &:hover {
-            background-color: $purple-hover;
-        }
-    }
-    ul {
-        margin: 0;
-        li {
-            padding: $padding-base-vertical $padding-base-horizontal;
-        }
-    }
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: $navbar-height;
+	margin-bottom: $navbar-margin-bottom;
+	padding: $navbar-padding-vertical $navbar-padding-horizontal;
+	color: $navbar-default-color;
+	background: $navbar-default-bg;
+	a {
+		display: inline-block;
+		top: 0;
+		bottom: 0;
+		text-decoration: none;
+		font-size: 1em;
+		font-weight: bold;
+		color: #fff;
+		&:hover {
+			background-color: #4544cb;
+		}
+	}
+	ul {
+		margin: 0;
+		li {
+			padding: $padding-base-vertical $padding-base-horizontal;
+		}
+	}
 }
 
 ul li {
-    list-style-type: none;
+	list-style-type: none;
 }
 
 .navbar-right {
-    position: absolute;
-    top: $font-size-base / 2;
-    right: $font-size-h2;
-    .btn {
-        margin-right: $padding-large-horizontal;
-        color: $btn-default-color;
-        background: $btn-default-bg;
-        border: 1px solid $btn-default-border;
-        &:hover {
-            color: $btn-default-bg;
-            background-color: white;
-            cursor: pointer;
-        }
-    }
+	position: absolute;
+	top: $font-size-base / 2;
+	right: $font-size-h2;
+	.btn {
+		margin-right: $padding-large-horizontal;
+		color: $btn-default-color;
+		background: $btn-default-bg;
+		border: 1px solid $btn-default-border;
+		&:hover {
+			color: $btn-default-bg;
+			background-color: white;
+			cursor: pointer;
+		}
+	}
 }
 
 .footer a {
-    color: #454545;
+	color: #454545;
 }
 
 #disclaimer {
-    width: 100%;
-    font-size: $font-size-h3;
-    font-weight: bold;
-    color: #ff0000;
-    position: absolute;
-    top: $navbar-height;
-    padding: $padding-base-vertical $padding-base-horizontal;
+	width: 100%;
+	font-size: $font-size-h3;
+	font-weight: bold;
+	color: #ff0000;
+	position: absolute;
+	top: $navbar-height;
+	padding: $padding-base-vertical $padding-base-horizontal;
 }
 
 #wrapper {
-    width: 85%;
-    top: 4em;
-    margin-left: auto;
-    margin-right: auto;
+	width: 85%;
+	top: 4em;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 #search-wrapper {
-    position: absolute;
-    left: 30%;
-    top: 125px;
-    margin: 0 0 0 -305px;
-    width: 80%;
+	position: absolute;
+	left: 30%;
+	top: 125px;
+	margin: 0 0 0 -305px;
+	width: 80%;
 }
 
 #search-wrapper.home {
-    left: 50%;
-    top: 165px;
-    margin: 0 0 0 -445px;
-    width: 750px;
+	left: 50%;
+	top: 165px;
+	margin: 0 0 0 -445px;
+	width: 750px;
 }
 
 #lede {
-    margin-bottom: $form-group-margin-bottom;
-    h1 {
-        font-size: $font-size-h1;
-        color: #fff;
-        text-align: center;
-    }
+	margin-bottom: $form-group-margin-bottom;
+	h1 {
+		font-size: $font-size-h1;
+		color: #fff;
+		text-align: center;
+	}
 }
 
 #search {
-    margin-left: auto;
-    margin-right: auto;
-    &.home {
-        text-align: center;
-    }
-    input[type=text], select {
-        padding: $font-size-large / 2;
-        font-size: $font-size-large;
-    }
-    input[type=text] {
-        width: 55%;
-    }
-    select {
-        @include border-radius(none);
-        width: 20%;
-    }
-    input[type=submit] {
-        padding: $font-size-large / 2;
-        font-size: $font-size-large;
-        margin-left: $form-group-margin-bottom;
+	margin-left: auto;
+	margin-right: auto;
+	input[type=text], select {
+		padding: $font-size-large / 2;
+		font-size: $font-size-large;
+	}
+	input[type=text] {
+		width: 55%;
+	}
+	select {
+		@include border-radius(none);
+		width: 15%;
+	}
+	input[type=submit] {
+		padding: 0.5em;
+		font-size: 1.5em;
+		margin-left: $form-group-margin-bottom;
 
-        color: $btn-default-color;
-        background-color: $btn-default-bg;
-        border: 2px solid $btn-default-border;
-        &:hover {
-            color: $btn-default-bg;
-            background-color: white;
-            cursor: pointer;
-            border: 1px solid $btn-default-border;
-        }
-    }
+		color: $btn-default-color;
+		background-color: $btn-default-bg;
+		border: 2px solid $btn-default-border;
+		&:hover {
+			color: $btn-default-bg;
+			background-color: white;
+			cursor: pointer;
+			border: 1px solid $btn-default-border;
+		}
+	}
 }
 
+#search
 #results-wrapper {
-    position: absolute;
-    top: $navbar-height * 5;
-    width: 67%;
+	position: absolute;
+	top: $navbar-height * 5;
+	width: 67%;
 }
 
 #dashboard-wrapper {
-    position: absolute;
-    top: $navbar-height * 5;
-    width: 85%;
+	position: absolute;
+	top: $navbar-height * 5;
+	width: 85%;
 }
 
 #listing-wrapper {
-    position: absolute;
-    left: 7%;
-    top: 225px;
-    height: 85%;
-    width: 8%;
+	position: absolute;
+	left: 7%;
+	top: 225px;
+	height: 85%;
+	width: 8%;
 }
 
 #page-title {
-    font-size: 24pt;
-    padding: 2%;
-    height: 80px;
-    position: absolute;
-    text-align: center;
-    top: $navbar-height*2;
-    width: 100%;
+	font-size: 24pt;
+	padding: 2%;
+	height: 80px;
+	position: absolute;
+	text-align: center;
+	top: $navbar-height*2;
+	width: 100%;
 }
 
 .listing {
-    display: block;
-    height: $navbar-height * 5;
-    position: relative;
-    clear: both;
-    border-bottom: 1px solid $gray-lighter;
-    margin-bottom: $form-group-margin-bottom;
-    width: 100%;
-    background: #fff;
-    padding: $padding-base-vertical $padding-base-horizontal;
-    @include box-shadow(10px 10px 10px $gray-lighter);
-    &-heading {
-        font-size: $font-size-h3;
-        font-weight: bold;
-        height: $navbar-height;
-        line-height: $navbar-height;
-        clear: both;
-        border-bottom: 1px solid $gray-light;
-        margin-bottom: $form-group-margin-bottom;
-        &-left {
-            position: relative;
-            float: left;
-            clear: left;
-        }
-        &-right {
-            position: relative;
-            float: right;
-            clear: right;
-        }
-    }
+	display: block;
+	height: $navbar-height * 5;
+	position: relative;
+	clear: both;
+	border-bottom: 1px solid $gray-lighter;
+	margin-bottom: $form-group-margin-bottom;
+	width: 100%;
+	background: #fff;
+	padding: $padding-base-vertical $padding-base-horizontal;
+	@include box-shadow(10px 10px 10px $gray-lighter);
+	&-heading {
+		font-size: $font-size-h3;
+		font-weight: bold;
+		height: $navbar-height;
+		line-height: $navbar-height;
+		clear: both;
+		border-bottom: 1px solid $gray-light;
+		margin-bottom: $form-group-margin-bottom;
+		&-left {
+			position: relative;
+			float: left;
+			clear: left;
+		}
+		&-right {
+			position: relative;
+			float: right;
+			clear: right;
+		}
+	}
 
-    &-details {
-        position: relative;
-        &-left {
-            clear: left;
-            float: left;
-        }
-        &-right {
-            clear: right;
-            float: left;
-            margin-left: $padding-large-horizontal;
-            width: 65%;
-        }
-    }
+	&-details {
+		position: relative;
+		&-left {
+			clear: left;
+			float: left;
+		}
+		&-right {
+			clear: right;
+			float: left;
+			margin-left: $padding-large-horizontal;
+		}
+	}
 
-    .rent {
-        color: #4cae4c;
-    }
+	.rent {
+		color: #4cae4c;
+	}
 }
 
 .add-listing {
-    font-size: 12pt;
-    display: block;
-    height: $navbar-height * 17;
-    position: relative;
-    clear: both;
-    top: $navbar-height * 4;
-    border-bottom: 1px solid $gray-lighter;
-    margin: 1% 3% 3%;
-    padding: 3% 3% 3% 5%;
-    width: 94%;
-    background: white;
-    @include box-shadow(10px 10px 10px $gray-lighter);
+	font-size: 1.4em;
+	display: block;
+	height: $navbar-height * 17;
+	position: relative;
+	clear: both;
+	top: $navbar-height * 4;
+	border-bottom: 1px solid $gray-lighter;
+	margin-top: 1%;
+	margin-bottom: 3%;
+	margin-left: 3%;
+	margin-right: 3%;
+	padding: 3%;
+	padding-left: 5%;
 
-    textarea {
-        width: 97%;
-    }
+	width: 94%;
+	background: #fff;
+	@include box-shadow(10px 10px 10px $gray-lighter);
 
-    label {
-        width: 10.3%;
-    }
+	textarea {
+		width: 97%;
+	}
 
-    .input-group{
-        min-width: 10em;
-    }
+	label {
+		width: 10.3%;
+	}
 
-    input[type="date"] {
-        margin-right: 3.2%;
-    }
+	input[type=text], input[type=number] {
+		min-width: 10em;
+		margin-right: 3%;
+		font-size: 19px;
+	}
 
-    #dates {
-        width: 7.6%;
-    }
+	input[type=date] {
+		margin-right: 3.2%;
+		width: 13.4%;
+		font-size: .87em;
+	}
 
-    text {
-        display: inline-block;
-        width: 24.6%;
-        color: green;
-        visibility: hidden;
-    }
+	#dates {
+		width: 7.6%;
+	}
 
-    .form-group {
-        display: inline-block;
-        width: 21.4%;
-        margin-right: 3.3%;
-        font-size: 12pt;
-    }
+	text {
+		display: inline-block;
+		width: 24.6%;
+		color: green;
+		visibility: hidden;
+	}
 
+	.form-group {
+		display: inline-block;
+		width: 24%;
+	}
+
+	.input-group {
+		font-size: 19px;
+	}
 }
+
 .edit-listing {
-    font-size: 1.4em;
-    display: block;
-    height: $navbar-height * 7;
-    position: relative;
-    clear: both;
-    border-bottom: 1px solid $gray-lighter;
-    margin-bottom: $form-group-margin-bottom;
-    width: 100%;
-    background: #fff;
-    padding: $padding-base-vertical $padding-base-horizontal;
-    @include box-shadow(10px 10px 10px $gray-lighter);
+	font-size: 1.4em;
+	display: block;
+	height: $navbar-height * 7;
+	position: relative;
+	clear: both;
+	border-bottom: 1px solid $gray-lighter;
+	margin-bottom: $form-group-margin-bottom;
+	width: 100%;
+	background: #fff;
+	padding: $padding-base-vertical $padding-base-horizontal;
+	@include box-shadow(10px 10px 10px $gray-lighter);
 
-    .input-group {
-        font-size: 19px;
-    }
-    .form-control {
-        display: inline-block;
-    }
+	.input-group {
+		font-size: 19px;
+	}
+	.form-control {
+		display: inline-block;
+	}
 
-    input[type=number] {
-        step: .01;
-    }
+	input[type=number] {
+		step: .01;
+	}
 
-    &-heading {
-        font-size: $font-size-h4;
-        font-weight: bold;
-        height: $navbar-height;
-        line-height: $navbar-height;
-        clear: both;
-        border-bottom: 1px solid $gray-light;
-        margin-bottom: $form-group-margin-bottom;
-        &-left {
-            position: relative;
-            float: left;
-            clear: left;
-            width: 80%;
-        }
-        &-right {
-            position: relative;
-            float: right;
-            clear: right;
-            width: 16%;
-        }
-    }
+	&-heading {
+		font-size: $font-size-h4;
+		font-weight: bold;
+		height: $navbar-height;
+		line-height: $navbar-height;
+		clear: both;
+		border-bottom: 1px solid $gray-light;
+		margin-bottom: $form-group-margin-bottom;
+		&-left {
+			position: relative;
+			float: left;
+			clear: left;
+			width: 80%;
+		}
+		&-right {
+			position: relative;
+			float: right;
+			clear: right;
+			width: 16%;
+		}
+	}
 
-    &-details {
-        border-bottom: 1px solid $gray-light;
-        margin-bottom: $form-group-margin-bottom;
-        height: 220 - $navbar-height;
-        position: relative;
-        &-left {
-            position: relative;
-            float: left;
-            clear: left;
-            width: 42%;
-            image {
-                float: left;
-            }
-        }
+	&-details {
+		border-bottom: 1px solid $gray-light;
+		margin-bottom: $form-group-margin-bottom;
+		height: 220 - $navbar-height;
+		position: relative;
+		&-left {
+			position: relative;
+			float: left;
+			clear: left;
+			width: 42%;
+			image {
+				float: left;
+			}
+		}
 
-        &-right {
-            font-size: .9em;
-            clear: right;
-            width: 58%;
-            height: 100%;
-            float: right;
+		&-right {
+			font-size: .9em;
+			clear: right;
+			width: 58%;
+			height: 100%;
+			float: right;
 
-            #inputSmall {
-                font-size: .9em;
-                width: 90%;
-                height: 25%;
-                margin: 1%;
-            }
-            .col1 {
-                width: 22%;
-                float: left;
-            }
-            .col2 {
-                width: 22%;
-                float: left;
-            }
-            .col3 {
-                width: 22%;
-                float: left;
-            }
-            .col4 {
-                width: 30%;
-                float: left;
-            }
-            label {
-                font-size: .8em;
-            }
+			#inputSmall {
+				font-size: .9em;
+				width: 90%;
+				height: 25%;
+				margin: 1%;
+			}
+			.col1 {
+				width: 22%;
+				float: left;
+			}
+			.col2 {
+				width: 22%;
+				float: left;
+			}
+			.col3 {
+				width: 22%;
+				float: left;
+			}
+			.col4 {
+				width: 30%;
+				float: left;
+			}
+			label {
+				font-size: .8em;
+			}
 
-        }
-    }
+		}
+	}
 
-    &-checkboxes {
-        bottom: 1%;
-        label {
-            width: 7%;
-            font-size: .8em;
-            margin-right: 2%;
-        }
-    }
-    button {
-        width: 115px;
-        float: right;
-    }
-    #save {
-        bottom: 2%;
-    }
-    #delete {
-        background-color: red;
-        float: left;
-        border-color: red;
-    }
-    #delete:hover {
-        background-color: darkred;
-        border-color: darkred;
-    }
+	&-checkboxes {
+		bottom: 1%;
+		label {
+			width: 7%;
+			font-size: .8em;
+			margin-right: 2%;
+		}
+		button {
+			width: 115px;
+			float: right;
+		}
+		#save {
+			bottom: 2%;
+		}
+		#delete {
+			background-color: red;
+			float: left;
+			border-color: red;
+		}
+		#delete:hover {
+			background-color: darkred;
+			border-color: darkred;
+		}
+	}
 
+	textarea {
+		width: 52%;
+		height: 113pt;
+		font-size: .8em;
+	}
 
-    textarea {
-        width: 52%;
-        height: 113pt;
-        font-size: .8em;
-    }
+	.address, input[type=text], input[type=number] {
+		width: 22.5%;
+		height: 55%;
+		margin-right: 1%;
+	}
 
-    .address, input[type=text], input[type=number] {
-        width: 22.5%;
-        height: 55%;
-        margin-right: 1%;
-    }
+	.inputSmall {
+		width: 9%;
+		height: 55%;
+		margin-right: 1%;
+	}
 
-    .inputSmall {
-        width: 9%;
-        height: 55%;
-        margin-right: 1%;
-    }
-
-    .rent {
-        width: 40%;
-        height: 55%;
-        color: #4cae4c;
-    }
+	.rent {
+		width: 40%;
+		height: 55%;
+		color: #4cae4c;
+	}
 
 }
 
 .center {
-    @include centerer;
+	@include centerer;
 }
 
 #form-wrapper {
-    text-align: center;
+	text-align: center;
 }
 
 .form-input {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .required-field-block {
@@ -526,7 +536,7 @@ ul li {
     margin: -3px 0 0 12px;
 }
 
-.bottom-right {
+.bottom-right{
     position: absolute;
     top: 80%;
     left: 85%;

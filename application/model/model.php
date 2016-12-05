@@ -301,7 +301,30 @@ class Model {
                 return $listing_id;
 		//header("Location: ../dashboard");
 		//exit;
+		$query->execute($parameters);
+
 	}
+
+	public function retrieve_listing($listingId): array {
+		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"FROM Listings L, Rentals R " .
+				"WHERE L.Listing=$listingId";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	/*	public function save_listing($params): array{
+			$sql = 	"UPDATE Listings L, Rentals R " .
+					"SET R.StreetNo=$params['streetNo'], R.StreetName=$params['streetName'], R.City=$params['city'], R.ZIP=$params['zip'], L.Bedrooms=$params['bedrooms'], ".
+					"L.Baths=$params['baths'], L.SqFt=$params['sqFt'], L.MonthlyRent=$params['monthlyRent'], ",
+					"L.Description=$params['description'], L.Deposit=$params['deposit'], L.PetDeposit=$params['petDeposit'], L.KeyDeposit=$params['keyDeposit'], " .
+					"L.Electricity=$params['electricity'], L.Internet=$params['internet'], L.Water=$params['water'], L.Gas=$params['gas'], L.Television=$params['television'], ".
+					"L.Pets=$params['pets'], L.Smoking=$params['smoking'], L.Furnished=$params['furnished'], L.StartDate=$params['startDate'], L.EndDate=$params['endDate'] " .
+					"WHERE R.RentalId=L.RentalId AND L.ListingId=$params['ListingId']";
+		} */
 
 	/**
 	 * Add user to database
@@ -372,35 +395,43 @@ class Model {
 		}
 	}
 
-	public function authenticate_user($email, $password): array {
+	public function authenticate_user($email, $password, $url): array {
 
 		$response = array();
 
 		$email = strtolower(trim($email));
 
-		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
-		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
-
-		if (!(validate_email($email) && validate_password($password))) {
+		if (!($this->validate_email($email) && $this->validate_password($password))) {
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
 		}
 
 		try {
-			$sql = "SELECT Address, Password FROM Users U, Emails E WHERE U.UserId=E.UserId AND Address=:email";
+			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password 
+			        FROM Users U, Emails E 
+			        WHERE U.UserId=E.UserId AND Email=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
 
 			while ($results = $query->fetch()) {
-				if (strtolower($results['Address']) === $email) {
+				if (strtolower($results['Email']) === $email) {
 					$verified = password_verify($password, $results['Password']);
 					if ($verified) {
 						$response['status'] = 'success';
-						// Will set login cookie later
+						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
+						$response['name'] = $name;
+						$response['userId'] = $results['UserId'];
+						$this->init_session($results['UserId'], $name);
+						$this->generate_auth_cookie($results['UserId']);
+						header('Location: ' . URL . $url);
 					}
 				}
+			}
+			if (empty($_SESSION)) {
+				$response['status'] = 'error';
+				$response['message'] = 'Username and/or password do not match.';
 			}
 		} catch (Exception $e) {
 			echo 'Caught exception: ', $e->getMessage(), '\n';
@@ -411,26 +442,15 @@ class Model {
 		return $response;
 	}
 
-	public function retrieve_listing($listingId): array {
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
-				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
-				"FROM Listings L, Rentals R " .
-				"WHERE L.Listing=$listingId";
-		$query = $this->db->prepare($sql);
-		$query->execute();
-		return $query->fetchAll(PDO::FETCH_ASSOC);
+	private function init_session($userId, $name): bool {
+		if (session_start()) {
+			$_SESSION['UserId'] = $userId;
+			$_SESSION['Name'] = $name;
+			return true;
+		} else {
+			return false;
+		}
 	}
-
-	/*	public function save_listing($params): array{
-			$sql = 	"UPDATE Listings L, Rentals R " .
-					"SET R.StreetNo=$params['streetNo'], R.StreetName=$params['streetName'], R.City=$params['city'], R.ZIP=$params['zip'], L.Bedrooms=$params['bedrooms'], ".
-					"L.Baths=$params['baths'], L.SqFt=$params['sqFt'], L.MonthlyRent=$params['monthlyRent'], ",
-					"L.Description=$params['description'], L.Deposit=$params['deposit'], L.PetDeposit=$params['petDeposit'], L.KeyDeposit=$params['keyDeposit'], " .
-					"L.Electricity=$params['electricity'], L.Internet=$params['internet'], L.Water=$params['water'], L.Gas=$params['gas'], L.Television=$params['television'], ".
-					"L.Pets=$params['pets'], L.Smoking=$params['smoking'], L.Furnished=$params['furnished'], L.StartDate=$params['startDate'], L.EndDate=$params['endDate'] " .
-					"WHERE R.RentalId=L.RentalId AND L.ListingId=$params['ListingId']";
-		} */
 
 	private function validate_email($email): bool {
 		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
@@ -459,9 +479,15 @@ class Model {
 			$token = random_bytes(33);
 			$tokenHash = hash('sha256', $token);
 
-			$sql = "INSERT INTO `AuthTokens` (`UserId`, `TokenHash`, `Expiration`) VALUES (:userId, :tokenHash, :expiration)";
+			$sql = "INSERT INTO `AuthTokens` (`UserId`, `Selector`, `TokenHash`, `Expiration`) 
+			        VALUES (:userId, :selector, :tokenHash, :expiration)";
 			$query = $this->db->prepare($sql);
-			$params = [':userId' => $userId, ':tokenHash' => $tokenHash, ':expiration' => date('Y-m-d\TH:i:s', time() + $ONE_WEEK)];
+			$params = [
+					':userId' => $userId,
+					':selector' => $selector,
+					':tokenHash' => $tokenHash,
+					':expiration' => date('Y-m-d\TH:i:s', time() + $ONE_WEEK)
+			];
 
 			$query->execute($params);
 
@@ -483,7 +509,8 @@ class Model {
 		try {
 			list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
 
-			$sql = "SELECT * FROM AuthTokens WHERE Selector=:selector";
+			$sql = "SELECT A.UserId, FirstName, LastName, Selector, TokenHash, Expiration 
+			        FROM AuthTokens A, Users U WHERE Selector=:selector AND A.UserId=U.UserId";
 			$query = $this->db->prepare($sql);
 			$params = [':selector' => $selector];
 
@@ -492,8 +519,9 @@ class Model {
 
 			if (hash_equals($row['TokenHash'], hash('sha256', base64_decode($token))) && $row['Expiration'] >= time()) {
 				$this->revoke_auth_cookie($userId, $selector);
-				$_SESSION['UserId'] = $row['UserId'];
-				$this->generate_auth_cookie($row['UserId']);
+				$name = $row['FirstName'] . ' ' . substr($row['LastName'], 0, 1) . '.';
+				$this->init_session($userId, $name);
+				$this->generate_auth_cookie($row['A.UserId']);
 				// Then regenerate login token as above
 			}
 		} catch (Exception $e) {
@@ -562,9 +590,17 @@ class Model {
 		// echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 
 		$query->execute($parameters);
+	public function logout() {
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			return;
+		}
+		list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
 
-		// fetch() is the PDO method that get exactly one result
-		return $query->fetch();
+		unset($_SESSION['UserId']);
+		unset($_SESSION['Name']);
+		unset($_SESSION);
+		session_destroy();
+		$this->revoke_auth_cookie($userId, $selector);
 	}
 
 	/**
