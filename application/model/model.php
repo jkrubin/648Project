@@ -363,9 +363,7 @@ class Model {
 	}
 
 	public function retrieve_listing($listingId): array {
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
-				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+		$sql = "SELECT *" .
 				"FROM Listings L, Rentals R " .
 				"WHERE L.Listing=$listingId";
 		$query = $this->db->prepare($sql);
