@@ -230,7 +230,6 @@ class Model {
 	/**
 	 * Takes in an array of Listing parameters, prepares and executes SQL
 	 * Query to put it into DB
-	 *
 	 */    
         public function addListing($rentalSQLParams, $listingSQLParams) {         
             /*
@@ -239,14 +238,12 @@ class Model {
             //RENTAL ID
             $rentalSQLParams["RentalTypeId"] = 1;
             
-            
             //Start of Sql statment
             $rentalSQL = "INSERT INTO Rentals";
-
             //Implode all keys
             $rentalSQL .= " (" . implode(" , ", array_keys($rentalSQLParams)) . ")";
             //Implode all values
-            $rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
+            $rentalSQL .= " VALUES('" . implode("' , '",$rentalSQLParams) . "')";
             //Insert into Rentals Table
             $this->db->query($rentalSQL);
 
@@ -276,8 +273,7 @@ class Model {
             //For testing only
             //echo $rentalSQL;
             echo "<br>" . $listingSQL;
-            //header("Location: ../dashboard");
-            //exit;
+
         }
 
 	/**
