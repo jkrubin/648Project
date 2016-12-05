@@ -143,14 +143,8 @@ class Listing extends Controller {
             echo "<br>Rentals array: <br>";
             var_dump($rentalSQLPairs);
             
-            //$this->handle_blob();
-            
-            $img_info = getimagesize($_FILES['images']['tmp_name']);
-
-            $img_temp = $_FILES['images']['tmp_name'];
-
-            $this->model->submit_blob($img_info,$img_temp);
-            
+            $this->handle_blob();
+                        
             $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
 
         }
@@ -159,12 +153,20 @@ class Listing extends Controller {
     
     public function handle_blob(){
 
-        if (isset($_POST["submit_listing"])){
+        if (isset($_FILES["images"])){
+            
+            echo" <br>EFRUGBEIUBJNB<br>";
+            
             $img_info = getimagesize($_FILES['images']['tmp_name']);
 
             $img_temp = $_FILES['images']['tmp_name'];
 
             $this->model->submit_blob($img_info,$img_temp);
+        } else{
+            echo" <br>fuck me <br>_files arr: ";
+            var_dump($_FILES);
+            echo "<br>";
+            var_dump($_POST);
         }
         
     }

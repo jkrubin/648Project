@@ -2,7 +2,7 @@
 
 <div class="add-listing">
     <div>
-        <form data-toggle="validator" role="form" action="<?php echo URL; ?>listing/addlisting" method="POST"><br>
+        <form data-toggle="validator" role="form" method="post" enctype="multipart/form-data" action="<?php echo URL; ?>listing/addlisting"><br>
             <text id="showLabelSTNo">Street Number</text>
             <text id="showLabelSTName">Street Name</text>
             <text id="showLabelCity">City</text>
@@ -150,7 +150,7 @@
     <input type="checkbox" id="television" name="television"/> <label for="television">Television</label>
     <input type="checkbox" id="furished" name="furnished"/> <label for="furnished">Furnished</label><br><br><br>
     Add images:<br><br>
-    <input type="file" id= "images" name="images" value="Upload Images of the Listing"/><br><br><br>
+    <input type="file" id="images" name="images" value="Upload Images of the Listing"/><br><br><br>
     <input type="checkbox" name="agree"/> By checking, I accept the <a href="#">Terms of Service</a>
     <input type="submit" id="button" class="btn btn-default" name ="submit_listing" value="Create Listing" />
 </form>
