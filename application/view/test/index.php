@@ -76,8 +76,9 @@
     <script>
       var index = 0;
       function makeMap() {
-
+        //Coordinates for the center of SF.
         var sf = {lat: 37.7219, lng: -122.4782};
+        //holds all the lat lng that you give to it.
         var coords = [
         <?php 
             foreach($coords as $value){
@@ -102,7 +103,7 @@
         var marker = new Array();
         var circle = new Array();
 
-        //Creates a red circle on the map over the given center
+        
         for(i=0; i< coords.length; i++){
             var spot = new google.maps.LatLng(coords[i][0], coords[i][1]);
             circle[i] = new google.maps.Circle(
@@ -116,6 +117,7 @@
           	    center: spot,
           	    radius: 100
         	    });
+            //creates markers for the coords
             marker[i] = new google.maps.Marker({
                 position: spot,
                 map: map
@@ -123,7 +125,7 @@
             circle[i].setVisible(false);
             
         }
-        
+            //WIP: need to create listeners that work with multiple circles.
       }
     </script>
     <!--the google API key.-->

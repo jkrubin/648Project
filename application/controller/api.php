@@ -51,9 +51,9 @@ Class Api extends Controller{
             
         }
 
-        public function retrieveListing(): array{
-            if(array_key_exists('listingId', $_POST[])){
-                $response = $this->model->retrieve_listing($_POST['listingId']);
+        public function retrieveListing($listingId): array{
+            if(array_key_exists('listingId', $listingId)){
+                $response = $this->model->retrieve_listing($listingId);
             }else{
                 $response['status'] = 'error';
                 $response['message'] = 'cannot find listing';
