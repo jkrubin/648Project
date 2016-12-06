@@ -5,9 +5,15 @@ Class Message_Center extends Controller {
     public function index() {
         // load views
         require APP . 'view/_templates/header.php';
-        require APP . 'view/message_center/index.php';
-        require APP . 'view/_templates/footer.php';
-    }
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/default_navbar.php';
+			require APP . 'view/_templates/login_modal.php';
+		} else {
+			require APP . 'view/_templates/user_navbar.php';
+		}
+		require APP . 'view/message_center/index.php';
+		require APP . 'view/_templates/footer.php';
+	}
 
     public function sendMessage() {
         try {
