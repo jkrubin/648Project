@@ -536,7 +536,6 @@ class Model {
 			$sql = "DELETE FROM AuthTokens WHERE Selector=:selector AND UserId=:userId";
 			$query = $this->db->prepare($sql);
 			$params = [':selector' => $selector, ':userId' => $userId];
-
 			$query->execute($params);
 			return true;
 		} catch (Exception $e) {
@@ -590,6 +589,7 @@ class Model {
 		// echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 
 		$query->execute($parameters);
+        }
 	public function logout() {
 		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
 			return;

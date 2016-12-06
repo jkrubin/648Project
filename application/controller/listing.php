@@ -1,3 +1,5 @@
+
+
 <?php
 
 /**
@@ -9,23 +11,17 @@
  *
  */
 class Listing extends Controller {
-	/**
-	 * PAGE: index
-	 * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
-	 */
-	public function index() {
-		// load views
-		require APP . 'view/_templates/header.php';
-		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
-			require APP . 'view/_templates/default_navbar.php';
-			require APP . 'view/_templates/login_modal.php';
-		} else {
-			require APP . 'view/_templates/user_navbar.php';
-		}
-		require APP . 'view/listing/index.php';
-		require APP . 'view/_templates/footer.php';
+    /**
+     * PAGE: index
+     * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
+     */
+    public function index() {
+            // load views
+            require APP . 'view/_templates/header.php';
+            require APP . 'view/listing/index.php';
+            require APP . 'view/_templates/footer.php';
 
-	}
+    }
 
     public function addListing(){
         
@@ -90,16 +86,11 @@ class Listing extends Controller {
         $rentalSQLPairs=array();
         $listingSQLPairs=array();
 
-		/*********************************************
-		 *   EMPTY ARRAYS FOR RENTAL AND LISTING SQL
-		 *
-		 *   SQL KEY WORD --> INPUT VALUE FROM FORM
-		 ********************************************/
-		$rentalSQLPairs = array();
-		$listingSQLPairs = array();
+        //Create new listing if we have post data from submit_listing
+        if (isset($_POST["submit_listing"])){
 
-		//Create new listing if we have post data from submit_listing
-		if (isset($_POST["submit_listing"])) {
+            //Get Array of $_POST keys
+            $postKeys = array_keys($_POST);
 
                         //Iterate through post keys
             foreach($postKeys as $postKey){
@@ -163,8 +154,7 @@ class Listing extends Controller {
             
             $this->handle_blob($id);
 
-			//Iterate through post keys
-			foreach ($postKeys as $postKey) {
+        }
 
     }
 
@@ -183,3 +173,4 @@ class Listing extends Controller {
         
     }
 }
+
