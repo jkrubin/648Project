@@ -544,6 +544,56 @@ class Model {
 		}
 	}
 
+    
+    public function send_message($params){
+        $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
+                    VALUES(:senderId, :recipientId, :listingId, :title, :body, :true);";
+        $query = $this->db->prepare($sql);
+        var_dump($params);
+        $query->execute($params);
+    }
+
+    public function get_new_messages($userId){
+        $sql = "SELECT MessageId ,SenderId, RecipientId, ListingId, Title, Body 
+                FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=1;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function view_message($messageId){
+        $sql = "UPDATE Messages M 
+                SET IsUnread=0
+                WHERE M.MessageId=$messageId;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        
+
+        $sql_1 = "SELECT SenderId, RecipientId, ListingId, Title, Body 
+                  FROM Messages M 
+                  WHERE M.MessageId=$messageId;";
+        $query_1 = $this->db->prepare($sql_1);
+        $query_1->execute();
+        return $query_1->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_old_messages($userId){
+        $sql = "SELECT MessageId, SenderId, RecipientId, ListingId, Title, Body
+                FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=0;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query_1->fetchAll(PDO::Fetch_ASSOC);
+
+    }
+    
+    public function delete_message($messageId){
+        $sql = "DELETE FROM Messages
+                WHERE MessageId=$messageId";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+    }
+
 	/**
 	 * Get all songs from database
 	 */
@@ -602,6 +652,7 @@ class Model {
 		session_destroy();
 		$this->revoke_auth_cookie($userId, $selector);
 	}
+
 
 	/**
 	 * Update a song in database

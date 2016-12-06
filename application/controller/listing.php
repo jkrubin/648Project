@@ -16,10 +16,16 @@ class Listing extends Controller {
      * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
      */
     public function index() {
-            // load views
-            require APP . 'view/_templates/header.php';
-            require APP . 'view/listing/index.php';
-            require APP . 'view/_templates/footer.php';
+		// load views
+		require APP . 'view/_templates/header.php';
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/default_navbar.php';
+			require APP . 'view/_templates/login_modal.php';
+		} else {
+			require APP . 'view/_templates/user_navbar.php';
+		}
+		require APP . 'view/listing/index.php';
+		require APP . 'view/_templates/footer.php';
 
     }
 
@@ -118,7 +124,7 @@ class Listing extends Controller {
                     
                     //Validate the type
                     if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
-                        if($formProperties[$postKey]['inputCH'] == TRUE){
+                        if($formProperties[$postKey]['isCheckBox'] == TRUE){
                             //Input of check mark forms change to 1 in stead of 'on'
                             //Change input and put into array
                             $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=1;

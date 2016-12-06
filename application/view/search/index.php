@@ -2,9 +2,15 @@
 
 <div id="wrapper">
 	<div id="search-wrapper">
-		<form id="search" class="home" action="<?php echo URL; ?>search" method="GET">
+		<form id="search" action="<?php echo URL; ?>search" method="GET">
 			<input type="text" name="q"
-			       placeholder="Enter City" <?php if (!empty($_GET['q'])) echo "value='" . $_GET["q"] . "'"; ?> />
+			       placeholder="Enter City or ZIP" <?php if (!empty($_GET['q'])) echo "value='" . $_GET["q"] . "'"; ?> />
+			<select name="br">
+				<option value="0" <?php if ($_GET["br"] === '0') echo ' selected="selected"'; ?>>Studio</option>
+				<option value="1" <?php if ($_GET["br"] === '1') echo ' selected="selected"'; ?>>1 Bedroom</option>
+				<option value="2" <?php if ($_GET["br"] === '2') echo ' selected="selected"'; ?>>2 Bedroom</option>
+				<option value="3" <?php if ($_GET["br"] === '3') echo ' selected="selected"'; ?>>3+ Bedroom</option>
+			</select>
 			<input type="submit" class="btn btn-default" value="Search"/>
 		</form>
 	</div>
@@ -44,9 +50,23 @@
 				# Listing summary
 				echo "		<div class='listing-details-right'>\n";
 				echo "			<ul>\n";
-				echo "				<li class='bedrooms'>$bedrooms bedrooms</li>\n";
-				echo "				<li class='baths'>$baths baths</li>\n";
+				echo "				<li class='bedrooms'>";
+				if ($bedrooms == 0) {
+					echo "Studio";
+				} else if ($bedrooms == 1) {
+					echo "$bedrooms bedroom";
+				} else {
+					echo "$bedrooms bedrooms";
+				}
+				echo "</li>\n";
+
+				echo "				<li class='baths'>$baths bath";
+				if ($baths > 1) {
+					echo "s";
+				}
+				echo "</li>\n";
 				echo "			</ul>\n";
+
 				if (!empty($description)) {
 					echo "			<p class='description'>$description</p>\n";
 				}
@@ -74,8 +94,15 @@
 
 								<img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
 
-								<div class="col-sm-4 col-sm-offset-4">
-									<input class="form-input form-control" type="text" name="subject" placeholder="Subject" required/>
+								<div class="col-sm-8">
+									<div class="address">
+										<p>900 Folsom St</p>
+										<p>San Francisco, CA 94105</p>
+									</div>
+									<div class="rental-details">
+										<p><span class="bedrooms">Studio</span> &nbsp; <span class="baths">1 Bath</span></p>
+									</div>
+									<input class="form-input form-control" type="text" name="subject" placeholder="Subject" required="">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
