@@ -5494,7 +5494,7 @@ tbody.collapse.in {
 /* line 96, ../../../../../../../Ruby23/lib/ruby/gems/2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_navs.scss */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #f4f4f4;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -7688,6 +7688,7 @@ button.list-group-item-danger.active:focus {
 /* line 30, ../../../../../../../Ruby23/lib/ruby/gems/2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_close.scss */
 button.close {
   padding: 0;
+  padding-right: 4%;
   cursor: pointer;
   background: transparent;
   border: 0;

@@ -58,6 +58,9 @@
 
 			<!-- Modal Tabs-->
 			<div class="bs-example bs-example-tabs">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 				<ul class="nav nav-tabs" id="myTab">
 					<li class=""><a href="#signup" data-toggle="tab">Sign up</a></li>
 					<li class="active"><a href="#login" data-toggle="tab">Log in</a></li>

@@ -57,6 +57,9 @@
 		<div class="modal-dialog">
 			<div class="modal-content"><br>
 				<div class="modal-header text-center">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 					<h class="modal-title">Message Landlord</h>
 				</div>
 				<!-- Modal Forms-->
