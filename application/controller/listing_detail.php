@@ -40,5 +40,15 @@ class Listing_detail extends Controller {
 		return $this->model->obfuscate($coords);
 	}
 	
+	public function retrieveListing($listingId): array{
+            if(true){
+                $response = $this->model->retrieve_listing($listingId);
+            }else{
+                $response['status'] = 'error';
+                $response['message'] = 'cannot find listing';
+            }
+            return $response;
+        }
+	
         
 }

@@ -1,41 +1,4 @@
-<script>
-  //places a marker at position on map
 
-  function initMap() {
-    //takes the longitude and latitude form the database and inserts it into coords. See test.php for details
-    var coords = {lat: <?php echo $latitude;?> , lng: <?php echo $longitude; ?>
-    };
-    //creates the google map object with a specified zoom and center-->
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 18,
-      center: coords
-    });
-
-    //Creates a red circle on the map over the given center
-    var circle = new google.maps.Circle(
-	    {
-	    strokeColor: '#FF0000',
-	    strokeOpacity: 0.8,
-	    strokeWeight: 2,
-	    fillColor: '#FF0000',
-	    fillOpacity: 0.35,
-	    map: map,
-	    center: coords,
-	    radius: 100
-	    });
-    var marker = new google.maps.Marker({
-	position: coords,
-	map: map
-    });
-    marker.setVisible(false);
-    google.maps.event.addListener(map, 'zoom_changed', function() {
-      var zoom = map.getZoom();
-
-      marker.setVisible(zoom < 18);
-      circle.setVisible(zoom >= 18);
-    });
-  }
-</script>
 
 <div id='return-button'>
 	<a href="<?php echo URL; ?>search">
@@ -45,14 +8,18 @@
 
 <div class='detail-listing'>        
 	<?php
-	$row = $_GET["detail"];
-	$rent = $row["MonthlyRent"];
-	$address = $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
-	$bedrooms = $row['Bedrooms'];
-	$baths = $row['Baths'];
-	$sqft = $row['SqFt'];
-	if(!empty($row['Description'])){
-		$description = $row['Description'];
+	$id = $_GET["detail"];
+	#grab listing based on id
+	$listing = $this->retrieveListing($id);
+	$latitude = $listing[0]["Latitude"];
+	$longitude = $listing[0]["Longitude"];
+	$rent = $listing[0]["MonthlyRent"];
+	$address = $listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
+	$bedrooms = $listing[0]['Bedrooms'];
+	$baths = $listing[0]['Baths'];
+	$sqft = $listing[0]['SqFt'];
+	if(!empty($listing[0]['Description'])){
+		$description = $listing[0]['Description'];
 	}
 				
 	echo "<div class='row'>";
@@ -147,4 +114,41 @@
 	
 </div>
 
+<script>
+  //places a marker at position on map
 
+  function initMap() {
+    //takes the longitude and latitude form the database and inserts it into coords. See test.php for details
+    var coords = {lat: <?php echo $latitude;?> , lng: <?php echo $longitude; ?>
+    };
+    //creates the google map object with a specified zoom and center-->
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 18,
+      center: coords
+    });
+
+    //Creates a red circle on the map over the given center
+    var circle = new google.maps.Circle(
+	    {
+	    strokeColor: '#FF0000',
+	    strokeOpacity: 0.8,
+	    strokeWeight: 2,
+	    fillColor: '#FF0000',
+	    fillOpacity: 0.35,
+	    map: map,
+	    center: coords,
+	    radius: 100
+	    });
+    var marker = new google.maps.Marker({
+	position: coords,
+	map: map
+    });
+    marker.setVisible(false);
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      var zoom = map.getZoom();
+
+      marker.setVisible(zoom < 18);
+      circle.setVisible(zoom >= 18);
+    });
+  }
+</script>

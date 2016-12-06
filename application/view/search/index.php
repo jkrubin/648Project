@@ -24,7 +24,7 @@
 				$sqft = $row['SqFt'];
 				$description = $row['Description'];
 				#convert $row into URL rncoded query string
-				$query = http_build_query(array('detail' => $row));
+				$idPass = http_build_query(array('detail' => $row["ListingId"]));
 
 				echo "<li class='listing'>\n";
 
@@ -44,7 +44,8 @@
 				echo "	<div class='listing-details'>\n";
 				# Photos window
 				echo "		<div class='photos listing-details-left'>\n";
-				echo "    	<a href='" . URL . "listing_detail?$query'> ";
+				#passes ListingId to Listing_detail page
+				echo "    	<a href='" . URL . "listing_detail?$idPass'> ";
 				echo "			<img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/> ";
 				echo "		</a>\n";
 				echo "		</div>\n";

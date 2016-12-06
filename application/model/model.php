@@ -389,11 +389,19 @@ class Model {
 	}
 
 	public function retrieve_listing($listingId): array {
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+	    
+		$sql = "SELECT RentalId FROM Listings WHERE ListingId = $listingId";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);		
+		
+		$rentalId = $result[0]['RentalId'];
+		
+		$sql =		"SELECT StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate, L.Latitude, L.Longitude " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.Listing=$listingId";
+				"WHERE L.RentalId= $rentalId AND R.RentalId=$rentalId;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
