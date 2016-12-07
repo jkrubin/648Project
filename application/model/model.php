@@ -248,9 +248,30 @@ class Model {
                 $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
                 $listingSQLParams['Latitude'] = $coordinates[":latitude"];
                 $listingSQLParams['Longitude'] = $coordinates[":longitude"];
-
-
-		//Start of Sql statment
+                
+                //Distance API
+                //Google URL for  rental distance
+                
+                $baseURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+                $rentalCoords = "&origins=" . $rentalSQLParams['Latitude'] . "," . $rentalSQLParams['Longitude'];
+                $school = "&destinations=place_id:ChIJEaQJfqV9j4ARm8dWmX2G82s";
+                $key = "&key=AIzaSyB7EOI6z0RYwDHp5JE7IDcqDhXeRXrcurk";
+                $rentalDistanceURL = $baseURL . $rentalCoords . $school . $key;
+                
+                $rentalResponse = file_get_contents($rentalDistanceURL);
+                $result = json_decode($rentalResponse,true);
+                 
+                // distance value from json
+                $distance= $result['rows'][0]['elements'][0]['distance']['text'];
+                
+                // TEST 
+                echo "<br>" . $distance;
+                $sql = "INSERT INTO Rentals ('Distance') VALUES (:distance)"; 
+                $query = $this->db->prepare($sql);
+                $parameters = [':distance'=>$distance];
+                $query->execute($parameters); //ERROR HERE
+                             
+             	//Start of Sql statment
 		$rentalSQL = "INSERT INTO Rentals";
 
 		//Implode all keys
@@ -276,6 +297,22 @@ class Model {
                     echo 'Database entry Failed:'. $e->getMessage();
                 }
 
+                // Distance for listing
+                
+                $listingCoords = "&origins=" . $listingSQLParams['Latitude'] . "," . $listingSQLParams['Longitude'];
+                $listingDistanceURL = $baseURL . $listingCoords . $school . $key;
+                
+                $listResponse = file_get_contents($listingDistanceURL);
+                $listResult = json_decode($listResponse,true);
+                 
+                // distance value from json
+                $listDistance= $listResult['rows'][0]['elements'][0]['distance']['text'];
+                 
+                $listSQL = "INSERT INTO Listings ('Distance') VALUES (:distance);";
+                $qry = $this->db->prepare($listSQL);
+                $params = [':distance'=>$listDistance];
+                $qry->execute($params); // ERROR HERE
+                
 		//Prepate Listing SQL
 		$listingSQL = "INSERT INTO Listings";
 
@@ -287,9 +324,6 @@ class Model {
                 try{
                     //Insert into Listings Table
                     $this->db->query($listingSQL);
-                    
-                    //Get the last inserted ID, which is the thing we just added
-                    $listing_id = $this->db->lastInsertID();
                 }catch(PDOException $e){
                     echo 'Database entry Failed:'. $e->getMessage();
                 }
@@ -297,10 +331,9 @@ class Model {
 		//For testing only
 		//echo $rentalSQL;
 		echo "<br>" . $listingSQL;
-                
-                return $listing_id;
 		//header("Location: ../dashboard");
 		//exit;
+                return true;
 	}
 
 	/**
