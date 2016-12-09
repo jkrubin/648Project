@@ -199,8 +199,15 @@ class Model {
 		//create the google api url that will contain the JSON query
 		$url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address,+$city,+CA&key=AIzaSyB0tYK7LSPYSS2ol0WpKrdCzbfz6HcTNPQ";
 		//json_decode changes the file from it's JSON representation to an associative array.
-		$file = json_decode(file_get_contents($url), true);
-		//searches through $file to get the latitude and longitude
+		$file = json_decode(file_get_contents($url), true);         
+                
+                //TESTING ONLY
+                //echo '<br> LONG LAT RESULTS ARRAY: <br>';
+                //var_dump($file["results"]);
+                //echo '<br>';
+               
+                
+                /*
 		foreach ($file["results"] as $results) {
 			foreach ($results["geometry"] as $geometry => $location) {
 				$latitude = $location["lat"];
@@ -208,6 +215,13 @@ class Model {
 				break;
 			}
 		}
+                 * 
+                 */
+                $latitude = $file["results"][0]["geometry"]["location"]["lat"];
+                $longitude = $file["results"][0]["geometry"]["location"]["lng"];
+                
+                //echo "<br><br>long: $longitude, lat: $latitude<br><br>";
+                
 		//creates an associative array with keys "Latitude" and "Longitude"
 		$coords = array(":latitude" => $latitude, ":longitude" => $longitude);
 
@@ -232,108 +246,94 @@ class Model {
 	 *
 	 */
 	public function addListing($rentalSQLParams, $listingSQLParams) {
-		/*
-		 *  Create Aditional Values for DB
-		 */
-		//RENTAL ID
-		$rentalSQLParams["RentalTypeId"] = 1;
-                
-                //Long and Lat for maps API
-                $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
-                $city = $rentalSQLParams['City'];
-                $coordinates = $this -> createCoords($addr,$city);
-                $coordinates = $this -> obfuscate($coordinates);
-                
-                $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
-                $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
-                $listingSQLParams['Latitude'] = $coordinates[":latitude"];
-                $listingSQLParams['Longitude'] = $coordinates[":longitude"];
-                
-                //Distance API
-                //Google URL for  rental distance
-                
-                $baseURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
-                $rentalCoords = "&origins=" . $rentalSQLParams['Latitude'] . "," . $rentalSQLParams['Longitude'];
-                $school = "&destinations=place_id:ChIJEaQJfqV9j4ARm8dWmX2G82s";
-                $key = "&key=AIzaSyB7EOI6z0RYwDHp5JE7IDcqDhXeRXrcurk";
-                $rentalDistanceURL = $baseURL . $rentalCoords . $school . $key;
-                
-                $rentalResponse = file_get_contents($rentalDistanceURL);
-                $result = json_decode($rentalResponse,true);
-                 
-                // distance value from json
-                $distance= $result['rows'][0]['elements'][0]['distance']['text'];
-                
-                // TEST 
-                echo "<br>" . $distance;
-                $sql = "INSERT INTO Rentals ('Distance') VALUES (:distance)"; 
-                $query = $this->db->prepare($sql);
-                $parameters = [':distance'=>$distance];
-                $query->execute($parameters); //ERROR HERE
-                             
-             	//Start of Sql statment
-		$rentalSQL = "INSERT INTO Rentals";
+            /*
+             *  Create Aditional Values for DB
+             */
+            //RENTAL ID
+            $rentalSQLParams["RentalTypeId"] = 1;
 
-		//Implode all keys
-		$rentalSQL .= " (" . implode(" , ", array_keys($rentalSQLParams)) . ")";
-		//Implode all values
-		$rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
-		//Insert into Rentals Table
-		$this->db->query($rentalSQL);
+            //Long and Lat for maps API
+            $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
+            $city = $rentalSQLParams['City'];
+            $coordinates = $this -> createCoords($addr,$city);
+            $coordinates = $this -> obfuscate($coordinates);
 
-		//Get the last inserted ID, which is the thing we just added
-		$last_id = $this->db->lastInsertID();
+            $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
+            $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
+            $listingSQLParams['Latitude'] = $coordinates[":latitude"];
+            $listingSQLParams['Longitude'] = $coordinates[":longitude"];
 
-		/*
-		 *      ADD LISTING TO DB
-		 */
-                
-                try{
-                    //Add listing ID
-                    $listingSQLParams["RentalId"] = $last_id;
-                    //Dummy value for Landlord ID
-                    $listingSQLParams["LandlordId"] = 42;
-                }catch(PDOException $e){
-                    echo 'Database entry Failed:'. $e->getMessage();
-                }
+            //Distance API
+            //Google URL for  rental distance
 
-                // Distance for listing
-                
-                $listingCoords = "&origins=" . $listingSQLParams['Latitude'] . "," . $listingSQLParams['Longitude'];
-                $listingDistanceURL = $baseURL . $listingCoords . $school . $key;
-                
-                $listResponse = file_get_contents($listingDistanceURL);
-                $listResult = json_decode($listResponse,true);
-                 
-                // distance value from json
-                $listDistance= $listResult['rows'][0]['elements'][0]['distance']['text'];
-                 
-                $listSQL = "INSERT INTO Listings ('Distance') VALUES (:distance);";
-                $qry = $this->db->prepare($listSQL);
-                $params = [':distance'=>$listDistance];
-                $qry->execute($params); // ERROR HERE
-                
-		//Prepate Listing SQL
-		$listingSQL = "INSERT INTO Listings";
+            $baseURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+            $rentalCoords = "&origins=" . $rentalSQLParams['Latitude'] . "," . $rentalSQLParams['Longitude'];
+            $school = "&destinations=place_id:ChIJEaQJfqV9j4ARm8dWmX2G82s";
+            $key = "&key=AIzaSyB7EOI6z0RYwDHp5JE7IDcqDhXeRXrcurk";
+            $rentalDistanceURL = $baseURL . $rentalCoords . $school . $key;
 
-		//Implode all keys
-		$listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
-		//Implode all values
-		$listingSQL .= " VALUES('" . implode("' , '", $listingSQLParams) . "')";
+            $rentalResponse = file_get_contents($rentalDistanceURL);
+            $result = json_decode($rentalResponse,true);
 
-                try{
-                    //Insert into Listings Table
-                    $this->db->query($listingSQL);
-                }catch(PDOException $e){
-                    echo 'Database entry Failed:'. $e->getMessage();
-                }
+            // Get distance value in Miles, form of a double
+            $distance= $result['rows'][0]['elements'][0]['distance']['text'];
+            $distance= doubleval(explode(' ', $distance)[0]);
+            // TEST 
+            //echo "<br>Distance is: " . $distance . " (type is ".gettype($distance);
+            
 
-		//For testing only
-		//echo $rentalSQL;
-		echo "<br>" . $listingSQL;
-		//header("Location: ../dashboard");
-		//exit;
-                return true;
+            /*
+             *      ADD RENTAL TO DB
+             */
+            //Start of Sql statment
+            $rentalSQL = "INSERT INTO Rentals";
+
+            //Implode all keys
+            $rentalSQL .= " (" . implode(" , ", array_keys($rentalSQLParams)) . ")";
+            //Implode all values
+            $rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
+            
+            try{
+                //Insert into Rentals Table
+                $this->db->query($rentalSQL);
+
+                //Get the last inserted ID, which is the thing we just added
+                $last_id = $this->db->lastInsertID();
+            }catch(PDOException $e){
+                echo 'Database entry Failed:'. $e->getMessage();
+            }
+
+            /*
+             *      ADD LISTING TO DB
+             */
+
+            //Add listing ID
+            $listingSQLParams["RentalId"] = $last_id;
+            //Dummy value for Landlord ID
+            $listingSQLParams["LandlordId"] = 42;
+            //Previously calculated distance
+            $listingSQLParams["Distance"] = $distance;
+
+            //Prepate Listing SQL
+            $listingSQL = "INSERT INTO Listings";
+
+            //Implode all keys
+            $listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
+            //Implode all values
+            $listingSQL .= " VALUES('" . implode("' , '", $listingSQLParams) . "')";
+
+            try{
+                //Insert into Listings Table
+                $this->db->query($listingSQL);
+            }catch(PDOException $e){
+                echo 'Database entry Failed:'. $e->getMessage();
+            }
+
+            //For testing only
+            //echo $rentalSQL;
+            //echo "<br>" . $listingSQL;
+
+            return true;
 	}
 
 	/**
@@ -672,7 +672,7 @@ class Model {
             $height = $img_info[1];
             $type = $img_info ['mime'];
             
-            echo "ID IS: ". $id;
+            //echo "ID IS: ". $id;
             $listing_id = $id;
 
             if(strpos($type, 'image/')!==FALSE){
@@ -700,9 +700,9 @@ class Model {
                 $stmt->execute();
                             
                 // EVERYTHING BELOW TO BE REMOVED AFTER TESTING
-                $last_id =$this->db->lastInsertID();
+                //$last_id =$this->db->lastInsertID();
                 
-                $this->print_blob_by_blob_id($last_id);
+                //$this->print_blob_by_blob_id($last_id);
                     
             }else {
                 echo 'File is not an image. bye';
