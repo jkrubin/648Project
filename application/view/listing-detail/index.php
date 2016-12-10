@@ -11,6 +11,8 @@
 	$id = $_GET["detail"];
 	#grab listing based on id
 	$listing = $this->retrieveListing($id);
+	$img = $this->retrieveBlob($id);
+	
 	$latitude = $listing[0]["Latitude"];
 	$longitude = $listing[0]["Longitude"];
 	$rent = $listing[0]["MonthlyRent"];
@@ -26,7 +28,12 @@
 	echo "	    <p class='address'>" . $address . "</p>";
 	echo "</div>";
 	echo "<div class='row'>";
-	echo "	    <img class='picture col-md-3' src='" . URL . "public/img/placeholder.png'/> ";
+	#check to see if listing has an image
+	if(true){
+		echo "	    <img class='picture col-md-3' src='" . URL . "public/img/placeholder.png'/> ";
+	}
+	else
+	    	echo "	    <img class='picture col-md-3' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/> ";
 	echo "	    <div id='map' class='col-sm-8 col-xs-offset-2'></div>";
 	echo "</div>";
 	echo "<div class='row'>";

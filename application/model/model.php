@@ -618,5 +618,75 @@ class Model {
 		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
 		return $query->fetchAll();
 	}
+	
+        public function submit_blob($img_info, $img_temp,$id){
+            
+            $width = $img_info[0];
+            $height = $img_info[1];
+            $type = $img_info ['mime'];
+            
+            //echo "ID IS: ". $id;
+            $listing_id = $id;
+
+            if(strpos($type, 'image/')!==FALSE){
+                $temp_type = explode('/', $type);
+                $type = $temp_type[1];
+            
+                $primary = 0;
+                $order = 1;
+
+                $blob = fopen($img_temp, 'rb');
+
+                $sql = "INSERT INTO Photos(`ListingId`,`Primary`, `Order`, `Height`, `Width`, `Data`, `Format`) "
+                        . "VALUES(:id, :primary, :place, :height, :width, :blob, :mime)";
+
+                $stmt = $this->db->prepare($sql);
+
+                $stmt->bindParam(':id', $listing_id);
+                $stmt->bindParam(':primary', $primary);
+                $stmt->bindParam(':place', $order);
+                $stmt->bindParam(':height', $height);
+                $stmt->bindParam(':width', $width);
+                $stmt->bindParam(':blob', $blob, PDO::PARAM_LOB);
+                $stmt->bindParam(':mime', $type);
+
+                $stmt->execute();
+                            
+                // EVERYTHING BELOW TO BE REMOVED AFTER TESTING
+                //$last_id =$this->db->lastInsertID();
+                
+                //$this->print_blob_by_blob_id($last_id);
+                    
+            }else {
+                echo 'File is not an image. bye';
+                
+            }
+
+        }
+        
+        public function retrieve_blob_by_listing($listingId){
+            
+                $sql = "SELECT * FROM Photos WHERE ListingId = $listingId";
+		//executes statement
+		$query = $this->db->prepare($sql);
+		$query->execute();
+                return $query->fetchAll(PDO::FETCH_ASSOC);
+                
+                //DISPLAY IMAGE USING
+                //$photo = retrieve_blob_by_listing($listingId);
+                //echo '<img src="data:image/'.$photo[0]["Format"].';base64,'.base64_encode( $photo[0]["Data"] ).'"/>';      
+        }
+        
+        public function print_blob_by_blob_id($blobId){
+            
+                $sql = "SELECT * FROM Photos WHERE PhotoId = $blobId";
+		//executes statement
+		$query = $this->db->prepare($sql);
+		$query->execute();
+                $photo = $query->fetchAll(PDO::FETCH_ASSOC);
+                
+                //DISPLAY IMAGE USING
+                echo '<img src="data:image/'.$photo[0]["Format"].';base64,'.base64_encode( $photo[0]["Data"] ).'"/>';      
+        }
 }
 ?>
