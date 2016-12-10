@@ -1,6 +1,6 @@
 <?php
 
-Class Message_Center extends Controller {
+Class Message_Detail extends Controller {
 
     public function index() {
         // load views

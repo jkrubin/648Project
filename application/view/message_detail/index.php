@@ -16,8 +16,8 @@
 				$listingId = $row['ListingId'];
 				$title = $row['Title'];
 				$messageBody = $row['Body'];
-
-				echo "<li class='messages'>\n";
+   
+                                echo "<li class='messages'>\n";
 
 				# Listing heading
 				echo "  <div class='messages-heading'>\n";
@@ -41,7 +41,8 @@
 				echo "		</div>\n";
 				echo "  </div>\n";
 				echo "</li>\n";
-			}
+                                echo "</a>";
+                        }
 			?>
 		</ul>
 	</div>

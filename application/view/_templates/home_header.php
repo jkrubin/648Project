@@ -30,5 +30,3 @@
 	<script src="<?php echo URL; ?>js/jquery-3.1.1.min.js"></script>
 </head>
 <body class="home">
-
-

@@ -9112,7 +9112,7 @@ ul li {
 
 /* line 309, ../../scss/styles.scss */
 .edit-listing {
-  font-size: 1.4em;
+  font-size: 100%;
   display: block;
   height: 350px;
   position: relative;
@@ -9125,21 +9125,16 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 322, ../../scss/styles.scss */
-.edit-listing .input-group {
-  font-size: 19px;
-}
-/* line 325, ../../scss/styles.scss */
+/* line 323, ../../scss/styles.scss */
 .edit-listing .form-control {
   display: inline-block;
 }
-/* line 329, ../../scss/styles.scss */
+/* line 327, ../../scss/styles.scss */
 .edit-listing input[type=number] {
   step: .01;
 }
-/* line 333, ../../scss/styles.scss */
+/* line 331, ../../scss/styles.scss */
 .edit-listing-heading {
-  font-size: 18px;
   font-weight: bold;
   height: 50px;
   line-height: 50px;
@@ -9147,133 +9142,125 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 341, ../../scss/styles.scss */
+/* line 338, ../../scss/styles.scss */
 .edit-listing-heading-left {
   position: relative;
   float: left;
   clear: left;
   width: 80%;
 }
-/* line 347, ../../scss/styles.scss */
+/* line 344, ../../scss/styles.scss */
 .edit-listing-heading-right {
   position: relative;
   float: right;
   clear: right;
   width: 16%;
 }
-/* line 355, ../../scss/styles.scss */
+/* line 352, ../../scss/styles.scss */
 .edit-listing-details {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
   height: 170px;
   position: relative;
 }
-/* line 360, ../../scss/styles.scss */
+/* line 357, ../../scss/styles.scss */
 .edit-listing-details-left {
   position: relative;
   float: left;
   clear: left;
   width: 42%;
 }
-/* line 365, ../../scss/styles.scss */
+/* line 362, ../../scss/styles.scss */
 .edit-listing-details-left image {
   float: left;
 }
-/* line 370, ../../scss/styles.scss */
+/* line 367, ../../scss/styles.scss */
 .edit-listing-details-right {
-  font-size: .9em;
   clear: right;
   width: 58%;
   height: 100%;
   float: right;
 }
-/* line 377, ../../scss/styles.scss */
+/* line 373, ../../scss/styles.scss */
 .edit-listing-details-right #inputSmall {
-  font-size: .9em;
   width: 90%;
   height: 25%;
   margin: 1%;
 }
-/* line 383, ../../scss/styles.scss */
+/* line 378, ../../scss/styles.scss */
 .edit-listing-details-right .col1 {
   width: 22%;
   float: left;
 }
-/* line 387, ../../scss/styles.scss */
+/* line 382, ../../scss/styles.scss */
 .edit-listing-details-right .col2 {
   width: 22%;
   float: left;
 }
-/* line 391, ../../scss/styles.scss */
+/* line 386, ../../scss/styles.scss */
 .edit-listing-details-right .col3 {
   width: 22%;
   float: left;
 }
-/* line 395, ../../scss/styles.scss */
+/* line 390, ../../scss/styles.scss */
 .edit-listing-details-right .col4 {
   width: 30%;
   float: left;
 }
-/* line 399, ../../scss/styles.scss */
-.edit-listing-details-right label {
-  font-size: .8em;
-}
-/* line 406, ../../scss/styles.scss */
+/* line 397, ../../scss/styles.scss */
 .edit-listing-checkboxes {
   bottom: 1%;
 }
-/* line 408, ../../scss/styles.scss */
+/* line 399, ../../scss/styles.scss */
 .edit-listing-checkboxes label {
   width: 7%;
-  font-size: .8em;
   margin-right: 2%;
 }
-/* line 414, ../../scss/styles.scss */
+/* line 404, ../../scss/styles.scss */
 .edit-listing button {
   width: 115px;
   float: right;
 }
-/* line 418, ../../scss/styles.scss */
+/* line 408, ../../scss/styles.scss */
 .edit-listing #save {
   bottom: 2%;
+  margin-right: 2%;
 }
-/* line 421, ../../scss/styles.scss */
+/* line 412, ../../scss/styles.scss */
 .edit-listing #delete {
   background-color: red;
-  float: left;
   border-color: red;
 }
-/* line 426, ../../scss/styles.scss */
+/* line 416, ../../scss/styles.scss */
 .edit-listing #delete:hover {
   background-color: darkred;
   border-color: darkred;
 }
-/* line 432, ../../scss/styles.scss */
+/* line 422, ../../scss/styles.scss */
 .edit-listing textarea {
   width: 52%;
   height: 113pt;
-  font-size: .8em;
 }
-/* line 438, ../../scss/styles.scss */
+/* line 427, ../../scss/styles.scss */
 .edit-listing .address, .edit-listing input[type=text], .edit-listing input[type=number] {
   width: 22.5%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 444, ../../scss/styles.scss */
+/* line 433, ../../scss/styles.scss */
 .edit-listing .inputSmall {
   width: 9%;
   height: 55%;
   margin-right: 1%;
 }
-/* line 450, ../../scss/styles.scss */
+/* line 439, ../../scss/styles.scss */
 .edit-listing .rent {
   width: 40%;
   height: 55%;
   color: #4cae4c;
 }
 
-/* line 458, ../../scss/styles.scss */
+/* line 447, ../../scss/styles.scss */
 .center {
   position: absolute;
   top: 50%;
@@ -9281,22 +9268,22 @@ ul li {
   transform: translate(-50%, -50%);
 }
 
-/* line 462, ../../scss/styles.scss */
+/* line 451, ../../scss/styles.scss */
 #form-wrapper {
   text-align: center;
 }
 
-/* line 466, ../../scss/styles.scss */
+/* line 455, ../../scss/styles.scss */
 .form-input {
   margin-bottom: 15px;
 }
 
-/* line 470, ../../scss/styles.scss */
+/* line 459, ../../scss/styles.scss */
 .required-field-block {
   position: relative;
 }
 
-/* line 474, ../../scss/styles.scss */
+/* line 463, ../../scss/styles.scss */
 .required-field-block .required-icon {
   display: inline-block;
   vertical-align: middle;
@@ -9318,7 +9305,7 @@ ul li {
   font-size: 75%;
 }
 
-/* line 495, ../../scss/styles.scss */
+/* line 484, ../../scss/styles.scss */
 .required-field-block .required-icon {
   background-color: transparent;
   position: absolute;
@@ -9335,7 +9322,7 @@ ul li {
   transition: color 0.2s ease;
 }
 
-/* line 511, ../../scss/styles.scss */
+/* line 500, ../../scss/styles.scss */
 .required-field-block .required-icon:after {
   position: absolute;
   content: "";
@@ -9354,14 +9341,14 @@ ul li {
   transition: border-color 0.2s ease;
 }
 
-/* line 529, ../../scss/styles.scss */
+/* line 518, ../../scss/styles.scss */
 .required-field-block .required-icon .text {
   color: #B80000;
   font-size: 26px;
   margin: -3px 0 0 12px;
 }
 
-/* line 535, ../../scss/styles.scss */
+/* line 524, ../../scss/styles.scss */
 .bottom-right {
   position: absolute;
   top: 80%;
@@ -9369,37 +9356,91 @@ ul li {
   transform: translate(-50%, -50%);
 }
 
-/* line 542, ../../scss/styles.scss */
+/* line 531, ../../scss/styles.scss */
 .invalid-input {
   border: 2px solid #d80000;
 }
 
-/* line 546, ../../scss/styles.scss */
+/* line 535, ../../scss/styles.scss */
 #query-error, #room-error {
   color: #d80000;
   text-align: center;
   margin-bottom: 50px;
 }
-/* line 550, ../../scss/styles.scss */
+/* line 539, ../../scss/styles.scss */
 #query-error h4, #room-error h4 {
   font-size: 18px !important;
 }
 
-/* line 555, ../../scss/styles.scss */
+/* line 544, ../../scss/styles.scss */
 .hidden {
   display: none;
 }
 
-/* line 560, ../../scss/styles.scss */
+/* line 549, ../../scss/styles.scss */
 .modal.contact .address {
   text-align: left;
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 15px;
 }
-/* line 566, ../../scss/styles.scss */
+/* line 555, ../../scss/styles.scss */
 .modal.contact .rental-details {
   text-align: left;
   margin-bottom: 35px;
   font-size: 14px;
+}
+
+/* line 561, ../../scss/styles.scss */
+.messages {
+  display: block;
+  height: 150px;
+  position: relative;
+  clear: both;
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 15px;
+  width: 100%;
+  left: 15%;
+  background: #fff;
+  padding: 6px 12px;
+  -webkit-box-shadow: 10px 10px 10px #eeeeee;
+  box-shadow: 10px 10px 10px #eeeeee;
+}
+/* line 574, ../../scss/styles.scss */
+.messages-heading {
+  font-size: 24px;
+  font-weight: bold;
+  height: 50px;
+  line-height: 50px;
+  clear: both;
+  border-bottom: 1px solid #777777;
+  margin-bottom: 15px;
+}
+/* line 582, ../../scss/styles.scss */
+.messages-heading-left {
+  position: relative;
+  float: left;
+  clear: left;
+}
+/* line 587, ../../scss/styles.scss */
+.messages-heading-right {
+  position: relative;
+  float: right;
+  clear: right;
+}
+/* line 594, ../../scss/styles.scss */
+.messages-details {
+  position: relative;
+}
+/* line 596, ../../scss/styles.scss */
+.messages-details-left {
+  clear: left;
+  float: left;
+}
+/* line 600, ../../scss/styles.scss */
+.messages-details-right {
+  clear: right;
+  float: left;
+  margin-left: 16px;
+  width: 65%;
 }

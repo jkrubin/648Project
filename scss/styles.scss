@@ -307,7 +307,7 @@ ul li {
 
 }
 .edit-listing {
-    font-size: 1.4em;
+    font-size: 100%;
     display: block;
     height: $navbar-height * 7;
     position: relative;
@@ -319,9 +319,7 @@ ul li {
     padding: $padding-base-vertical $padding-base-horizontal;
     @include box-shadow(10px 10px 10px $gray-lighter);
 
-    .input-group {
-        font-size: 19px;
-    }
+    
     .form-control {
         display: inline-block;
     }
@@ -331,7 +329,6 @@ ul li {
     }
 
     &-heading {
-        font-size: $font-size-h4;
         font-weight: bold;
         height: $navbar-height;
         line-height: $navbar-height;
@@ -368,14 +365,12 @@ ul li {
         }
 
         &-right {
-            font-size: .9em;
             clear: right;
             width: 58%;
             height: 100%;
             float: right;
 
             #inputSmall {
-                font-size: .9em;
                 width: 90%;
                 height: 25%;
                 margin: 1%;
@@ -396,10 +391,6 @@ ul li {
                 width: 30%;
                 float: left;
             }
-            label {
-                font-size: .8em;
-            }
-
         }
     }
 
@@ -407,7 +398,6 @@ ul li {
         bottom: 1%;
         label {
             width: 7%;
-            font-size: .8em;
             margin-right: 2%;
         }
     }
@@ -417,10 +407,10 @@ ul li {
     }
     #save {
         bottom: 2%;
+        margin-right: 2%;
     }
     #delete {
         background-color: red;
-        float: left;
         border-color: red;
     }
     #delete:hover {
@@ -432,7 +422,6 @@ ul li {
     textarea {
         width: 52%;
         height: 113pt;
-        font-size: .8em;
     }
 
     .address, input[type=text], input[type=number] {
@@ -568,4 +557,51 @@ ul li {
         margin-bottom: 35px;
         font-size: $font-size-base;
     }
+}
+.messages {
+        display: block;
+	height: $navbar-height * 3;
+	position: relative;
+	clear: both;
+	border-bottom: 1px solid $gray-lighter;
+	margin-bottom: $form-group-margin-bottom;
+	width: 100%;
+        left: 15%;
+	background: #fff;
+	padding: $padding-base-vertical $padding-base-horizontal;
+	@include box-shadow(10px 10px 10px $gray-lighter);
+	
+	&-heading {
+		font-size: $font-size-h3;
+		font-weight: bold;
+		height: $navbar-height;
+		line-height: $navbar-height;
+		clear: both;
+		border-bottom: 1px solid $gray-light;
+		margin-bottom: $form-group-margin-bottom;
+		&-left {
+			position: relative;
+			float: left;
+			clear: left;
+		}
+		&-right {
+			position: relative;
+			float: right;
+			clear: right;
+		}
+	}
+
+	&-details {
+		position: relative;
+		&-left {
+			clear: left;
+			float: left;
+		}
+		&-right {
+			clear: right;
+			float: left;
+			margin-left: $padding-large-horizontal;
+			width: 65%;
+		}
+	}
 }
