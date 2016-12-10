@@ -146,10 +146,10 @@ class Listing extends Controller {
             /*
              * PRINTING FOR TEST PURPOSES ONLY
              */
-            echo "<br>Listings array: <br>";
-            var_dump($listingSQLPairs);
-            echo "<br>Rentals array: <br>";
-            var_dump($rentalSQLPairs);
+            //echo "<br>Listings array: <br>";
+            //var_dump($listingSQLPairs);
+            //echo "<br>Rentals array: <br>";
+            //var_dump($rentalSQLPairs);
             
 //            echo" <br>fuck me <br>_files arr: ";
 //            var_dump($_FILES);
@@ -160,14 +160,18 @@ class Listing extends Controller {
             
             $this->handle_blob($id);
 
+            header("Location: ../dashboard");
+            return $id;
         }
 
     }
 
     
     public function handle_blob($id){
+        
+        //var_dump($_FILES);
 
-        if (isset($_FILES["images"])){
+        if ((isset($_FILES["images"]) and (!empty($_FILES['images']['tmp_name'])))){
                         
             $img_info = getimagesize($_FILES['images']['tmp_name']);
 
