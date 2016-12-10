@@ -21,7 +21,7 @@ class Model {
 				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
 				"rentmax", "rentmin");
 
-		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
+		$sql = "SELECT ListingId,StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .

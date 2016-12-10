@@ -9351,7 +9351,7 @@ ul li {
 /* line 524, ../../scss/styles.scss */
 .bottom-right {
   position: absolute;
-  top: 80%;
+  bottom: 5%;
   left: 85%;
   transform: translate(-50%, -50%);
 }
@@ -9443,4 +9443,51 @@ ul li {
   float: left;
   margin-left: 16px;
   width: 65%;
+}
+
+/* line 609, ../../scss/styles.scss */
+.detail-listing {
+  font-size: 1.4em;
+  display: block;
+  bottom: auto;
+  position: relative;
+  top: 250px;
+  padding: 3% 3% 3% 5%;
+  width: 94%;
+  background: white;
+  margin: 1% 3% 3%;
+  -webkit-box-shadow: 10px 10px 10px #eeeeee;
+  box-shadow: 10px 10px 10px #eeeeee;
+}
+/* line 622, ../../scss/styles.scss */
+.detail-listing .address {
+  font-weight: bold;
+}
+/* line 627, ../../scss/styles.scss */
+.detail-listing .rent {
+  color: #4cae4c;
+}
+/* line 631, ../../scss/styles.scss */
+.detail-listing .picture {
+  margin: 2%;
+}
+/* line 635, ../../scss/styles.scss */
+.detail-listing .description {
+  margin-top: 4%;
+}
+
+/* line 640, ../../scss/styles.scss */
+#return-button {
+  font-size: 24pt;
+  padding: 2%;
+  height: 80px;
+  position: absolute;
+  top: 100px;
+  width: 100%;
+}
+
+/* line 649, ../../scss/styles.scss */
+#map {
+  height: 400px;
+  width: 50%;
 }
