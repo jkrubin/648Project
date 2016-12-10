@@ -11,7 +11,7 @@
 class Listing extends Controller {
     /**
      * PAGE: index
-     * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
+     * This method handles what happens when you move to Webby/listing
      */
     public function index() {
             // load views
@@ -26,7 +26,7 @@ class Listing extends Controller {
         /*********************************************
          *              Parameter Properties
          * 
-         *Mapping of HTML tags to all their properties
+         *Mappiightng of HTML tags to all their properties
          ********************************************/
 
         $formProperties = array(
@@ -90,15 +90,16 @@ class Listing extends Controller {
             //Get Array of $_POST keys
             $postKeys = array_keys($_POST);
 
-                        //Iterate through post keys
-            foreach($postKeys as $postKey){
-
-                //check if post key is for rental or listing
+            //Iterate through post keys
+            foreach($postKeys as $postKey){                
+                /*
+                 *  CHECK IF POST KEY IS A RENTAL OR LISTING FORM
+                 *  If it is, Validate Type and add to sql Array
+                 */
                 
+                //Is post key in rentals
                 if(array_key_exists($postKey, $formProperties) and 
                         $formProperties[$postKey]['table'] == 'Rentals'){
-                    //PostKey is a rental parameter
-
                     //Validate the type
                     if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
                         //Type is valid, add to Arr
@@ -106,6 +107,7 @@ class Listing extends Controller {
                     }else{
                         echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";                    }
                 }
+                //Is post key in listings
                 if(array_key_exists($postKey, $formProperties) and 
                         $formProperties[$postKey]['table'] == 'Listings'){
                     //Post key is a Listings Parameter
@@ -122,7 +124,6 @@ class Listing extends Controller {
                         }
                     }else{
                         echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";
-                        echo "Type was: " . gettype($_POST[$postKey])."<br>";
                     }
 
                 }
@@ -138,6 +139,8 @@ class Listing extends Controller {
             
             $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
 
+            header("Location: ../dashboard");
+            exit;
         }
 
     }
