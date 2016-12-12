@@ -17,14 +17,19 @@ class Dashboard extends Controller {
      */
     public function index() {
         // if we have POST data to create a new song entry
-
-
-        $listings = $this->fetchListings();
+        
+        $userId = 42;
+        $listings = $this->fetch_dashboard($userId);
 
         require APP . 'view/_templates/header.php';
         require APP . 'view/dashboard/index.php';
         require APP . 'view/_templates/footer.php';
     }
+    
+    public function fetch_dashboard($userId): array{
+        return $this -> model -> get_dashboard($userId);
+    }
+    
 
     public function fetchListings(): array {
 
