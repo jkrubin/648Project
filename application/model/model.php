@@ -21,7 +21,7 @@ class Model {
 				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
 				"rentmax", "rentmin");
 
-		$sql = "SELECT ListingId,StreetNo, StreetName, City, ZIP, " .
+		$sql =  "SELECT ListingId,StreetNo, StreetName, City, ZIP, " .
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
 				"FROM Listings L, Rentals R " .
@@ -168,7 +168,6 @@ class Model {
 				}
 			}
 		}
-		$sql .= " LIMIT 10;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -573,7 +572,6 @@ class Model {
 			return false;
 		}
 	}
-
     
     public function send_message($params){
         $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
@@ -631,6 +629,19 @@ class Model {
                 WHERE MessageId=$messageId";
         $query = $this->db->prepare($sql);
         $query->execute();
+
+    public function get_dashboard($userId){
+        
+            $sql =  "SELECT ListingId,StreetNo, StreetName, City, ZIP, " .
+				    "Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
+				    "Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				    "FROM Listings L, Rentals R " .
+				    "WHERE R.RentalId=L.RentalId AND L.LandlordId=$userId";
+
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
 	/**
