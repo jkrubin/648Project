@@ -21,6 +21,12 @@ class Search extends Controller {
 		$listings = $this->fetch_listings();
 
 		require APP . 'view/_templates/header.php';
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/default_navbar.php';
+			require APP . 'view/_templates/login_modal.php';
+		} else {
+			require APP . 'view/_templates/user_navbar.php';
+		}
 		require APP . 'view/search/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
