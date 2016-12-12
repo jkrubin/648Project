@@ -9406,7 +9406,16 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 574, ../../scss/styles.scss */
+/* line 573, ../../scss/styles.scss */
+.messages input[type="submit"] {
+  background: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  position: absolute;
+}
+/* line 581, ../../scss/styles.scss */
 .messages-heading {
   font-size: 24px;
   font-weight: bold;
@@ -9416,36 +9425,52 @@ ul li {
   border-bottom: 1px solid #777777;
   margin-bottom: 15px;
 }
-/* line 582, ../../scss/styles.scss */
+/* line 589, ../../scss/styles.scss */
 .messages-heading-left {
   position: relative;
   float: left;
   clear: left;
 }
-/* line 587, ../../scss/styles.scss */
+/* line 594, ../../scss/styles.scss */
 .messages-heading-right {
   position: relative;
   float: right;
   clear: right;
 }
-/* line 594, ../../scss/styles.scss */
+/* line 601, ../../scss/styles.scss */
 .messages-details {
   position: relative;
 }
-/* line 596, ../../scss/styles.scss */
+/* line 603, ../../scss/styles.scss */
 .messages-details-left {
   clear: left;
   float: left;
 }
-/* line 600, ../../scss/styles.scss */
+/* line 607, ../../scss/styles.scss */
 .messages-details-right {
   clear: right;
   float: left;
   margin-left: 16px;
   width: 65%;
 }
+/* line 615, ../../scss/styles.scss */
+.messages button {
+  width: 80px;
+  margin-top: 20px;
+  float: right;
+}
+/* line 620, ../../scss/styles.scss */
+.messages #delete {
+  background-color: red;
+  border-color: red;
+}
+/* line 624, ../../scss/styles.scss */
+.messages #delete:hover {
+  background-color: darkred;
+  border-color: darkred;
+}
 
-/* line 609, ../../scss/styles.scss */
+/* line 631, ../../scss/styles.scss */
 .detail-listing {
   font-size: 1.4em;
   display: block;
@@ -9459,24 +9484,24 @@ ul li {
   -webkit-box-shadow: 10px 10px 10px #eeeeee;
   box-shadow: 10px 10px 10px #eeeeee;
 }
-/* line 622, ../../scss/styles.scss */
+/* line 644, ../../scss/styles.scss */
 .detail-listing .address {
   font-weight: bold;
 }
-/* line 627, ../../scss/styles.scss */
+/* line 649, ../../scss/styles.scss */
 .detail-listing .rent {
   color: #4cae4c;
 }
-/* line 631, ../../scss/styles.scss */
+/* line 653, ../../scss/styles.scss */
 .detail-listing .picture {
   margin: 2%;
 }
-/* line 635, ../../scss/styles.scss */
+/* line 657, ../../scss/styles.scss */
 .detail-listing .description {
   margin-top: 4%;
 }
 
-/* line 640, ../../scss/styles.scss */
+/* line 662, ../../scss/styles.scss */
 #return-button {
   font-size: 24pt;
   padding: 2%;
@@ -9486,7 +9511,7 @@ ul li {
   width: 100%;
 }
 
-/* line 649, ../../scss/styles.scss */
+/* line 671, ../../scss/styles.scss */
 #map {
   height: 400px;
   width: 50%;

@@ -481,8 +481,7 @@ class Model {
 		} else {
 			return false;
 		}
-	}
-
+        }
 	private function validate_email($email): bool {
 		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
 		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
@@ -614,7 +613,16 @@ class Model {
                 FROM Messages M WHERE M.RecipientId=$userId AND M.IsUnread=0;";
         $query = $this->db->prepare($sql);
         $query->execute();
-        return $query_1->fetchAll(PDO::Fetch_ASSOC);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+    
+    public function get_all_messages($userId){
+        $sql = "SELECT MessageId, SenderId, RecipientId, ListingId, Title, Body
+                FROM Messages M WHERE M.RecipientId=$userId;";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
 
     }
     

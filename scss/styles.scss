@@ -570,7 +570,14 @@ ul li {
 	background: #fff;
 	padding: $padding-base-vertical $padding-base-horizontal;
 	@include box-shadow(10px 10px 10px $gray-lighter);
-	
+        input[type="submit"]{
+            background: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+            color: transparent;
+            position: absolute;
+        }
 	&-heading {
 		font-size: $font-size-h3;
 		font-weight: bold;
@@ -604,6 +611,21 @@ ul li {
 			width: 65%;
 		}
 	}
+        
+    button {
+        width: 80px;
+        margin-top: 20px;
+        float: right;
+    }
+    #delete {
+        background-color: red;
+        border-color: red;
+    }
+    #delete:hover {
+        background-color: darkred;
+        border-color: darkred;
+    }
+
 }
 
 .detail-listing{

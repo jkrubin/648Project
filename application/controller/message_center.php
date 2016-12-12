@@ -7,8 +7,10 @@ Class Message_Center extends Controller {
         
         session_start();
         
-        $messages = $this->get_new_messages();
-        
+        $messages = $this->get_all_messages();
+        if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+		    header("Location: view/problem");
+		}
         
         require APP . 'view/_templates/header.php';
 		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
@@ -19,7 +21,9 @@ Class Message_Center extends Controller {
 		}
 		require APP . 'view/message_center/index.php';
 		require APP . 'view/_templates/footer.php';
-	}
+	
+                
+    }
 
     public function sendMessage() {
         try {
@@ -52,7 +56,15 @@ Class Message_Center extends Controller {
 
     public function get_old_messages(): array {
         try {
-            return $this->model->view_message($_SESSION['UserId']);
+            return $this->model->get_old_messages($_SESSION['UserId']);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function get_all_messages(): array {
+        try {
+            return $this->model->get_all_messages($_SESSION['UserId']);
         } catch (Exception $e) {
             echo 'Error', $e->getMessage();
         }

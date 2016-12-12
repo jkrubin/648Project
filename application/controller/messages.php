@@ -12,7 +12,6 @@ Class Messages extends Controller{
 		}
 		require APP . 'view/test_messages/index.php';
 		require APP . 'view/_templates/footer.php';
-
 	}
 
     public function sendMessage(){
@@ -60,7 +59,5 @@ Class Messages extends Controller{
         }
     }
 }
-
-
 
 ?>

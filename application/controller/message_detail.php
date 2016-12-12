@@ -7,8 +7,8 @@ Class Message_Detail extends Controller {
         
         session_start();
         
-        $messages = $this->get_new_messages();
-        
+        $message = $this->view_message();
+        $delete = $this->delete_message();
         
         require APP . 'view/_templates/header.php';
 		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
@@ -17,7 +17,7 @@ Class Message_Detail extends Controller {
 		} else {
 			require APP . 'view/_templates/user_navbar.php';
 		}
-		require APP . 'view/message_center/index.php';
+		require APP . 'view/message_detail/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
 
