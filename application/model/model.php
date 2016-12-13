@@ -324,6 +324,9 @@ class Model {
             try{
                 //Insert into Listings Table
                 $this->db->query($listingSQL);
+                //Get listing ID 
+                $last_id = $this->db->lastInsertID();
+
             }catch(PDOException $e){
                 echo 'Database entry Failed:'. $e->getMessage();
             }
@@ -332,7 +335,7 @@ class Model {
             //echo $rentalSQL;
             //echo "<br>" . $listingSQL;
 
-            return true;
+            return $last_id;
 	}
 
 	public function retrieve_listing($listingId): array {
