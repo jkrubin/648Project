@@ -1,3 +1,5 @@
+
+
 <?php
 
 /**
@@ -16,9 +18,15 @@ class Listing extends Controller {
     public function index() {
             // load views
             require APP . 'view/_templates/header.php';
-            require APP . 'view/listing/index.php';
-            require APP . 'view/_templates/footer.php';
-
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/default_navbar.php';
+			require APP . 'view/_templates/login_modal.php';
+		} else {
+			require APP . 'view/_templates/user_navbar.php';
+		}
+		require APP . 'view/listing/index.php';
+		require APP . 'view/_templates/footer.php';
+	
     }
 
     public function addListing(){
@@ -31,49 +39,49 @@ class Listing extends Controller {
 
         $formProperties = array(
         'streetNo' => array(
-            'sqlVal'=>'StreetNo','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+            'sqlVal'=>'StreetNo','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE,'optional'=>FALSE),
         'streetName' => array(
-            'sqlVal'=>'StreetName','table'=>'Rentals','datatype'=>'string','isCheckBox'=>FALSE),
+            'sqlVal'=>'StreetName','table'=>'Rentals','datatype'=>'string','inputCH'=>FALSE,'optional'=>FALSE),
         'city' => array(
-            'sqlVal'=>'City','table'=>'Rentals','datatype'=>'string','isCheckBox'=>FALSE),
+            'sqlVal'=>'City','table'=>'Rentals','datatype'=>'string','inputCH'=>FALSE,'optional'=>FALSE),
 	'zipCode' => array(
-            'sqlVal'=>'ZIP','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+            'sqlVal'=>'ZIP','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE,'optional'=>FALSE),
         'bedrooms' => array(
-            'sqlVal'=>'Bedrooms','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+            'sqlVal'=>'Bedrooms','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE,'optional'=>FALSE),
         'baths' => array(
-            'sqlVal'=>'Baths','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+            'sqlVal'=>'Baths','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE,'optional'=>FALSE),
         'sqFt' => array(
-            'sqlVal'=>'SqFt','table'=>'Rentals','datatype'=>'integer','isCheckBox'=>FALSE),
+            'sqlVal'=>'SqFt','table'=>'Rentals','datatype'=>'integer','inputCH'=>FALSE,'optional'=>TRUE),
 	'monthlyRent'=>array(
-            'sqlVal'=>'MonthlyRent','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),
+            'sqlVal'=>'MonthlyRent','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE,'optional'=>FALSE),
 	'description'=>array(
-            'sqlVal'=>'Description','table'=>'Listings','datatype'=>'string','isCheckBox'=>FALSE),            
+            'sqlVal'=>'Description','table'=>'Listings','datatype'=>'string','inputCH'=>FALSE,'optional'=>FALSE),            
 	'deposit'=>array(
-            'sqlVal'=>'Deposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
+            'sqlVal'=>'Deposit','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE,'optional'=>FALSE),            
 	'petDeposit'=>array(
-            'sqlVal'=>'PetDeposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
+            'sqlVal'=>'PetDeposit','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE,'optional'=>TRUE),            
 	'keyDeposit' => array(
-            'sqlVal'=>'KeyDeposit','table'=>'Listings','datatype'=>'integer','isCheckBox'=>FALSE),            
+            'sqlVal'=>'KeyDeposit','table'=>'Listings','datatype'=>'integer','inputCH'=>FALSE,'optional'=>TRUE),            
 	'electricity' => array(
-            'sqlVal'=>'Electricity','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),        
+            'sqlVal'=>'Electricity','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE),        
         'internet' => array(
-            'sqlVal'=>'Internet','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+            'sqlVal'=>'Internet','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE),  
         'water' => array(
-            'sqlVal'=>'Water','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+            'sqlVal'=>'Water','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE),  
         'gas' => array(
-            'sqlVal'=>'Gas','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+            'sqlVal'=>'Gas','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE),  
         'television' => array(
-            'sqlVal'=>'Television','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),  
+            'sqlVal'=>'Television','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE),  
         'pets' => array(
-            'sqlVal'=>'Pets','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE),
+            'sqlVal'=>'Pets','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE),
         'smoking' => array(
-            'sqlVal'=>'Smoking','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE), 
+            'sqlVal'=>'Smoking','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE), 
         'furnished' => array(
-            'sqlVal'=>'Furnished','table'=>'Listings','datatype'=>'string','isCheckBox'=>TRUE), 
+            'sqlVal'=>'Furnished','table'=>'Listings','datatype'=>'string','inputCH'=>TRUE,'optional'=>FALSE), 
         'startDate' => array(
-            'sqlVal'=>'StartDate','table'=>'Listings','datatype'=>'date','isCheckBox'=>FALSE), 
+            'sqlVal'=>'StartDate','table'=>'Listings','datatype'=>'date','inputCH'=>FALSE,'optional'=>FALSE), 
         'endDate' => array(
-            'sqlVal'=>'EndDate','table'=>'Listings','datatype'=>'date','isCheckBox'=>FALSE)
+            'sqlVal'=>'EndDate','table'=>'Listings','datatype'=>'date','inputCH'=>FALSE,'optional'=>FALSE)
         );
                     
         /*********************************************
@@ -103,8 +111,12 @@ class Listing extends Controller {
                     if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
                         //Type is valid, add to Arr
                         $rentalSQLPairs[$formProperties[$postKey]['sqlVal']]=$_POST[$postKey];
+                    //Check if the field is optional
+                    }else if((($formProperties[$postKey]['optional'] == TRUE) and $_POST[$postKey]=="")){
+                        //echo"<br> OPTIONAL<br>";
                     }else{
-                        echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";                    }
+                        echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";
+                    }
                 }
                 if(array_key_exists($postKey, $formProperties) and 
                         $formProperties[$postKey]['table'] == 'Listings'){
@@ -112,14 +124,17 @@ class Listing extends Controller {
                     
                     //Validate the type
                     if($this->model->validate($_POST[$postKey],$formProperties[$postKey]['datatype'])){
-                        if($formProperties[$postKey]['isCheckBox'] == TRUE){
+                        if($formProperties[$postKey]['inputCH'] == TRUE){
                             //Input of check mark forms change to 1 in stead of 'on'
                             //Change input and put into array
-                            $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=1;                            
-                        }else{
+                            $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=1;
+                    }else{
                             //No need to change iput, put right into array
                             $listingSQLPairs[$formProperties[$postKey]['sqlVal']]=$_POST[$postKey];
-                        }
+                    }
+                    //Check if field is optional
+                    }else if((($formProperties[$postKey]['optional'] == TRUE) and $_POST[$postKey]=="")){
+                        //echo"<br> OPTIONAL<br>";
                     }else{
                         echo "<br>"."WRONG TYPE FOR ".$postKey.", ".$_POST[$postKey]." was entered<br>";
                         echo "Type was: " . gettype($_POST[$postKey])."<br>";
@@ -131,14 +146,41 @@ class Listing extends Controller {
             /*
              * PRINTING FOR TEST PURPOSES ONLY
              */
-            echo "<br>Listings array: <br>";
-            var_dump($listingSQLPairs);
-            echo "<br>Rentals array: <br>";
-            var_dump($rentalSQLPairs);
+            //echo "<br>Listings array: <br>";
+            //var_dump($listingSQLPairs);
+            //echo "<br>Rentals array: <br>";
+            //var_dump($rentalSQLPairs);
             
-            $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
+//            echo" <br>fuck me <br>_files arr: ";
+//            var_dump($_FILES);
+//            echo "<br>";
+//            var_dump($_POST);
+                        
+            $id = $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
+            
+            $this->handle_blob($id);
 
+            header("Location: ../dashboard");
+            return $id;
         }
 
     }
+
+    
+    public function handle_blob($id){
+        
+        //var_dump($_FILES);
+
+        if ((isset($_FILES["images"]) and (!empty($_FILES['images']['tmp_name'])))){
+                        
+            $img_info = getimagesize($_FILES['images']['tmp_name']);
+
+            $img_temp = $_FILES['images']['tmp_name'];
+
+            $this->model->submit_blob($img_info,$img_temp,$id);
+            
+        }
+        
+    }
 }
+

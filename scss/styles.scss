@@ -1,9 +1,17 @@
+
+
 // Import Bootstrap Compass integration
 @import "bootstrap-compass";
 // Import custom Bootstrap variables
 @import "bootstrap-variables";
 // Import Bootstrap for Sass
 @import "bootstrap";
+@import "compass/css3/border-radius";
+
+$sfsu-purple:      #43428a;
+$purple-hover:     lighten($sfsu-purple, 10%);
+$theme-green:      #77b800;
+
 @import "compass/css3/border-radius";
 
 $sfsu-purple:      #43428a;
@@ -250,204 +258,189 @@ ul li {
 }
 
 .add-listing {
-	font-size: 1.4em;
-	display: block;
-	height: $navbar-height * 17;
-	position: relative;
-	clear: both;
-	top: $navbar-height * 4;
-	border-bottom: 1px solid $gray-lighter;
-	margin: 1% 3% 3%;
-	padding: 3% 3% 3% 5%;
-	width: 94%;
-	background: white;
-	@include box-shadow(10px 10px 10px $gray-lighter);
+    font-size: 12pt;
+    display: block;
+    height: $navbar-height * 17;
+    position: relative;
+    clear: both;
+    top: $navbar-height * 4;
+    border-bottom: 1px solid $gray-lighter;
+    margin: 1% 3% 3%;
+    padding: 3% 3% 3% 5%;
+    width: 94%;
+    background: white;
+    @include box-shadow(10px 10px 10px $gray-lighter);
 
-	textarea {
-		width: 97%;
-	}
+    textarea {
+        width: 97%;
+    }
 
-	label {
-		width: 10.3%;
-	}
+    label {
+        width: 10.3%;
+    }
 
-	input[type=text], input[type=number] {
-		min-width: 10em;
-		margin-right: 3%;
-		font-size: 19px;
-	}
+    .input-group{
+        min-width: 10em;
+    }
 
-	input[type="date"] {
-		margin-right: 3.2%;
-		font-size: .87em;
-	}
+    input[type="date"] {
+        margin-right: 3.2%;
+    }
 
-	#dates {
-		width: 7.6%;
-	}
+    #dates {
+        width: 7.6%;
+    }
 
-	text {
-		display: inline-block;
-		width: 24.6%;
-		color: green;
-		visibility: hidden;
-	}
+    text {
+        display: inline-block;
+        width: 24.6%;
+        color: green;
+        visibility: hidden;
+    }
 
-	.form-group {
-		display: inline-block;
-		width: 24%;
-	}
+    .form-group {
+        display: inline-block;
+        width: 21.4%;
+        margin-right: 3.3%;
+        font-size: 12pt;
+    }
 
-	.input-group {
-		font-size: 19px;
-	}
 }
-
 .edit-listing {
-	font-size: 1.4em;
-	display: block;
-	height: $navbar-height * 7;
-	position: relative;
-	clear: both;
-	border-bottom: 1px solid $gray-lighter;
-	margin-bottom: $form-group-margin-bottom;
-	width: 100%;
-	background: #fff;
-	padding: $padding-base-vertical $padding-base-horizontal;
-	@include box-shadow(10px 10px 10px $gray-lighter);
+    font-size: 100%;
+    display: block;
+    height: $navbar-height * 7;
+    position: relative;
+    clear: both;
+    border-bottom: 1px solid $gray-lighter;
+    margin-bottom: $form-group-margin-bottom;
+    width: 100%;
+    background: #fff;
+    padding: $padding-base-vertical $padding-base-horizontal;
+    @include box-shadow(10px 10px 10px $gray-lighter);
 
-	.input-group {
-		font-size: 19px;
-	}
-	.form-control {
-		display: inline-block;
-	}
+    
+    .form-control {
+        display: inline-block;
+    }
 
-	input[type=number] {
-		step: .01;
-	}
+    input[type=number] {
+        step: .01;
+    }
 
-	&-heading {
-		font-size: $font-size-h4;
-		font-weight: bold;
-		height: $navbar-height;
-		line-height: $navbar-height;
-		clear: both;
-		border-bottom: 1px solid $gray-light;
-		margin-bottom: $form-group-margin-bottom;
-		&-left {
-			position: relative;
-			float: left;
-			clear: left;
-			width: 80%;
-		}
-		&-right {
-			position: relative;
-			float: right;
-			clear: right;
-			width: 16%;
-		}
-	}
+    &-heading {
+        font-weight: bold;
+        height: $navbar-height;
+        line-height: $navbar-height;
+        clear: both;
+        border-bottom: 1px solid $gray-light;
+        margin-bottom: $form-group-margin-bottom;
+        &-left {
+            position: relative;
+            float: left;
+            clear: left;
+            width: 80%;
+        }
+        &-right {
+            position: relative;
+            float: right;
+            clear: right;
+            width: 16%;
+        }
+    }
 
-	&-details {
-		border-bottom: 1px solid $gray-light;
-		margin-bottom: $form-group-margin-bottom;
-		height: 220 - $navbar-height;
-		position: relative;
-		&-left {
-			position: relative;
-			float: left;
-			clear: left;
-			width: 42%;
-			image {
-				float: left;
-			}
-		}
+    &-details {
+        border-bottom: 1px solid $gray-light;
+        margin-bottom: $form-group-margin-bottom;
+        height: 220 - $navbar-height;
+        position: relative;
+        &-left {
+            position: relative;
+            float: left;
+            clear: left;
+            width: 42%;
+            image {
+                float: left;
+            }
+        }
 
-		&-right {
-			font-size: .9em;
-			clear: right;
-			width: 58%;
-			height: 100%;
-			float: right;
+        &-right {
+            clear: right;
+            width: 58%;
+            height: 100%;
+            float: right;
 
-			#inputSmall {
-				font-size: .9em;
-				width: 90%;
-				height: 25%;
-				margin: 1%;
-			}
-			.col1 {
-				width: 22%;
-				float: left;
-			}
-			.col2 {
-				width: 22%;
-				float: left;
-			}
-			.col3 {
-				width: 22%;
-				float: left;
-			}
-			.col4 {
-				width: 30%;
-				float: left;
-			}
-			label {
-				font-size: .8em;
-			}
+            #inputSmall {
+                width: 90%;
+                height: 25%;
+                margin: 1%;
+            }
+            .col1 {
+                width: 22%;
+                float: left;
+            }
+            .col2 {
+                width: 22%;
+                float: left;
+            }
+            .col3 {
+                width: 22%;
+                float: left;
+            }
+            .col4 {
+                width: 30%;
+                float: left;
+            }
+        }
+    }
 
-		}
-	}
+    &-checkboxes {
+        bottom: 1%;
+        label {
+            width: 7%;
+            margin-right: 2%;
+        }
+    }
+    button {
+        width: 115px;
+        float: right;
+    }
+    #save {
+        bottom: 2%;
+        margin-right: 2%;
+    }
+    #delete {
+        background-color: red;
+        border-color: red;
+    }
+    #delete:hover {
+        background-color: darkred;
+        border-color: darkred;
+    }
 
-	&-checkboxes {
-		bottom: 1%;
-		label {
-			width: 7%;
-			font-size: .8em;
-			margin-right: 2%;
-		}
-		button {
-			width: 115px;
-			float: right;
-		}
-		#save {
-			bottom: 2%;
-		}
-		#delete {
-			background-color: red;
-			float: left;
-			border-color: red;
-		}
-		#delete:hover {
-			background-color: darkred;
-			border-color: darkred;
-		}
-	}
 
-	textarea {
-		width: 52%;
-		height: 113pt;
-		font-size: .8em;
-	}
+    textarea {
+        width: 52%;
+        height: 113pt;
+    }
 
-	.address, input[type=text], input[type=number] {
-		width: 22.5%;
-		height: 55%;
-		margin-right: 1%;
-	}
+    .address, input[type=text], input[type=number] {
+        width: 22.5%;
+        height: 55%;
+        margin-right: 1%;
+    }
 
-	.inputSmall {
-		width: 9%;
-		height: 55%;
-		margin-right: 1%;
-	}
+    .inputSmall {
+        width: 9%;
+        height: 55%;
+        margin-right: 1%;
+    }
 
-	.rent {
-		width: 40%;
-		height: 55%;
-		color: #4cae4c;
-	}
+    .rent {
+        width: 40%;
+        height: 55%;
+        color: #4cae4c;
+    }
 
 }
 
@@ -468,24 +461,24 @@ ul li {
 }
 
 .required-field-block .required-icon {
-	display: inline-block;
-	vertical-align: middle;
-	margin: -0.25em 0.25em 0em;
-	background-color: $gray-lighter;
-	border-color: $gray-lighter;
-	padding: 0.5em 0.8em;
-	color: rgba(0, 0, 0, 0.65);
-	text-transform: uppercase;
-	font-weight: normal;
-	border-radius: 0.325em;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: background 0.1s linear;
-	-moz-transition: background 0.1s linear;
-	transition: background 0.1s linear;
-	font-size: 75%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -0.25em 0.25em 0em;
+    background-color: $gray-lighter;
+    border-color: $gray-lighter;
+    padding: 0.5em 0.8em;
+    color: rgba(0, 0, 0, 0.65);
+    text-transform: uppercase;
+    font-weight: normal;
+    border-radius: 0.325em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background 0.1s linear;
+    -moz-transition: background 0.1s linear;
+    transition: background 0.1s linear;
+    font-size: 75%;
 }
 
 .required-field-block .required-icon {
@@ -536,34 +529,103 @@ ul li {
 }
 
 .invalid-input {
-	border: 2px solid #d80000;
+    border: 2px solid #d80000;
 }
 
 #query-error, #room-error {
-	color: #d80000;
-	text-align: center;
-	margin-bottom: $navbar-height;
-	h4 {
-		font-size: $font-size-h4 !important;
-	}
+    color: #d80000;
+    text-align: center;
+    margin-bottom: $navbar-height;
+    h4 {
+        font-size: $font-size-h4 !important;
+    }
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 .modal.contact {
-	.address {
-		text-align: left;
+    .address {
+        text-align: left;
+        font-weight: bold;
+        font-size: $font-size-h4;
+        margin-bottom: 15px;
+    }
+    .rental-details {
+        text-align: left;
+        margin-bottom: 35px;
+        font-size: $font-size-base;
+    }
+}
+.messages {
+        display: block;
+	height: $navbar-height * 3;
+	position: relative;
+	clear: both;
+	border-bottom: 1px solid $gray-lighter;
+	margin-bottom: $form-group-margin-bottom;
+	width: 100%;
+        left: 15%;
+	background: #fff;
+	padding: $padding-base-vertical $padding-base-horizontal;
+	@include box-shadow(10px 10px 10px $gray-lighter);
+        input[type="submit"]{
+            background: none;
+            border: none;
+            width: 100%;
+            height: 100%;
+            color: transparent;
+            position: absolute;
+        }
+	&-heading {
+		font-size: $font-size-h3;
 		font-weight: bold;
-		font-size: $font-size-h4;
-		margin-bottom: 15px;
+		height: $navbar-height;
+		line-height: $navbar-height;
+		clear: both;
+		border-bottom: 1px solid $gray-light;
+		margin-bottom: $form-group-margin-bottom;
+		&-left {
+			position: relative;
+			float: left;
+			clear: left;
+		}
+		&-right {
+			position: relative;
+			float: right;
+			clear: right;
+		}
 	}
-	.rental-details {
-		text-align: left;
-		margin-bottom: 35px;
-		font-size: $font-size-base;
+
+	&-details {
+		position: relative;
+		&-left {
+			clear: left;
+			float: left;
+		}
+		&-right {
+			clear: right;
+			float: left;
+			margin-left: $padding-large-horizontal;
+			width: 65%;
+		}
 	}
+        
+    button {
+        width: 80px;
+        margin-top: 20px;
+        float: right;
+    }
+    #delete {
+        background-color: red;
+        border-color: red;
+    }
+    #delete:hover {
+        background-color: darkred;
+        border-color: darkred;
+    }
+
 }
 
 .detail-listing{

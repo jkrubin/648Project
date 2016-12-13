@@ -1,3 +1,5 @@
+
+
 <div id="wrapper">
 	<div id="search-wrapper">
 		<form id="search" action="<?php echo URL; ?>search" method="GET">
@@ -128,3 +130,4 @@
 	</div>
 
 </div>
+

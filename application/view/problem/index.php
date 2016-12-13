@@ -1,3 +1,1 @@
-<div class="container">
-	<p>This is the Error-page. Will be shown when a page (= controller / method) does not exist.</p>
-</div>
+<div id="page-title"> <h2> The page you are trying to access does not exist or you must login to gain access. </h2> </div>
