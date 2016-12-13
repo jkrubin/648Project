@@ -770,6 +770,7 @@ class Model {
 		// $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
 		return $query->fetchAll();
 	}
+
         
         public function delete_listing($listingId){
             
@@ -875,6 +876,7 @@ class Model {
                 //DISPLAY IMAGE USING
                 echo '<img src="data:image/'.$photo[0]["Format"].';base64,'.base64_encode( $photo[0]["Data"] ).'"/>';      
         }
+
 
 	/**
 	 * Add a song to database

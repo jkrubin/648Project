@@ -11,13 +11,90 @@
 	$id = $_GET["detail"];
 	#grab listing based on id
 	$listing = $this->retrieveListing($id);
+	$img = $this->retrieveBlob($id);
+
 	$latitude = $listing[0]["Latitude"];
 	$longitude = $listing[0]["Longitude"];
-	$rent = $listing[0]["MonthlyRent"];
+	$rent = $listing[0]["MonthlyRent"] . " rent";
 	$address = $listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
 	$bedrooms = $listing[0]['Bedrooms'];
 	$baths = $listing[0]['Baths'];
-	$sqft = $listing[0]['SqFt'];
+	$deposit = "$" . $listing[0]['Deposit'] . " deposit";
+	$startingDate = $listing[0]['StartDate'];
+	
+	if($listing[0]['EndDate']){
+		$endDate = " to " . $listing[0]['EndDate'];
+	}
+	else{
+		$endDate = null;
+	}
+	
+	if(!empty($listing[0]['SqFt'])){
+		$sqft = $listing[0]['SqFt'] . " sq.ft.";
+	}
+	else{
+		$sqft = null;
+	}	
+	if($listing[0]['PetDeposit']){
+		$petDeposit = "$" . $listing[0]['PetDeposit'] . " pet deposit";
+	}
+	else{
+		$petDeposit = null;
+	}	
+	if(!empty($listing[0]['KeyDeposit'])){
+		$keyDeposit = "$" . $listing[0]['KeyDeposit'] . " key deposit";
+	}
+	else{
+		$keyDeposit = null;
+	}	
+	if($listing[0]['Electricity']){
+		$electricity = "electricy included";
+	}
+	else{
+	    $electricity = null;
+	}	
+	if($listing[0]['Internet']){
+		$internet = "internet included";
+	}
+	else{
+		$internet = null;
+	}
+	if($listing[0]['Water']){
+		$water = "water included";
+	}
+	else{
+		$water = null;
+	}	
+	if($listing[0]['Gas']){
+		$gas = "gas included";
+	}
+	else{
+		$gas = null;
+	}
+	if($listing[0]['Television']){
+		$television = "television included";
+	}
+	else{
+		$television = null;
+	}
+	if($listing[0]['Pets']){
+		$pets = "pets allowed";
+	}
+	else{
+		$pets = null;
+	}
+	if($listing[0]['Smoking']){
+		$smoking = "smoking allowed";
+	}
+	else{
+		$smoking = null;
+	}
+	if($listing[0]['Furnished']){
+		$furnished = "furnished included";
+	}
+	else{
+	    $furnished = null;
+	}	
 	if(!empty($listing[0]['Description'])){
 		$description = $listing[0]['Description'];
 	}
@@ -26,7 +103,12 @@
 	echo "	    <p class='address'>" . $address . "</p>";
 	echo "</div>";
 	echo "<div class='row'>";
-	echo "	    <img class='picture col-md-3' src='" . URL . "public/img/placeholder.png'/> ";
+	#check to see if listing has an image
+	if($img != null){
+		echo "	    <img class='picture col-md-3' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/> ";
+	}
+	else
+		echo "	    <img class='picture col-md-3' src='" . URL . "public/img/placeholder.png'/> ";
 	echo "	    <div id='map' class='col-sm-8 col-xs-offset-2'></div>";
 	echo "</div>";
 	echo "<div class='row'>";
@@ -42,6 +124,44 @@
 	echo "	    </span>";
 	echo "	    <span class='col-sm-2 rent'> $ " . $rent . "</span>";
 	echo "</div>";
+	
+	echo "<div class='row'>";
+	$row1 = [$sqft, $deposit, $petDeposit];
+	for($i=0; $i<sizeof($row1); $i++){
+		if(!empty($row1[$i])){
+			echo "	    <span class='col-sm-2'>" . $row1[$i] . "</span>";	  
+		}
+	}
+	echo "</div>";
+	echo "<div class='row'>";
+	$row2 = [$keyDeposit, $electricity, $internet];
+	for($i=0; $i<sizeof($row2); $i++){
+		if(!empty($row2[$i])){
+			echo "	    <span class='col-sm-2'>" . $row2[$i] . "</span>";	  
+		}
+	}
+	echo "</div>";
+	echo "<div class='row'>";
+	$row3 = [$water, $gas, $television];
+	for($i=0; $i<sizeof($row3); $i++){
+		if(!empty($row4[$i])){
+			echo "	    <span class='col-sm-2'>" . $row3[$i] . "</span>";	  
+		}
+	}
+	echo "</div>";
+	echo "<div class='row'>";
+	$row4 = [$pets, $smoking, $furnished];
+	for($i=0; $i<sizeof($row4); $i++){
+		if(!empty($row4[$i])){
+			echo "	    <span class='col-sm-2'>" . $row4[$i] . "</span>";	  
+		}
+	}
+	echo "</div>";
+	echo "<div class='row'>";
+	echo "	    <span class='col-sm-6'>" . $startingDate . $endDate . "</span>";
+	echo "</div>";
+	
+	#check/display desciption
 	echo "<div class='row description'>";
 	if(!empty($description)){
 		echo "<span class='col-sm-8'>" . $description . "</span>";		

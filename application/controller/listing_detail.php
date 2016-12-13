@@ -50,5 +50,12 @@ class Listing_detail extends Controller {
             return $response;
         }
 	
+	public function retrieveBlob($ListingId){
+
+            $response = $this->model->retrieve_blob_by_listing($ListingId);
+
+            return $response;	    
+	}
+	
         
 }
