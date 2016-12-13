@@ -157,7 +157,7 @@ class Listing extends Controller {
 //            var_dump($_POST);
                         
             $id = $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
-            
+
             $this->handle_blob($id);
 
             header("Location: ../dashboard");
