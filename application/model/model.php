@@ -629,6 +629,7 @@ class Model {
                 WHERE MessageId=$messageId";
         $query = $this->db->prepare($sql);
         $query->execute();
+    }
 
     public function get_dashboard($userId){
         
