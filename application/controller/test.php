@@ -16,11 +16,14 @@ class Test extends Controller {
 	 */
 	public function index() {
 		// Calls the function createCoords($address, $city). Returns an associative array.
-		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
-		$coords = $this->obfuscate($coords);
-		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
-		$latitude = $coords[":latitude"];
-		$longitude = $coords[":longitude"];
+        $coords = array(
+                 $this->createCoords("20084 Catalina Drive", "Castro Valley"), 
+                 $this->createCoords("2887 Kerr Street", "Castro Valley"),
+                 $this->createCoords("16752 Kildare Road", "San Leandro"),
+                 $this->createCoords("1600 Holloway Ave", "San Francisco"),
+                 $this->createCoords("400 Sargent Street", "San Francisco"),
+                 $this->createCoords("777 Brotherhood Way", "San Francisco")
+                  );
 		// load views.
 		require APP . 'view/_templates/header.php';
 		require APP . 'view/test/index.php';

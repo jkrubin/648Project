@@ -1,66 +1,10 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-
-	<title>RentSFSU</title>
-
-	<!-- JS -->
-	<!-- please note: The JavaScript files are loaded in the footer to speed up page construction -->
-	<!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
-	<!-- define the project's URL (to make AJAX calls possible, even when using this in sub-folders etc) -->
-	<script>
-		var url = "<?php echo URL; ?>";
-	</script>
-
-
-	<!-- CSS -->
-	<link href="<?php echo URL; ?>css/styles.css" rel="stylesheet" type="text/css"/>
-	<link href="<?php echo URL; ?>css/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
-	<link href="<?php echo URL; ?>css/print.css" media="print" rel="stylesheet" type="text/css"/>
-	<!--[if IE]>
-	<link href="<?php echo URL; ?>css/ie.css" media="screen, projection" rel="stylesheet" type="text/css"/>
-	<![endif]-->
-
-	<!-- jQuery, imported for feature freeze -->
-	<script src="<?php echo URL; ?>js/jquery-3.1.1.min.js"></script>
-</head>
-<body class="home">
-
-<!-- navigation -->
-<header class="home">
-	<nav id="navbar" class="home">
-		<div class="logo">
-			<a href="<?php echo URL; ?>">RentSFSU</a>
-		</div>
-		<div class="navbar-right">
-			<ul>
-				<a href="<?php echo URL; ?>listing">
-					<li class="btn btn-default">Add listing</li>
-				</a>
-				<a href="#signup" data-toggle="modal" data-target=".member">
-					<li>Sign up / Log in</li>
-				</a>
-			</ul>
-		</div>
-	</nav>
-	<div id="disclaimer">SFSU/FAU/Fulda Software Engineering Project, Fall 2016. For Demonstration Only</div>
-</header>
-
 <!-- Sign up / Log in Modal -->
 <div class="modal member" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    
 	<div class="modal-dialog modal-sm">
-		<div class="modal-content"><br>			
+		<div class="modal-content"><br>
+
 			<!-- Modal Tabs-->
 			<div class="bs-example bs-example-tabs">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
 				<ul class="nav nav-tabs" id="myTab">
 					<li class=""><a href="#signup" data-toggle="tab">Sign up</a></li>
 					<li class="active"><a href="#login" data-toggle="tab">Log in</a></li>
@@ -74,14 +18,13 @@
 
 							<div class="form-group">
 								<input class="form-input form-control" type="email" name="email"
-								       placeholder="Email Address" data-error="email address invalid" required/>
+								       placeholder="Email Address" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
 							<div class="form-group">
-								<input class="form-input form-control" type="password" name="password"
-								       placeholder="Password"
-								       data-error="password invalid" required/>
+								<input class="form-input form-control" type="password" name="password" placeholder="Password"
+								       required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
@@ -91,7 +34,8 @@
 
 
 						<?php
-						if (isset($_POST['login'])) {
+						if (isset($_POST['email']) && isset($_POST['password'])) {
+							$check_login = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
 							if ($check_login['status'] == 'success') {
 								echo "<center>log in successful =D</center>";
 							} elseif ($check_login['status'] == 'error') {
@@ -157,4 +101,3 @@
 		</div>
 	</div>
 </div>
-
