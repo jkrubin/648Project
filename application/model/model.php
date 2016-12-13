@@ -771,6 +771,41 @@ class Model {
 		return $query->fetchAll();
 	}
         
+        public function delete_listing($listingId){
+            
+            //VERIFY ADMIN PRIVILAGES;
+                //INSERT CODE HERE
+            
+            //Execute sequence
+            $sql = "DELETE FROM Listings WHERE ListingId = $listingId";
+            $query = $this->db->prepare($sql);
+            $query->execute();
+        }
+        
+        public function disable_account($userId, $message = NULL){
+            //VERIFY ADMIN PRIVILAGES;
+                //INSERT CODE HERE
+            
+            //Execute sequence
+            $sql = "UPDATE Users "
+                    . "SET Disabled = 1, LoginMsg = $message "
+                    . "WHERE UserId = $userId";
+            $query = $this->db->prepare($sql);
+            $query->execute();
+        }
+        
+        public function enable_account($userId, $message = NULL){
+            //VERIFY ADMIN PRIVILAGES;
+                //INSERT CODE HERE
+            
+            //Execute sequence
+            $sql = "UPDATE Users "
+                    . "SET Disabled = 0, LoginMsg = $message "
+                    . "WHERE UserId = $userId";
+            $query = $this->db->prepare($sql);
+            $query->execute();           
+        }
+
         public function submit_blob($img_info, $img_temp,$id){
             
             $width = $img_info[0];
