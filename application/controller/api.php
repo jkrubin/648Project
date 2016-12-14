@@ -41,7 +41,7 @@ Class Api extends Controller {
                 $params[':title'] = $_POST['title'];
            }
            $this->model->send_message($params);
-           header("Location: /..");
+           header("Location: ..");
         }catch(Exception $e){
            echo 'Error', $e->getMessage();
         }
@@ -74,6 +74,7 @@ Class Api extends Controller {
     public function delete_message(){
         try{
             $this->model->delete_message($_POST['messageId']);
+            header("Location: ../message_center");
         }catch(Exception $e){
             echo 'Error', $e->getMessage();        
         }

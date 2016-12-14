@@ -8,20 +8,22 @@
 	<div id="results-wrapper">
 		<ul id="messages">
                     <?php
-                    /* @var $_new_messages array */
-                    	foreach ($messages as $i => $row) {
+                /* @var $_new_messages array */
+                foreach ($messages as $i => $row) {
 				$messageId = $row["MessageId"];
 				$senderId = $row["SenderId"];
                                 $recipientId = $row["RecipientId"];
 				$listingId = $row['ListingId'];
 				$title = $row['Title'];
 				$messageBody = $row['Body'];
+                $url = URL;
+                $_POST['messageId'] = $messageId;
 
 				echo "<li class='messages'>\n";
-                                echo "<form id='$messageId' action='?$messageId' method='post'>";
-                                echo "<input type='hidden' name='messageId' value='$messageId'>";
-                                echo "<input type='submit'></form>";
-                                # Listing heading
+                echo "<form id='formatting' method='post'>";
+                echo "<input type='hidden' name='messageId' value='$messageId'>";
+                echo "</form>";
+                # Listing heading
 				echo "  <div class='messages-heading'>\n";
 				echo "		<p class='messages-heading-left'>\n";
 				echo "			<span >$title</span>\n";
@@ -42,8 +44,11 @@
 				echo "			<p class='messageBody'>$messageBody</p>\n";
 				echo "		</div>\n";
 				echo "  </div>\n";
-                                # Delete
-                                echo "<button href='<?php echo URL;../message_center?>' id='delete' class='btn btn-default' name ='delete'> Delete </button>";
+                # Delete
+                echo "<form id='delete' method='post' action='$url/api/delete_message'>";
+                echo "<input type='hidden' name='messageId' value='$messageId'>";
+                echo "<input type='submit' name='deleteMessage' class=form-input btn btn-default' value='delete'/>";
+                echo "</form>";
 				echo "</li>\n";
                         }
                     ?>
@@ -65,7 +70,7 @@
 							<div class="form-group row">
 
 								<div class="col-sm-8">
-                                                                    <input class="form-input form-control" type="text" name="subject" value="<?php echo$title?>" required="">
+                                    <input class="form-input form-control" type="text" name="subject" value="<?php echo$title?>" required="">
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>
