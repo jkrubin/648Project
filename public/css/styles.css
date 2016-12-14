@@ -7687,7 +7687,8 @@ button.list-group-item-danger.active:focus {
 
 /* line 30, ../../../../.rvm/gems/ruby-2.3.0/gems/bootstrap-sass-3.3.7/assets/stylesheets/bootstrap/_close.scss */
 button.close {
-  padding: 0;
+   /*disable padding so close button isnt too far right
+  padding: 0;*/
   cursor: pointer;
   background: transparent;
   border: 0;
