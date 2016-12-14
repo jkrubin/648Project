@@ -20,9 +20,12 @@ Class Api extends Controller {
         }
 
     public function logout(){
-        $this->model->logout();
-        header("Location: ../");
-
+        try{
+            $this->model->logout();
+            header("Location: ../");
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();
+        }
     }
 
     public function login(){
@@ -30,6 +33,16 @@ Class Api extends Controller {
 
         header("Location: ../dashboard");
 
+    }
+
+    public function signup(){
+        try{
+            $this->model->add_user($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['inputPassword']);
+            $this->model->authenticate_user($_POST['email'], $_POST['inputPassword']);
+            header("Location: ../");    
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();        
+        }
     }
 
     public function sendMessage($LandlordId){

@@ -46,8 +46,7 @@
 					</div>
 
 					<div class=" tab-pane" id="signup">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator"
-						      onsubmit="return check_signup(this)">
+						<form id="form-wrapper" method="post" action="<?php echo URL?>api/signup" data-toggle="validator">
 
 							<div class="form-group">
 								<input class="form-input form-control" type="email" name="email"
@@ -86,7 +85,7 @@
 							<input type="submit" name="signup" class="btn btn-default" value="Sign up"/>
 						</form>
 
-						<?php
+				<!---		<?php
 						if (isset($_POST['signup'])) {
 							if ($check) {
 								echo "<center>success</center>";
@@ -94,7 +93,7 @@
 								echo "<center>unsuccess</center>";
 							}
 						}
-						?>
+						?>  -->
 					</div>
 				</div>
 			</div>
