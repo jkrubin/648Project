@@ -244,7 +244,7 @@ class Model {
 	 * Query to put it into DB
 	 *
 	 */
-	public function addListing($rentalSQLParams, $listingSQLParams) {
+	public function addListing($rentalSQLParams, $listingSQLParams, $userId) {
             /*
              *  Create Aditional Values for DB
              */
@@ -254,11 +254,14 @@ class Model {
             //Long and Lat for maps API
             $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
             $city = $rentalSQLParams['City'];
-            $coordinates = $this -> createCoords($addr,$city);
-            $coordinates = $this -> obfuscate($coordinates);
 
+            $coordinates = $this -> createCoords($addr,$city);
             $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
             $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
+
+            $coordinates = $this -> obfuscate($coordinates);
+
+
             $listingSQLParams['Latitude'] = $coordinates[":latitude"];
             $listingSQLParams['Longitude'] = $coordinates[":longitude"];
 
@@ -277,6 +280,7 @@ class Model {
             // Get distance value in Miles, form of a double
             $distance= $result['rows'][0]['elements'][0]['distance']['text'];
             $distance= doubleval(explode(' ', $distance)[0]);
+            $rentalSQLParams['Distance'] = $distance;
             // TEST 
             //echo "<br>Distance is: " . $distance . " (type is ".gettype($distance);
             
@@ -309,7 +313,7 @@ class Model {
             //Add listing ID
             $listingSQLParams["RentalId"] = $last_id;
             //Dummy value for Landlord ID
-            $listingSQLParams["LandlordId"] = 42;
+            $listingSQLParams["LandlordId"] = $userId;
             //Previously calculated distance
             $listingSQLParams["Distance"] = $distance;
 
@@ -324,6 +328,9 @@ class Model {
             try{
                 //Insert into Listings Table
                 $this->db->query($listingSQL);
+                //Get listing ID 
+                $last_id = $this->db->lastInsertID();
+
             }catch(PDOException $e){
                 echo 'Database entry Failed:'. $e->getMessage();
             }
@@ -332,15 +339,15 @@ class Model {
             //echo $rentalSQL;
             //echo "<br>" . $listingSQL;
 
-            return true;
+            return $last_id;
 	}
 
 	public function retrieve_listing($listingId): array {
 		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
-				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, LandlordId, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate, L.Longitude, L.Latitude " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.Listing=$listingId";
+				"WHERE L.ListingId=$listingId";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -692,8 +699,9 @@ class Model {
 		$query->execute($parameters);
         }
 	public function logout() {
+        session_start();
 		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
-			return;
+            return;
 		}
 		list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
 

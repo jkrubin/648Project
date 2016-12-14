@@ -155,13 +155,13 @@ class Listing extends Controller {
 //            var_dump($_FILES);
 //            echo "<br>";
 //            var_dump($_POST);
-                        
-            $id = $this->model->addListing($rentalSQLPairs,$listingSQLPairs);
+            session_start();
             
-            $this->handle_blob($id);
+            $id = $this->model->addListing($rentalSQLPairs,$listingSQLPairs, $_SESSION["UserId"]);
 
-            header("Location: ../dashboard");
-            return $id;
+            $this->handle_blob($id);
+            
+            header("Location: ../listing_detail?detail=$id");
         }
 
     }

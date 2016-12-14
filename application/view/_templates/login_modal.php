@@ -14,7 +14,7 @@
 			<div class="modal-body">
 				<div id="myTabContent" class="tab-content">
 					<div class=" tab-pane active" id="login">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator" onsubmit="return check_login(this)">
+						<form id="form-wrapper" method="post" action="<?php echo URL?>api/login" data-toggle="validator">
 
 							<div class="form-group">
 								<input class="form-input form-control" type="email" name="email"
@@ -33,7 +33,7 @@
 						</form>
 
 
-						<?php
+		<!--				<?php
 						if (isset($_POST['email']) && isset($_POST['password'])) {
 							$check_login = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
 							if ($check_login['status'] == 'success') {
@@ -42,7 +42,7 @@
 								echo "<center>" . $check_login['message'] . "</center>";
 							}
 						}
-						?>
+						?> -->
 					</div>
 
 					<div class=" tab-pane" id="signup">

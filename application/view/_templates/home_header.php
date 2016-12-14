@@ -39,7 +39,7 @@
 		</div>
 		<div class="navbar-right">
 			<ul>
-				<a href="<?php echo URL; ?>listing">
+				<a href="<?php echo URL;?>listing">
 					<li class="btn btn-default">Add listing</li>
 				</a>
 				<a href="#signup" data-toggle="modal" data-target=".member">
@@ -147,7 +147,7 @@
 							if ($check) {
 								echo "<center>success</center>";
 							} else {
-								echo "<center>unsuccess</center>";
+								echo "<center>unsuccessful</center>";
 							}
 						}
 						?>

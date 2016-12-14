@@ -20,7 +20,7 @@
 						echo $_SESSION['Name'];
 					?></li>
 				</a>
-				<a href="<?php echo URL; ?>logout">
+				<a href="<?php echo URL; ?>api/logout">
 					<li id="logout">Log out</li>
 				</a>
 			</ul>

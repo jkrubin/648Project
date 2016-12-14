@@ -16,7 +16,6 @@ class Home extends Controller {
 	public function index() {
 		// load views
 		$isHome = true;
-
 		require APP . 'view/_templates/home_header.php';
 		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
 			require APP . 'view/_templates/default_navbar.php';
