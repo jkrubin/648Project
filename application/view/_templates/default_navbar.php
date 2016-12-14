@@ -8,7 +8,7 @@
 		</div>
 		<div class="navbar-right">
 			<ul>
-				<a href="<?php echo URL; ?>listing">
+				<a href="#signup" data-toggle="modal" data-target=".member">
 					<li class="btn btn-default">Add listing</li>
 				</a>
 				<a href="#signup" data-toggle="modal" data-target=".member">

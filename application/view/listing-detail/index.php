@@ -13,6 +13,7 @@
 	$listing = $this->retrieveListing($id);
 	$img = $this->retrieveBlob($id);
 
+    $landlordId = $listing[0]["LandlordId"];
 	$latitude = $listing[0]["Latitude"];
 	$longitude = $listing[0]["Longitude"];
 	$rent = $listing[0]["MonthlyRent"] . " rent";
@@ -168,7 +169,12 @@
 	}
 	echo "</div>";
 	#contact landlord button, opens up modal
-	echo " <a class='bottom-right btn btn-default' href='#contact' data-toggle='modal' data-target='.contact'>contact landlord</a>\n";
+    if(empty($_SESSION) || empty($_SESSION['UserId'])){
+        $isLoggedIn = '.member';
+    }else{
+        $isLoggedIn = '.contact';
+    }
+	echo " <a class='bottom-right btn btn-default' href=#modal  data-toggle='modal' data-target='$isLoggedIn'>contact landlord</a>\n";
 	
 	?>
 	
@@ -185,7 +191,7 @@
 				<!-- Modal Forms-->
 				<div class="modal-body">
 					<div class=" tab-pane active">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator">
+						<form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage($listing[$landlordId])";?>" data-toggle="validator">
 							<div class="form-group row">
 
 								<img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
@@ -275,3 +281,9 @@
     });
   }
 </script>
+
+    </script>
+    <!--the google API key.-->
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=initMap">
+    </script>

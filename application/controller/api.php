@@ -18,6 +18,67 @@ Class Api extends Controller {
         public function getCoords($listingId){
 		    return $this->model->getCoords($listingId);
         }
+
+    public function logout(){
+        $this->model->logout();
+        header("Location: ../");
+
+    }
+
+    public function login(){
+        $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
+
+        header("Location: ../dashboard");
+
+    }
+
+    public function sendMessage($LandlordId){
+        session_start();
+        try{
+           $params = array(':body' => $_POST['body'], 'senderId' => $_SESSION['UserId'], ':recipientId' => $LandlordId, 
+                           ':listingId' => $_POST['listingId'], ':true' => true);
+           if(array_key_exists('title', $_POST)){
+                $params[':title'] = $_POST['title'];
+           }
+           $this->model->send_message($params);
+           header("Location: /..");
+        }catch(Exception $e){
+           echo 'Error', $e->getMessage();
+        }
+    }
+    
+    public function get_new_messages():array{
+        try{
+            return $this->model->get_new_messages($_POST['userId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function view_message():array{
+        try{
+            return $this->model->view_message($_POST['messageId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function get_old_messages():array{
+        try{
+            return $this->model->view_message($_POST['userId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();        
+        }
+    }
+
+    public function delete_message(){
+        try{
+            $this->model->delete_message($_POST['messageId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();        
+        }
+    }
+
 	public function addListing() {
 
 		//Create new listing if we have post data from submit_listing
@@ -53,7 +114,7 @@ Class Api extends Controller {
 	}
 
 	public function retrieveListing(): array {
-		if (array_key_exists('listingId', $_POST[])) {
+		if (array_key_exists('listingId', $_POST)) {
 			$response = $this->model->retrieve_listing($_POST['listingId']);
 		} else {
 			$response['status'] = 'error';

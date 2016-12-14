@@ -14,14 +14,16 @@ class Listing_detail extends Controller {
 	 * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
 	 */
 		public function index() {
-		// Calls the function createCoords($address, $city). Returns an associative array.
-		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
-		$coords = $this->obfuscate($coords);
-		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
-		$latitude = $coords[":latitude"];
-		$longitude = $coords[":longitude"];
+		// Calls the function cr
+
 		// load views.
 		require APP . 'view/_templates/header.php';
+        if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/default_navbar.php';
+		} else {
+			require APP . 'view/_templates/user_navbar.php';
+		}
+        require APP . 'view/_templates/login_modal.php';
 		require APP . 'view/listing-detail/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
