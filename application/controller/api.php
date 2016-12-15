@@ -9,10 +9,8 @@ Class Api extends Controller {
 	public function index() {
 		// load views
 		require APP . 'view/_templates/header.php';
-		if (empty($_SESSION) && empty($_SESSION['UserId'])) {
-			require APP . 'view/_templates/login_modal.php';
-		}
 		require APP . 'view/problem/index.php';
+        require APP . 'view/_templates/login_modal.php';
 		require APP . 'view/_templates/footer.php';
 	}
         public function getCoords($listingId){
@@ -29,17 +27,23 @@ Class Api extends Controller {
     }
 
     public function login(){
-        $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
-
-        header("Location: ../dashboard");
-
+        $response = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
+        session_start();
+        if($response['status'] == 'success'){
+            header("Location: ../dashboard");
+        }else{
+            header("Location: ../");
+        }
     }
 
     public function signup(){
-        try{
-            $this->model->add_user($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['inputPassword']);
-            $this->model->authenticate_user($_POST['email'], $_POST['inputPassword']);
-            header("Location: ../");    
+        try{           
+            $this->model->add_user($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']);
+            $response = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
+            if($response['status'] == 'success'){
+                header("Location: ../");
+            }
+            
         }catch(Exception $e){
             echo 'Error', $e->getMessage();        
         }
@@ -138,11 +142,96 @@ Class Api extends Controller {
 	}
 
 	public function editListing() {
-  }
+          
+    }
 
 	public function deleteListing() {
-
+        $this->model->delete_listing($_POST['listingId']);
 	}
+
+    public function changeListing(){
+        if(isset($_POST['delete'])){
+            echo "delete found";
+            $this->model->delete_listing($_POST['ListingId']);
+        }
+
+        if(isset($_POST['save'])){
+            echo "save found";
+
+            if(empty($_POST['Deposit'])){
+                $deposit = 0;
+            }else{
+                $deposit = $_POST['Deposit'];            
+            }
+
+            if(empty($_POST['KeyDeposit'])){
+                $keyDeposit = 0;
+            }else{
+                $keyDeposit = $_POST['KeyDeposit'];
+            }
+
+            if(empty($_POST['PetDeposit'])){
+                $petDeposit = 0;
+            }else{
+                $petDeposit = $_POST['petDeposit'];
+            }
+
+            if(empty($_POST['Electricity'])){
+                $electricity = 0;
+            }else{
+                $electricity = $_POST['Electricity'];
+            }
+
+            if(empty($_POST['Furnished'])){
+                $furnished = 0;
+            }else{
+                $furnished = $_POST['Furnished'];
+            }
+
+            if(empty($_POST['Gas'])){
+                $gas = 0;
+            }else{
+                $gas = $_POST['Gas'];
+            }
+
+            if(empty($_POST['Internet'])){
+                $internet = 0;
+            }else{
+                $internet = $_POST['Internet'];
+            }
+            
+            if(empty($_POST['Pets'])){
+                $pets = 0;
+            }else{
+                $pets = $_POST['Pets'];
+            }
+            
+            if(empty($_POST['Smoking'])){
+                $smoking = 0;
+            }else{
+                $smoking = $_POST['Smoking'];
+            }
+
+            if(empty($_POST['Television'])){
+                $television = 0;
+            }else{
+                $television = $_POST['Television'];
+            }
+            
+            if(empty($_POST['Water'])){
+                $water = 0;
+            }else{
+                $water = $_POST['Water'];
+            }
+
+            $this->model->edit_listing($_POST['StreetNo'], $_POST['StreetName'], $_POST['City'], $_POST['ZIP'], $_POST['MonthlyRent'], $_POST['Description'], 
+                                       $_POST['Bedrooms'], $_POST['Baths'], $deposit, $keyDeposit, $petDeposit, $_POST['StartDate'], 
+                                       $_POST['EndDate'], $electricity, $furnished, $gas, $internet, $pets, 
+                                       $smoking, $television, $water, $_POST['ListingId']);
+        }
+        
+        header("Location: ../dashboard");
+    }
 
 	public function authenticateUser(): array {
 		if (isset($_POST["email"]) && isset($_POST["password"])) {

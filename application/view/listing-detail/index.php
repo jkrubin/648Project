@@ -1,7 +1,7 @@
 
 
 <div id='return-button'>
-	<a onclick="history.go(-1);">
+	<a href="<?php echo URL; ?>search">
 		<li class="btn btn-default">Back to listings</li>
 	</a>
 </div>
@@ -169,11 +169,11 @@
 	}
 	echo "</div>";
 	#contact landlord button, opens up modal
-	if(empty($_SESSION) || empty($_SESSION['UserId'])){
+    if(empty($_SESSION) || empty($_SESSION['UserId'])){
         $isLoggedIn = '.member';
-	}else{
+    }else{
         $isLoggedIn = '.contact';
-	}
+    }
 	echo " <a class='bottom-right btn btn-default' href=#modal  data-toggle='modal' data-target='$isLoggedIn'>contact landlord</a>\n";
 	
 	?>

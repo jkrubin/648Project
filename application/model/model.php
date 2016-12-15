@@ -381,9 +381,13 @@ class Model {
 		$name = $firstName . ' ' . $lastName;
 
 		// Exit if any of the variables passed in do not pass the regex validation
-		if ($this->validate_name($name) && $this->validate_email($email) && $this->validate_password($password)) {
+        
+		if (!($this->validate_name($name) && $this->validate_email($email) && $this->validate_password($password))) {
+
+            echo "failure at validate check.";
 			return false;
 		}
+        echo "Passed Validation Check.";
 
 		try {
 			// Test to see if email already exists in database
@@ -393,8 +397,10 @@ class Model {
 			$query->execute($params);
 			$results = $query->fetchAll();
 			if (count($results) > 0) {
+                echo "failure";
 				return false;
 			}
+            echo "Email check passed.";
 
 			// Hash password for insertion into database
 			$options = ['cost' => 12];
@@ -439,34 +445,48 @@ class Model {
 		$email = strtolower(trim($email));
 
 		if (!($this->validate_email($email) && $this->validate_password($password))) {
+            echo "failure at validate email.";
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
 		}
+        echo "validation passed";
 
 		try {
+            echo "enter try";
 			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password 
 			        FROM Users U, Emails E 
 			        WHERE U.UserId=E.UserId AND Email=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
+            //$temp = $query->fetchAll(PDO::FETCH_ASSOC);
 
+            //var_dump($temp);
+            echo "enter while loop";
 			while ($results = $query->fetch()) {
+                echo "enter success.";
 				if (strtolower($results['Email']) === $email) {
+                    echo "Correct email";
 					$verified = password_verify($password, $results['Password']);
 					if ($verified) {
+                        echo "passed verified";
 						$response['status'] = 'success';
 						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
 						$response['name'] = $name;
 						$response['userId'] = $results['UserId'];
 						$this->init_session($results['UserId'], $name);
 						$this->generate_auth_cookie($results['UserId']);
-						header('Location: ' . URL . $url);
-					}
-				}
+						//header('Location: ' . URL . $url);
+					}else{
+                        echo "incorrect password";
+                    }
+				}else{
+                    echo "incorrect email";
+                }
 			}
 			if (empty($_SESSION)) {
+                
 				$response['status'] = 'error';
 				$response['message'] = 'Username and/or password do not match.';
 			}
@@ -483,26 +503,31 @@ class Model {
 		if (session_start()) {
 			$_SESSION['UserId'] = $userId;
 			$_SESSION['Name'] = $name;
+            var_dump($_SESSION);
 			return true;
 		} else {
+            echo "Session init fail";
 			return false;
 		}
         }
 	private function validate_email($email): bool {
 		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
 		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+        echo "Email: ", preg_match($emailPattern, $email);
 		return preg_match($emailPattern, $email);
 	}
 
 	private function validate_name($name): bool {
 		// Regex pulled from StackOverflow - http://stackoverflow.com/a/2044909/845306
 		$namePattern = '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u';
+        echo "Name: ", preg_match($namePattern, $name);
 		return preg_match($namePattern, $name);
 	}
 
 	private function validate_password($password): bool {
 		// Regex for all ANSI keyboard characters
-		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{1,70}/';
+        echo "Password: ", preg_match($passwordPattern, $password);
 		return preg_match($passwordPattern, $password);
 	}
 
@@ -652,6 +677,24 @@ class Model {
 
     }
 
+
+    public function edit_listing($streetNo, $streetName, $city, $ZIP, $monthlyRent, $description, $bedrooms, $baths, $deposit, $keyDeposit, $petDeposit, $startDate, 
+                                 $endDate, $electricity, $furnished, $gas, $internet, $pets, $smoking, $television, $water, $listingId){
+
+        $sql = 	"UPDATE Listings L, Rentals R " .
+			    "SET R.StreetNo='$streetNo', R.StreetName='$streetName', R.City='$city', R.ZIP='$ZIP', R.Bedrooms='$bedrooms', ".
+				"R.Baths='$baths', L.MonthlyRent='$monthlyRent', " .
+				"L.Description='$description', L.Deposit='$deposit', L.PetDeposit='$petDeposit', L.KeyDeposit='$keyDeposit', " .
+				"L.Electricity='$electricity', L.Internet='$internet', L.Water='$water', L.Gas='$gas', " . 
+                "L.Television='$television', ".
+			    "L.Pets='$pets', L.Smoking='$smoking', L.Furnished='$furnished', L.StartDate='$startDate', ".  
+                "L.EndDate='$endDate' " .
+				"WHERE R.RentalId=L.RentalId AND L.ListingId='$listingId'";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+    }
+
 	/**
 	 * Get all songs from database
 	 */
@@ -786,7 +829,11 @@ class Model {
                 //INSERT CODE HERE
             
             //Execute sequence
-            $sql = "DELETE FROM Listings WHERE ListingId = $listingId";
+            $sql_0 = "DELETE FROM Photos WHERE ListingId='$listingId';";
+            $query_0 = $this->db->prepare($sql_0);
+            $query_0->execute();
+
+            $sql = "DELETE FROM Listings WHERE ListingId='$listingId';";
             $query = $this->db->prepare($sql);
             $query->execute();
         }
