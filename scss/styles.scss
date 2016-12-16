@@ -417,19 +417,19 @@ ul li {
         background-color: darkred;
         border-color: darkred;
     }
-
-
+    
+    
     textarea {
         width: 52%;
         height: 113pt;
     }
-
+    
     .address, input[type=text], input[type=number] {
         width: 22.5%;
         height: 55%;
         margin-right: 1%;
     }
-
+    
     .inputSmall {
         width: 9%;
         height: 55%;
@@ -441,7 +441,19 @@ ul li {
         height: 55%;
         color: #4cae4c;
     }
-
+    &-none{
+        height: $navbar-height * 3;
+        &-heading{
+            font-weight: bold;
+            font-size: 170%;
+            text-align: center;
+            height: $navbar-height;
+            line-height: $navbar-height;
+            clear: both;
+            border-bottom: 1px solid $gray-light;
+            margin-bottom: $form-group-margin-bottom;        
+        }
+    }
 }
 
 .center {
@@ -591,6 +603,10 @@ ul li {
 			position: relative;
 			float: right;
 			clear: right;
+		}
+		&-center {
+			position: relative;
+			text-align: center;
 		}
 	}
 
