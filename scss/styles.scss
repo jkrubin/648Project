@@ -348,18 +348,17 @@ ul li {
             width: 16%;
         }
     }
-
     &-details {
         border-bottom: 1px solid $gray-light;
         margin-bottom: $form-group-margin-bottom;
-        height: 220 - $navbar-height;
+        height: 255 - $navbar-height;
         position: relative;
         &-left {
             position: relative;
             float: left;
             clear: left;
             width: 42%;
-            image {
+            image rent{
                 float: left;
             }
         }
@@ -367,7 +366,7 @@ ul li {
         &-right {
             clear: right;
             width: 58%;
-            height: 100%;
+            height: 60%;
             float: right;
 
             #inputSmall {
@@ -376,26 +375,42 @@ ul li {
                 margin: 1%;
             }
             .col1 {
-                width: 22%;
+                width: 14%;
                 float: left;
             }
             .col2 {
-                width: 22%;
+                width: 14%;
                 float: left;
             }
             .col3 {
-                width: 22%;
+                width: 14%;
                 float: left;
             }
             .col4 {
-                width: 30%;
+                width: 23%;
                 float: left;
+            }
+            .col5 {
+                width: 14%;
+                float: left;
+                
+            }
+            .col6 {
+                width: 14%;
+                float: left;
+                label {
+                    margin-right: 2%;
+                }
             }
         }
     }
-
-    &-checkboxes {
+    &-buttons {
+        margin-bottom: $form-group-margin-bottom;
+        position: relative;    
         bottom: 1%;
+        float: right;
+        width: 100%;
+        height: 40px;
         label {
             width: 7%;
             margin-right: 2%;
@@ -421,6 +436,8 @@ ul li {
     
     textarea {
         width: 52%;
+        float: right;
+        margin-right: 8%;
         height: 113pt;
     }
     
@@ -437,7 +454,7 @@ ul li {
     }
 
     .rent {
-        width: 40%;
+        width: 9%;
         height: 55%;
         color: #4cae4c;
     }

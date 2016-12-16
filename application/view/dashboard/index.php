@@ -45,11 +45,9 @@
                     echo "			<input class='address' name='StreetName' value='$streetName'/n>";
                     echo "			<input class='address' name='City' value='$city'/n>";
                     echo "			<input class='inputSmall' value='$state'/n>";
-                    echo "			<input class='address' name='ZIP' value='$zip'/n>";
+                    echo "			<input class='inputSmall' name='ZIP' value='$zip'/n>";
+                    echo "                  Rent: $ <input class='rent' name='MonthlyRent' value='$rent'/>\n";
                     echo "		</p>\n";
-                    echo "		<p class='edit-listing-heading-right'>\n";
-                    echo "                  Rent: $<input class='rent' name='MonthlyRent' value='$rent'/>\n";
-                    echo "          </p>\n";
                     echo "  </div>\n";
 
                     # Listing details
@@ -85,31 +83,38 @@
                     echo "              <div class='col4'>\n";
                     echo "			<ul>\n";
                     echo "				<li><input type='date' name='StartDate' value='$startDate' id='inputSmall'/><br>Start Date</li><br>\n";
-                    echo "				<li><input type='date' name='EndDate' value='$endDate' id='inputSmall'/><br>End Date</li><br>\n";
+                    echo "				<li><input type='date' name='EndDate' value='$endDate' id='inputSmall'/><br>End Date</li><br><br>\n";
+                    echo "			</ul>\n";
+                    echo "              </div>\n";
+                    echo "              <div class='col5'>\n";
+                    echo "			<ul>\n";
+                    echo "                           <input type='checkbox' name='Electricity' value='$electricity'/>";
+                    echo "                           <label>Electricity</label><br><br>";
+                    echo "                           <input type='checkbox' name='Furnished' value='$furnished'/>";
+                    echo "                           <label>Furnished</label><br><br>";
+                    echo "                           <input type='checkbox' name='Gas' value='$gas'/>";
+                    echo "                           <label>Gas</label><br><br>";
+                    echo "                           <input type='checkbox' name='Internet' value='$internet'/>";
+                    echo "                           <label>Internet</label>";
+                    echo "			</ul>\n";
+                    echo "              </div>\n";
+                    echo "              <div class='col6'>\n";
+                    echo "			<ul>\n";
+                    echo "                           <input type='checkbox' name='Pets' value='$pets'/>";
+                    echo "                           <label>Allow Pets</label><br><br>";
+                    echo "                           <input type='checkbox' name='Smoking' value='$smoking'/>";
+                    echo "                           <label>Smoking</label><br><br>";
+                    echo "                           <input type='checkbox' name='Television' value='$television'/>";
+                    echo "                           <label>Television</label><br><br>";
+                    echo "                           <input type='checkbox' name='Water' value='$water'/>";
+                    echo "                           <label>Water</label>";
                     echo "			</ul>\n";
                     echo "              </div>\n";
                     echo "		</div>\n";
-
+                    
+                    #buttons
                     echo "  </div>\n";
-
-                    # Listing checkboxes
-                    echo "	<div class='edit-listing-checkboxes'>\n";
-                    echo "      <input type='checkbox' name='Electricity' value='$electricity'/>";
-                    echo "      <label>Electricity</label>";
-                    echo "      <input type='checkbox' name='Furnished' value='$furnished'/>";
-                    echo "      <label>Furnished</label>";
-                    echo "      <input type='checkbox' name='Gas' value='$gas'/>";
-                    echo "      <label>Gas</label>";
-                    echo "      <input type='checkbox' name='Internet' value='$internet'/>";
-                    echo "      <label>Internet</label>";
-                    echo "      <input type='checkbox' name='Pets' value='$pets'/>";
-                    echo "      <label>Allow Pets</label>";
-                    echo "      <input type='checkbox' name='Smoking' value='$smoking'/>";
-                    echo "      <label>Smoking</label>";
-                    echo "      <input type='checkbox' name='Television' value='$television'/>";
-                    echo "      <label>Television</label>";
-                    echo "      <input type='checkbox' name='Water' value='$water'/>";
-                    echo "      <label>Water</label><br><br>";
+                    echo "      <div class='edit-listing-buttons'>";
                     echo "      <input type='hidden' name='ListingId' value='$listingId'>";
                     echo "      <button type='submit' id='delete' class='btn btn-default' name ='delete' value='delete'> Delete Listing </button>";
                     echo "      <button type='submit' id='save' class='btn btn-default' name ='save' value='save'> Save Changes </button>";
