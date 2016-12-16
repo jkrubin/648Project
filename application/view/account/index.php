@@ -1,103 +1,36 @@
-<!-- Dashboard / Messages Modal -->
-<div class="modal member" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content"><br>
+<div class="account">
+  <h3>Account Dashboard</h3>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#dashboard">Edit Listings</a></li>
+    <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#Messages">Messages
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a data-toggle="tab" href="#all">All</a></li>
+      <li><a data-toggle="tab" href="#unread">Unread</a></li>
+      <li><a data-toggle="tab" href="#read">Read</a></li>
+    </ul>
+  </li>
+  </ul>
+ <div class="tab-content">
+     <a href="../listing-detail/index.php"></a>
+    <div id="dashboard" class="tab-pane fade in active">
+      <h3>Listings</h3>
+      <?php require APP . 'view/dashboard/index.php';?>
 
-			<!-- Modal Tabs-->
-			<div class="bs-example bs-example-tabs">
-				<ul class="nav nav-tabs" id="myTab">
-					<li class=""><a href="#dashboard" data-toggle="tab">Dashboard</a></li>
-					<li class="active"><a href="#messages" data-toggle="tab">Messages</a></li>
-				</ul>
-			</div>
-			<!-- Modal Forms-->
-			<div class="modal-body">
-				<div id="myTabContent" class="tab-content">
-					<div class=" tab-pane active" id="login">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator" onsubmit="return check_login(this)">
-
-							<div class="form-group">
-								<input class="form-input form-control" type="email" name="email"
-								       placeholder="Email Address" required/>
-								<div class="help-block with-errors"></div>
-							</div>
-
-							<div class="form-group">
-								<input class="form-input form-control" type="password" name="password" placeholder="Password"
-								       required/>
-								<div class="help-block with-errors"></div>
-							</div>
-
-							<input type="submit" name="login" class="form-input btn btn-default" value="Log in"/>
-
-						</form>
-
-
-						<?php
-						if (isset($_POST['email']) && isset($_POST['password'])) {
-							$check_login = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
-							if ($check_login['status'] == 'success') {
-								echo "<center>log in successful =D</center>";
-							} elseif ($check_login['status'] == 'error') {
-								echo "<center>" . $check_login['message'] . "</center>";
-							}
-						}
-						?>
-					</div>
-
-					<div class=" tab-pane" id="signup">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator"
-						      onsubmit="return check_signup(this)">
-
-							<div class="form-group">
-								<input class="form-input form-control" type="email" name="email"
-								       placeholder="Email Address" required/>
-								<div class="help-block with-errors"></div>
-							</div>
-							<div class="form-group">
-								<input class="form-input form-control" type="text" name="firstname"
-								       placeholder="First Name" required/>
-								<div class="help-block with-errors"></div>
-							</div>
-
-							<div class="form-group">
-								<input class="form-input form-control" type="text" name="lastname"
-								       placeholder="Last Name" required/>
-								<div class="help-block with-errors"></div>
-							</div>
-
-							<div class="form-group">
-								<input class="form-input form-control" id="inputPassword" type="password" name="password"
-								       placeholder="Password"
-								       required/>
-								<div class="help-block with-errors"></div>
-							</div>
-
-							<div class="form-group">
-								<input class="form-input form-control" type="password" data-match="#inputPassword"
-								       data-match-error="password does not match" name="repass"
-								       placeholder="Retype
-                                               Password" required/>
-								<div class="help-block with-errors"></div>
-							</div>
-
-							<label class="form-input">By registering, I accept the RentSFSU.com <a href="#">Terms of
-									Service</a>.</label>
-							<input type="submit" name="signup" class="btn btn-default" value="Sign up"/>
-						</form>
-
-						<?php
-						if (isset($_POST['signup'])) {
-							if ($check) {
-								echo "<center>success</center>";
-							} else {
-								echo "<center>unsuccess</center>";
-							}
-						}
-						?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    </div>
+    <div id="all" class="tab-pane fade">
+      <h3>All Messages</h3>
+      <?php require APP . 'view/message_center/index.php';?>
+    
+    </div>
+    <div id="unread" class="tab-pane fade">
+      <h3>Unread Messages</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="read" class="tab-pane fade">
+      <h3>Read Messages</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
 </div>
