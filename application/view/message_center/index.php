@@ -20,9 +20,6 @@
                 $_POST['messageId'] = $messageId;
 
 				echo "<li class='messages'>\n";
-                echo "<form id='formatting' method='post'>";
-                echo "<input type='hidden' name='messageId' value='$messageId'>";
-                echo "</form>";
                 # Listing heading
 				echo "  <div class='messages-heading'>\n";
 				echo "		<p class='messages-heading-left'>\n";
@@ -45,9 +42,9 @@
 				echo "		</div>\n";
 				echo "  </div>\n";
                 # Delete
-                echo "<form id='delete' method='post' action='$url/api/delete_message'>";
+                echo "<form method='post' action='$url/api/delete_message'>";
                 echo "<input type='hidden' name='messageId' value='$messageId'>";
-                echo "<input type='submit' name='deleteMessage' class=form-input btn btn-default' value='delete'/>";
+                echo "<input type='submit' id='delete' name='deleteMessage' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
                 echo "</form>";
 				echo "</li>\n";
                         }
