@@ -39,7 +39,6 @@
             </div>
         </div>
     </div>
-<script src="<?php echo URL; ?>js/bootstrap.min.js"></script>
 </div>
 <br/>
 
