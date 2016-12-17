@@ -1,7 +1,3 @@
-<div id="page-title"> <h2> Landlord Dashboard </h2> </div>
-
-<div id="wrapper">
-    <div id="dashboard-wrapper">
         <ul id="listings">
             <?php
             if ($listings != null){
@@ -134,5 +130,4 @@
                 echo "</li>\n";
             }
             ?>
-    </div>
-</div>
+        </ul>
