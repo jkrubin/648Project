@@ -1,6 +1,6 @@
 <?php
 
-class Dashboard_1 extends Controller {
+class Account_Center extends Controller {
     /**
      * PAGE: index
      * This method handles what happens when you move to http://sfsuswe.com/f16g11/Webby/search
@@ -23,7 +23,7 @@ class Dashboard_1 extends Controller {
             } else {
                 require APP . 'view/_templates/user_navbar.php';
             }
-            require APP . 'view/account/index.php';
+            require APP . 'view/account_center/index.php';
             require APP . 'view/_templates/footer.php';
     }
 

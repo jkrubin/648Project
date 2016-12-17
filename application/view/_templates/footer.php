@@ -10,6 +10,7 @@
 <script src="<?php echo URL; ?>js/check-login.js"></script>
 <script src="<?php echo URL; ?>js/check-signup.js"></script>
 <script src="<?php echo URL; ?>js/showLabels.js"></script>
+<script src="<?php echo URL; ?>js/bootstrap.min.js"></script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=initMap"></script>
 
