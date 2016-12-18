@@ -347,7 +347,7 @@ class Model {
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, LandlordId, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate, L.Longitude, L.Latitude " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.ListingId=$listingId";
+				"WHERE L.ListingId=$listingId AND R.RentalId=L.ListingId;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
