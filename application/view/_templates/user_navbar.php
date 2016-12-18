@@ -12,7 +12,7 @@
 				<a href="<?php echo URL; ?>dashboard">
 					<li class="logout">Manage listings</li>
 				</a>
-				<a href="<?php echo URL; ?>messages">
+				<a href="<?php echo URL; ?>message_center">
 					<li class="logout">Messages</li>
 				</a>
 				<a href="<?php echo URL; ?>account">

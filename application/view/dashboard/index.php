@@ -5,7 +5,8 @@
         <ul id="listings">
             <?php
             foreach ($listings as $i => $row) {
-
+                $url = URL;
+                $listingId = $row["ListingId"];
                 $rent = $row["MonthlyRent"];
                 $streetNo = $row["StreetNo"];
                 $streetName = $row["StreetName"];
@@ -37,15 +38,16 @@
                 # Listing heading
                 echo "  <div class='edit-listing-heading'>\n";
                 echo "		<p class='edit-listing-heading-left'>\n";
+                echo "          <form id='listingChanges' method='post' action='$url/api/changeListing'>";
                 echo "			<span class='edit-listing-order'>" . ($i + 1) . ".</span>\n";
-                echo "			<input class='inputSmall' value='$streetNo'/n>";
-                echo "			<input class='address' value='$streetName'/n>";
-                echo "			<input class='address' value='$city'/n>";
+                echo "			<input class='inputSmall' name='StreetNo' value='$streetNo'/n>";
+                echo "			<input class='address' name='StreetName' value='$streetName'/n>";
+                echo "			<input class='address' name='City' value='$city'/n>";
                 echo "			<input class='inputSmall' value='$state'/n>";
-                echo "			<input class='address' value='$zip'/n>";
+                echo "			<input class='address' name='ZIP' value='$zip'/n>";
                 echo "		</p>\n";
                 echo "		<p class='edit-listing-heading-right'>\n";
-                echo "                  Rent: $<input class='rent' value='$rent'/>\n";
+                echo "                  Rent: $<input class='rent' name='MonthlyRent' value='$rent'/>\n";
                 echo "          </p>\n";
                 echo "  </div>\n";
 
@@ -55,7 +57,7 @@
                 # Photos window
                 echo "		<div class='photos edit-listing-details-left'>\n";
                 echo "          <img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/>\n";
-                echo "			<textarea class='description'>$description</textarea>\n";
+                echo "			<textarea class='description' name='Description'>$description</textarea>\n";
                 echo "		</div>\n";
 
 
@@ -63,26 +65,26 @@
                 echo "		<div class='edit-listing-details-right'>\n";
                 echo "              <div class='col1'>\n";
                 echo "			<ul>\n";
-                echo "				<li><input type='number' value='$bedrooms' id='inputSmall'/><br>Bedrooms</li><br>\n";
-                echo "				<li><input type='number' value='$baths' id='inputSmall'/><br>Baths</li><br>\n";
+                echo "				<li><input type='number' name='Bedrooms' value='$bedrooms' id='inputSmall'/><br>Bedrooms</li><br>\n";
+                echo "				<li><input type='number' name='Baths' value='$baths' id='inputSmall'/><br>Baths</li><br>\n";
                 echo "			</ul>\n";
                 echo "              </div>\n";
                 echo "              <div class='col2'>\n";
                 echo "			<ul>\n";
                 echo "				<li><input type='number' value='$monthlyRent' id='inputSmall'/><br>Monthly Rent</li><br>\n";
-                echo "				<li><input type='number' value='$deposit' id='inputSmall'/><br>Deposit</li><br>\n";
+                echo "				<li><input type='number' name='Deposit' value='$deposit' id='inputSmall'/><br>Deposit</li><br>\n";
                 echo "			</ul>\n";
                 echo "              </div>\n";
                 echo "              <div class='col3'>\n";
                 echo "			<ul>\n";
-                echo "				<li><input type='number' value='$keyDeposit' id='inputSmall'/><br>Key Deposit</li><br>\n";
-                echo "				<li><input type='number' value='$petDeposit' id='inputSmall'/><br>Pet Deposit</li><br>\n";
+                echo "				<li><input type='number' name='KeyDeposit' value='$keyDeposit' id='inputSmall'/><br>Key Deposit</li><br>\n";
+                echo "				<li><input type='number' name='PetDeposit'value='$petDeposit' id='inputSmall'/><br>Pet Deposit</li><br>\n";
                 echo "			</ul>\n";
                 echo "              </div>\n";
                 echo "              <div class='col4'>\n";
                 echo "			<ul>\n";
-                echo "				<li><input type='date' value='$startDate' id='inputSmall'/><br>Start Date</li><br>\n";
-                echo "				<li><input type='date' value='$endDate' id='inputSmall'/><br>End Date</li><br>\n";
+                echo "				<li><input type='date' name='StartDate' value='$startDate' id='inputSmall'/><br>Start Date</li><br>\n";
+                echo "				<li><input type='date' name='EndDate' value='$endDate' id='inputSmall'/><br>End Date</li><br>\n";
                 echo "			</ul>\n";
                 echo "              </div>\n";
                 echo "		</div>\n";
@@ -91,26 +93,27 @@
 
                 # Listing checkboxes
                 echo "	<div class='edit-listing-checkboxes'>\n";
-                echo "      <input type='checkbox' value='$electricity'/>";
+                echo "      <input type='checkbox' name='Electricity' value='$electricity'/>";
                 echo "      <label>Electricity</label>";
-                echo "      <input type='checkbox' value='$furnished'/>";
+                echo "      <input type='checkbox' name='Furnished' value='$furnished'/>";
                 echo "      <label>Furnished</label>";
-                echo "      <input type='checkbox' value='$gas'/>";
+                echo "      <input type='checkbox' name='Gas' value='$gas'/>";
                 echo "      <label>Gas</label>";
-                echo "      <input type='checkbox' value='$internet'/>";
+                echo "      <input type='checkbox' name='Internet' value='$internet'/>";
                 echo "      <label>Internet</label>";
-                echo "      <input type='checkbox' value='$pets'/>";
+                echo "      <input type='checkbox' name='Pets' value='$pets'/>";
                 echo "      <label>Allow Pets</label>";
-                echo "      <input type='checkbox' value='$smoking'/>";
+                echo "      <input type='checkbox' name='Smoking' value='$smoking'/>";
                 echo "      <label>Smoking</label>";
-                echo "      <input type='checkbox' value='$television'/>";
+                echo "      <input type='checkbox' name='Television' value='$television'/>";
                 echo "      <label>Television</label>";
-                echo "      <input type='checkbox' value='$water'/>";
+                echo "      <input type='checkbox' name='Water' value='$water'/>";
                 echo "      <label>Water</label><br><br>";
-                echo "      <button type='submit' action='<?php echo URL; ?>listing/addListing' method='POST'' id='delete' class='btn btn-default' name ='delete'> Delete Listing </button>";
-                echo "      <button type='submit' action='<?php echo URL; ?>listing/addListing' method='POST'' id='save' class='btn btn-default' name ='save'> Save Changes </button>";
+                echo "      <input type='hidden' name='ListingId' value='$listingId'>";
+                echo "      <button type='submit' id='delete' class='btn btn-default' name ='delete' value='delete'> Delete Listing </button>";
+                echo "      <button type='submit' id='save' class='btn btn-default' name ='save' value='save'> Save Changes </button>";
+                echo "      </form>";
                 echo "	</div>\n";
-
                 echo "</li>\n";
             }
             ?>

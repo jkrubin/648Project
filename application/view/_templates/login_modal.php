@@ -24,33 +24,21 @@
 								       placeholder="Email Address" required/>
 								<div class="help-block with-errors"></div>
 							</div>
-
+    
 							<div class="form-group">
 								<input class="form-input form-control" type="password" name="password" placeholder="Password"
 								       required/>
 								<div class="help-block with-errors"></div>
 							</div>
-
+    
 							<input type="submit" name="login" class="form-input btn btn-default" value="Log in"/>
-
+    
 						</form>
 
-
-		<!--				<?php
-						if (isset($_POST['email']) && isset($_POST['password'])) {
-							$check_login = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
-							if ($check_login['status'] == 'success') {
-								echo "<center>log in successful =D</center>";
-							} elseif ($check_login['status'] == 'error') {
-								echo "<center>" . $check_login['message'] . "</center>";
-							}
-						}
-						?> -->
 					</div>
 
 					<div class=" tab-pane" id="signup">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator"
-						      onsubmit="return check_signup(this)">
+						<form id="form-wrapper" method="post" action="<?php echo URL?>api/signup" data-toggle="validator">
 
 							<div class="form-group">
 								<input class="form-input form-control" type="email" name="email"
@@ -79,8 +67,7 @@
 							<div class="form-group">
 								<input class="form-input form-control" type="password" data-match="#inputPassword"
 								       data-match-error="password does not match" name="repass"
-								       placeholder="Retype
-                                               Password" required/>
+								       placeholder="Retype Password" required/>
 								<div class="help-block with-errors"></div>
 							</div>
 
@@ -88,16 +75,6 @@
 									Service</a>.</label>
 							<input type="submit" name="signup" class="btn btn-default" value="Sign up"/>
 						</form>
-
-						<?php
-						if (isset($_POST['signup'])) {
-							if ($check) {
-								echo "<center>success</center>";
-							} else {
-								echo "<center>unsuccess</center>";
-							}
-						}
-						?>
 					</div>
 				</div>
 			</div>

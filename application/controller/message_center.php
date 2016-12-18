@@ -4,7 +4,7 @@ Class Message_Center extends Controller {
 
     public function index() {
         // load views
-        
+
         session_start();
         
         $messages = $this->get_all_messages();
