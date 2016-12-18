@@ -23,7 +23,7 @@
                             echo "  </div>\n";
 
                             # contact landlord
-                            echo " <a id='reply' class='bottom-right btn btn-default' href='#contact' data-toggle='modal' data-target='.contact'> reply </a>\n";
+//                            echo " <a id='reply' class='bottom-right btn btn-default' href='#contact' data-toggle='modal' data-target='.contact'> reply </a>\n";
 
                             # Listing details
                             echo "	<div class='messages-details'>\n";
@@ -38,8 +38,9 @@
                             echo "  </div>\n";
                             # Delete
                             echo "<form method='post' action='$url/api/delete_message'>";
-                            echo "<input type='hidden' name='messageId' value='$messageId'>";
-                            echo "<input type='submit' id='delete' name='deleteMessage' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
+                            echo "<input type='hidden' name='messageId' value='$messageId'>"; 
+                            echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
+                            echo "<input type='submit' id='delete' name='deleteMessage' value='delete' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
                             echo "</form>";
                             echo "</li>\n";
                     }

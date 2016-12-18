@@ -14,6 +14,8 @@ class Account_Center extends Controller {
         else{
             $listings = $this->fetch_dashboard($_SESSION['UserId']);
             $messages = $this->get_all_messages();
+            $newMessages = $this->get_new_messages();
+            $oldMessages = $this->get_old_messages();
         }
 
             require APP . 'view/_templates/header.php';

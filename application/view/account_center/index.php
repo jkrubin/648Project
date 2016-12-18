@@ -7,14 +7,7 @@
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading">
                         <ul class="nav nav-tabs">
-                            <li class="active dropdown">
-                                <a href="#messages" data-toggle="dropdown">Messages<span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#all" data-toggle="tab">All Messages</a></li>
-                                    <li><a href="#unread" data-toggle="tab">Unread Messages</a></a></li>
-                                    <li><a href="#read" data-toggle="tab">Read Messages</a></li>
-                                </ul>
-                            </li>
+                            <li class="active"><a href="#messages" data-toggle="tab">Messages</a></li>
                             <li><a href="#listings" data-toggle="tab">Manage Listings</a></li>
                         </ul>
                 </div>
@@ -23,16 +16,8 @@
                         <div class="tab-pane fade dashboard-wrapper" id="listings">
                             <?php require APP . 'view/dashboard/index.php';?>
                         </div>
-                        <div class="tab-pane fade in active" id="all">
-                            All Messages
-                             <?php require APP . 'view/message_center/index.php';?>
-                        </div>
-                        <div class="tab-pane fade" id="unread">
-                            Unread Messages
-                             <?php require APP . 'view/message_center/index.php';?>
-                        </div>
-                        <div class="tab-pane fade" id="read">Read Messages
-                             <?php require APP . 'view/message_center/index.php';?>
+                        <div class="tab-pane fade in active" id="messages">
+                            <?php require APP . 'view/message_center/index.php';?>
                         </div>
                     </div>
                 </div>

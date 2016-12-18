@@ -7,17 +7,11 @@
 		<div class="navbar-right">
 			<ul>
 				<a href="<?php echo URL; ?>listing">
-					<li class="btn btn-default">Add listing</li>
-				</a>
-				<a href="<?php echo URL; ?>account_center">
-					<li class="logout">Manage listings</li>
-				</a>
-				<a href="<?php echo URL; ?>account_center">
-					<li class="logout">Messages</li>
+					<li class="btn btn-default create">Add listing</li>
 				</a>
 				<a href="<?php echo URL; ?>account_center">
 					<li class="username"><?php
-						echo $_SESSION['Name'];
+                                            echo "<p>Welcome, ", $_SESSION['Name'],"</p> Messages and Listings";
 					?></li>
 				</a>
 				<a href="<?php echo URL; ?>api/logout">
