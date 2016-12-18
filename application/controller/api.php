@@ -30,7 +30,7 @@ Class Api extends Controller {
         $response = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
         session_start();
         if($response['status'] == 'success'){
-            header("Location: ../dashboard");
+            header("Location: ../account_center");
         }else{
             header("Location: ../");
         }
@@ -89,11 +89,16 @@ Class Api extends Controller {
     }
 
     public function delete_message(){
-        try{
-            $this->model->delete_message($_POST['messageId']);
-            header("Location: ../message_center");
-        }catch(Exception $e){
-            echo 'Error', $e->getMessage();        
+        if(isset($_POST['deleteMessage'])){
+            try{
+                $this->model->delete_message($_POST['messageId']);
+                header("Location: ../account_center#messages");
+            }catch(Exception $e){
+                echo 'Error', $e->getMessage();        
+            }
+        }
+        else{
+            header("Location: ../account_center#contact");
         }
     }
 
@@ -230,7 +235,7 @@ Class Api extends Controller {
                                        $smoking, $television, $water, $_POST['ListingId']);
         }
         
-        header("Location: ../dashboard");
+        header("Location: ../account_center#listings");
     }
 
 	public function authenticateUser(): array {
