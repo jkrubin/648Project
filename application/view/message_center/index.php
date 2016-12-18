@@ -1,15 +1,15 @@
 <?php
-    $userId = $_SESSION['UserId'];    
-    if ($retreive != null){
-        foreach ($retreive as $i => $row) {
-            $streetNo = $row["StreetNo"];
-            $streetName = $row["StreetNo"];
-            $city = $row["City"];
-            $zip = $row["ZIP"];
-            $beds = $row["Bedrooms"];
-            $bath = $row['Baths'];
-        }
-    }
+//    $userId = $_SESSION['UserId'];    
+//    if ($retreive != null){
+//        foreach ($retreive as $i => $row) {
+//            $streetNo = $row["StreetNo"];
+//            $streetName = $row["StreetNo"];
+//            $city = $row["City"];
+//            $zip = $row["ZIP"];
+//            $beds = $row["Bedrooms"];
+//            $bath = $row['Baths'];
+//        }
+//    }
 ?>
 	    <ul id="" d="messages">
                 <?php
