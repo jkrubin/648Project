@@ -10,7 +10,7 @@ Class Messages extends Controller{
 		} else {
 			require APP . 'view/_templates/user_navbar.php';
 		}
-		require APP . 'view/test_messages/index.php';
+		require APP . 'view/account_center/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
 

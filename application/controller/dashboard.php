@@ -8,8 +8,12 @@ class Dashboard extends Controller {
     public function index() {
         // if we have POST data to create a new song entry
         session_start();
-        if(!empty($_SESSION) && !empty($_SESSION['UserId'])){
+        if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+            header("Location: view/problem");
+            }
+        else{
             $listings = $this->fetch_dashboard($_SESSION['UserId']);
+            $messages = $this->get_all_messages();
         }
 
             require APP . 'view/_templates/header.php';
@@ -19,13 +23,66 @@ class Dashboard extends Controller {
             } else {
                 require APP . 'view/_templates/user_navbar.php';
             }
-            require APP . 'view/dashboard/index.php';
+            require APP . 'view/account_center/index.php';
             require APP . 'view/_templates/footer.php';
     }
-    
+
     public function fetch_dashboard($userId): array{
      
        return $this -> model -> get_dashboard($userId);
+    }
+
+    public function sendMessage() {
+        try {
+            $params = array(':body' => $_POST['body'], 'senderId' => $_POST['senderId'], ':recipientId' => $_POST['recipientId'],
+                ':listingId' => $_POST['listingId'], ':true' => true);
+            if (array_key_exists('title', $_POST)) {
+                $params[':title'] = $_POST['title'];
+            }
+            $this->model->send_message($params);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function get_new_messages(): array {
+        try {
+            return $this->model->get_new_messages($_SESSION['UserId']);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function view_message(): array {
+        try {
+            return $this->model->view_message($_POST['messageId']);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function get_old_messages(): array {
+        try {
+            return $this->model->get_old_messages($_SESSION['UserId']);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function get_all_messages(): array {
+        try {
+            return $this->model->get_all_messages($_SESSION['UserId']);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function delete_message() {
+        try {
+            $this->model->delete_message($_POST['messageId']);
+        } catch (Exception $e) {
+            echo 'Error', $e->getMessage();
+        }
     }
 
 }

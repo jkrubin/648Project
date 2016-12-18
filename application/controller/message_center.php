@@ -1,28 +1,35 @@
 <?php
 
-Class Message_Center extends Controller {
-
+class Message_Center extends Controller {
+    /**
+     * PAGE: index
+     * This method handles what happens when you move to http://sfsuswe.com/f16g11/Webby/search
+     */
     public function index() {
-        // load views
-
+        // if we have POST data to create a new song entry
         session_start();
-        
-        $messages = $this->get_all_messages();
         if (empty($_SESSION) || empty($_SESSION['UserId'])) {
-		    header("Location: view/problem");
-		}
-        
-        require APP . 'view/_templates/header.php';
-		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
-			require APP . 'view/_templates/default_navbar.php';
-			require APP . 'view/_templates/login_modal.php';
-		} else {
-			require APP . 'view/_templates/user_navbar.php';
-		}
-		require APP . 'view/message_center/index.php';
-		require APP . 'view/_templates/footer.php';
-	
-                
+            header("Location: view/problem");
+            }
+        else{
+            $listings = $this->fetch_dashboard($_SESSION['UserId']);
+            $messages = $this->get_all_messages();
+        }
+
+            require APP . 'view/_templates/header.php';
+            if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+                require APP . 'view/_templates/default_navbar.php';
+                require APP . 'view/_templates/login_modal.php';
+            } else {
+                require APP . 'view/_templates/user_navbar.php';
+            }
+            require APP . 'view/account_center/index.php';
+            require APP . 'view/_templates/footer.php';
+    }
+
+    public function fetch_dashboard($userId): array{
+     
+       return $this -> model -> get_dashboard($userId);
     }
 
     public function sendMessage() {

@@ -5,6 +5,7 @@
 <script src="<?php echo URL; ?>js/bootstrap/tab.js"></script>
 <script src="<?php echo URL; ?>js/bootstrap/modal.js"></script>
 <script src="<?php echo URL; ?>js/bootstrap/carousel.js"></script>
+<script src="<?php echo URL; ?>js/bootstrap/tabsdropdowns.js"></script>
 <script src="<?php echo URL; ?>js/tab-select.js"></script>
 <script src="<?php echo URL; ?>js/validator.js"></script>
 <script src="<?php echo URL; ?>js/check-login.js"></script>
