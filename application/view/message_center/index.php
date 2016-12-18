@@ -52,12 +52,13 @@
                             #Reply
                             echo "<form method='post' action='$url/api/retrieveListing'>";
                             echo "<input type='hidden' name='listingId' value='$listingId'>"; 
-                            echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
+ //                           echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
                             echo "</form>";
                             
                             # Delete
                             echo "<form method='post' action='$url/api/delete_message'>";
                             echo "<input type='hidden' name='messageId' value='$messageId'>"; 
+                            echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
                             echo "<input type='submit' id='delete' name='deleteMessage' value='delete' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
                             echo "</form>";
                             echo "</li>\n";
