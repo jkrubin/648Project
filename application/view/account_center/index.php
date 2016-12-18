@@ -45,7 +45,7 @@
                             <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
                             <div class="col-sm-8">
                                 <div class="address">
-                                    <?php echo "123 abc street, San Francisco";//$_POST['address'] ?></p>
+                                    <?php echo $streetNo. " ". $streetName. ", ". $city, " CA ". $zip ?></p>
                                 </div>
                                 <div class="rental-details">
                                     <p><span class="bedrooms">

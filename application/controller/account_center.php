@@ -16,6 +16,7 @@ class Account_Center extends Controller {
             $messages = $this->get_all_messages();
             $newMessages = $this->get_new_messages();
             $oldMessages = $this->get_old_messages();
+            $retreive = $this->retrieveListing();
         }
 
             require APP . 'view/_templates/header.php';
@@ -86,6 +87,17 @@ class Account_Center extends Controller {
             echo 'Error', $e->getMessage();
         }
     }
+
+    public function retrieveListing(): array {
+        if (array_key_exists('listingId', $_POST)) {
+            $response = $this->model->retrieve_listing($_POST['listingId']);
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = 'cannot find listing';
+        }
+        return $response;
+    }
+
 
 }
 

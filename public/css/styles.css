@@ -9645,3 +9645,8 @@ ul li {
 .create a:hover {
   color: none;
 }
+
+/* line 773, ../../scss/styles.scss */
+#modalTrigger {
+  display: none;
+}

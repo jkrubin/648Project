@@ -7,4 +7,8 @@ if (url.match('#')) {
 // Change hash for page-reload
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash;
-})
+});
+
+if (url.match('#contact')) {
+    $(document.getElementById("modalTrigger").click());
+} 
