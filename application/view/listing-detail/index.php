@@ -1,5 +1,11 @@
 <div id='return-button'>
-	<a href="<?php echo URL; ?>search">
+	<a href="<?php echo URL; ?>search?<?php 
+        foreach($_GET as $key => $value){
+            if($key != 'detail' && $key != 'url'){
+                echo "&" . $key . "=" . $value;
+            }
+        }
+        ?>">
 		<li class="btn btn-default">Back to listings</li>
 	</a>
 </div>
