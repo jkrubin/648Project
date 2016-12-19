@@ -38,13 +38,13 @@
                 <h class="modal-title">Reply to Potential Rentee</h>
             </div>
  <?php 
- $listId = $_GET['listing'];
+    $listId = $_GET['listing'];
     $sender = $_GET['to'];
     $mess = $_GET['mess'];
         #grab listing based on id
         $listing = $this->retrieveListing($_GET['listing']);
         $messageC = $this->view_message($_GET['mess']);
-    
+        $img = $this->retrieveBlob($listId);
         $titleC = $messageC[0]['Title'];
 
         $landlordId = $listing[0]["LandlordId"];
@@ -57,7 +57,13 @@
                 <div class=" tab-pane active">
                     <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage($sender)";?>" data-toggle="validator">
                         <div class="form-group row">
-                            <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
+                            <?php 
+                            if($img != null){
+                                echo "<img class='col-sm-4' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>;";
+                            }
+                            else
+                                echo "<img class='col-sm-4' src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>;";
+                            ?>
                             <div class="col-sm-8">
                                 <div class="address">
                                     <?php echo $addressC ?></p>

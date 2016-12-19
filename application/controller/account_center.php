@@ -96,7 +96,11 @@ class Account_Center extends Controller {
     public function retrieveListing($listingId): array {
         return $this->model->retrieve_listing($listingId);
     }
-
+    
+    public function retrieveBlob($ListingId){
+        $response = $this->model->retrieve_blob_by_listing($ListingId);
+        return $response;	    
+    }
 
 }
 
