@@ -39,12 +39,6 @@
                             echo "		</div>\n";
                             echo "  </div>\n";
                             
-                            #Reply
-                            echo "<form method='post' action='$url/account_center#contact'>";
-                            echo "<input type='hidden' name='listingId' value='$listingId'>"; 
-                            echo "<input type='hidden' name='row' value='$i'>"; 
-                            //echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
-                            echo "</form>";
                             $idPass = http_build_query(array('listing' => $listingId, 'mess' => $messageId, 'to' => $senderId));
                             
                             # Delete
@@ -53,8 +47,8 @@
                             echo "<input type='hidden' name='listingId' value='$listingId'>"; 
                             echo "<input type='hidden' name='senderId' value='$senderId'>"; 
                             echo "<input type='hidden' name='idPass' value='$idPass'>"; 
-                            echo "<input type='submit' id='reply' name='reply' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
-                            echo "<input type='submit' id='delete' name='deleteMessage' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
+                            echo "<input type='submit' id='reply' name='reply' class='form-input bottom-right btn btn-default' btn btn-default' value='Reply'/>";
+                            echo "<input type='submit' id='delete' name='deleteMessage' class='form-input bottom-right btn btn-default' btn btn-default' value='Delete'/>";
                             echo "</form>";
                             echo "</li>\n";
                     }
