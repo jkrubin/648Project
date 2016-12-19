@@ -98,7 +98,7 @@ Class Api extends Controller {
             }
         }
         else{
-            header("Location: ../account_center#contact");
+            header("Location: ../account_center?".$_POST['idPass']."#contact");
         }
     }
 
@@ -139,7 +139,7 @@ Class Api extends Controller {
 	public function retrieveListing(): array {
 		if (array_key_exists('listingId', $_POST)) {
 			$response = $this->model->retrieve_listing($_POST['listingId']);
-		} else {
+                } else {
 			$response['status'] = 'error';
 			$response['message'] = 'cannot find listing';
 		}

@@ -1,15 +1,5 @@
 <?php
-//    $userId = $_SESSION['UserId'];    
-//    if ($retreive != null){
-//        foreach ($retreive as $i => $row) {
-//            $streetNo = $row["StreetNo"];
-//            $streetName = $row["StreetNo"];
-//            $city = $row["City"];
-//            $zip = $row["ZIP"];
-//            $beds = $row["Bedrooms"];
-//            $bath = $row['Baths'];
-//        }
-//    }
+    $userId = $_SESSION['UserId'];
 ?>
 	    <ul id="" d="messages">
                 <?php
@@ -25,7 +15,7 @@
                         $messageBody = $row['Body'];
                         $url = URL;
                         $_POST['messageId'] = $messageId;
-
+                        
                             echo "<li class='messages'>\n";
             # Listing heading
                             echo "  <div class='messages-heading'>\n";
@@ -50,16 +40,25 @@
                             echo "  </div>\n";
                             
                             #Reply
-                            echo "<form method='post' action='$url/api/retrieveListing'>";
+                            echo "<form method='post' action='$url/account_center#contact'>";
                             echo "<input type='hidden' name='listingId' value='$listingId'>"; 
- //                           echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
+                            echo "<input type='hidden' name='row' value='$i'>"; 
+                            //echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
                             echo "</form>";
-                            
+                            $idPass = http_build_query(array('listing' => $listingId, 'mess' => $messageId, 'to' => $senderId));
+                            foreach($_GET as $key => $value){
+                                if($key != 'url'){
+                                    $idPass .= "&" . $key . "=" . $value;
+                                }
+                            }
                             # Delete
                             echo "<form method='post' action='$url/api/delete_message'>";
                             echo "<input type='hidden' name='messageId' value='$messageId'>"; 
-                            echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
-                            echo "<input type='submit' id='delete' name='deleteMessage' value='delete' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
+                            echo "<input type='hidden' name='listingId' value='$listingId'>"; 
+                            echo "<input type='hidden' name='senderId' value='$senderId'>"; 
+                            echo "<input type='hidden' name='idPass' value='$idPass'>"; 
+                            echo "<input type='submit' id='reply' name='reply' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
+                            echo "<input type='submit' id='delete' name='deleteMessage' class='form-input bottom-right btn btn-default' btn btn-default' value='delete'/>";
                             echo "</form>";
                             echo "</li>\n";
                     }
