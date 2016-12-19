@@ -13,15 +13,17 @@ class Listing_detail extends Controller {
 	 * PAGE: index
 	 * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
 	 */
-		public function index() {
-		// Calls the function createCoords($address, $city). Returns an associative array.
-		$coords = $this->createCoords("20084 Catalina Drive", "Castro Valley");
-		$coords = $this->obfuscate($coords);
-		//Searches through the associative array to get the longitude and latitude. Will probably move into createCoords($address, $city).
-		$latitude = $coords[":latitude"];
-		$longitude = $coords[":longitude"];
+	public function index() {
+		// Calls the function cr
+
 		// load views.
 		require APP . 'view/_templates/header.php';
+		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
+			require APP . 'view/_templates/default_navbar.php';
+		} else {
+			require APP . 'view/_templates/user_navbar.php';
+		}
+		require APP . 'view/_templates/login_modal.php';
 		require APP . 'view/listing-detail/index.php';
 		require APP . 'view/_templates/footer.php';
 	}
@@ -39,22 +41,22 @@ class Listing_detail extends Controller {
 	public function obfuscate($coords){
 		return $this->model->obfuscate($coords);
 	}
-	
+	//get listing based off of listing id
 	public function retrieveListing($listingId): array{
-            if(true){
-                $response = $this->model->retrieve_listing($listingId);
-            }else{
-                $response['status'] = 'error';
-                $response['message'] = 'cannot find listing';
-            }
-            return $response;
+		if(true){
+			$response = $this->model->retrieve_listing($listingId);
+		}else{
+			$response['status'] = 'error';
+			$response['message'] = 'cannot find listing';
+		}
+		return $response;
         }
-	
+	//get blob from model
 	public function retrieveBlob($ListingId){
 
-            $response = $this->model->retrieve_blob_by_listing($ListingId);
+		$response = $this->model->retrieve_blob_by_listing($ListingId);
 
-            return $response;	    
+		return $response;	    
 	}
 	
         

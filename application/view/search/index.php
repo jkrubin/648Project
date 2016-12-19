@@ -1,5 +1,4 @@
 
-
 <div id="wrapper">
 	<div id="search-wrapper">
 		<form id="search" action="<?php echo URL; ?>search" method="GET">
@@ -26,7 +25,12 @@
 				$sqft = $row['SqFt'];
 				$description = $row['Description'];
 				#convert $row into URL rncoded query string
-				$idPass = http_build_query(array('detail' => $row["ListingId"]));
+                $idPass = http_build_query(array('detail' => $row["ListingId"]));
+                foreach($_GET as $key => $value){
+                    if($key != 'url'){
+                        $idPass .= "&" . $key . "=" . $value;
+                    }
+                }
 
 				echo "<li class='listing'>\n";
 

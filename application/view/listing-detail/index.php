@@ -1,7 +1,11 @@
-
-
 <div id='return-button'>
-	<a href="<?php echo URL; ?>search">
+	<a href="<?php echo URL; ?>search?<?php 
+        foreach($_GET as $key => $value){
+            if($key != 'detail' && $key != 'url'){
+                echo "&" . $key . "=" . $value;
+            }
+        }
+        ?>">
 		<li class="btn btn-default">Back to listings</li>
 	</a>
 </div>
@@ -13,6 +17,7 @@
 	$listing = $this->retrieveListing($id);
 	$img = $this->retrieveBlob($id);
 
+    $landlordId = $listing[0]["LandlordId"];
 	$latitude = $listing[0]["Latitude"];
 	$longitude = $listing[0]["Longitude"];
 	$rent = $listing[0]["MonthlyRent"] . " rent";
@@ -105,7 +110,9 @@
 	echo "<div class='row'>";
 	#check to see if listing has an image
 	if($img != null){
+		echo " <a href=#modal  data-toggle='modal' data-target='.pictures'>";
 		echo "	    <img class='picture col-md-3' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/> ";
+		echo "</a>";
 	}
 	else
 		echo "	    <img class='picture col-md-3' src='" . URL . "public/img/placeholder.png'/> ";
@@ -168,7 +175,12 @@
 	}
 	echo "</div>";
 	#contact landlord button, opens up modal
-	echo " <a class='bottom-right btn btn-default' href='#contact' data-toggle='modal' data-target='.contact'>contact landlord</a>\n";
+	if(empty($_SESSION) || empty($_SESSION['UserId'])){
+	    $isLoggedIn = '.member';
+	}else{
+	    $isLoggedIn = '.contact';
+	}
+	echo " <a class='bottom-right btn btn-default' href=#modal  data-toggle='modal' data-target='$isLoggedIn'>contact landlord</a>\n";
 	
 	?>
 	
@@ -185,9 +197,10 @@
 				<!-- Modal Forms-->
 				<div class="modal-body">
 					<div class=" tab-pane active">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator">
+						<form id="form-wrapper" method="post" action="<?php echo URL."api/sendMessage";?>" data-toggle="validator">
 							<div class="form-group row">
-
+                                <input type='hidden' name='landlordId' value='<?php echo $landlordId?>'>
+                                <input type='hidden' name='listingId' value=<?php echo $id?>>
 								<img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
 
 								<div class="col-sm-8">
@@ -223,7 +236,7 @@
 								<div class="help-block with-errors"></div>
 							</div>
 
-							<input type="submit" name="sendMsg" class="form-input btn btn-default" value="Send"/>
+							<input type="submit" name="<??>" class="form-input btn btn-default" value="Send"/>
 
 						</form>
 
@@ -235,6 +248,53 @@
 		</div>
 	</div>
 	
+	<!-- images of listing -->
+	<div class="modal pictures" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class=""><br>
+				<div class="">
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<?php
+							echo "<li data-target='#myCarousel' data-slide-to='0' class='active'></li>";
+							
+							for($i=1;$i<sizeof($img);$i++){
+								echo "<li data-target='#myCarousel' data-slide-to='" . $i . "'></li>";
+							}
+							?>
+						</ol>
+						
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner" role="listbox">
+							<?php
+							echo "<div class='item active'>";
+							echo "	    <img class='img-responsive center-block' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/> ";
+							echo "</div>";
+							
+							for($i=1;$i<sizeof($img);$i++){
+								echo "<div class='item'>";
+								echo "	    <img class='img-responsive center-block' src='data:image/" . $img[$i]['Format'];
+								echo "	    ;base64," . base64_encode($img[$i]['Data']) . "'/> ";
+								echo "</div>";
+							}
+							?>
+						</div>
+						
+						<!-- Left and right controls -->
+						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+							<span class="" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+							<span class="" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
@@ -275,3 +335,9 @@
     });
   }
 </script>
+
+    </script>
+    <!--the google API key.-->
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu2dnDsluWAoiYIoiOKYQSCvmcOBGjzPE&callback=initMap">
+    </script>

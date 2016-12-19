@@ -6,21 +6,15 @@
 		</div>
 		<div class="navbar-right">
 			<ul>
-				<a href="<?php echo URL; ?>listing">
-					<li class="btn btn-default">Add listing</li>
+				<a id="create" href="<?php echo URL; ?>listing">
+					<li class="btn btn-default create">Add listing</li>
 				</a>
-				<a href="<?php echo URL; ?>dashboard">
-					<li class="logout">Manage listings</li>
-				</a>
-				<a href="<?php echo URL; ?>messages">
-					<li class="logout">Messages</li>
-				</a>
-				<a href="<?php echo URL; ?>account">
+				<a href="<?php echo URL; ?>account_center">
 					<li class="username"><?php
-						echo $_SESSION['Name'];
+                                            echo "<p>Welcome, ", $_SESSION['Name'],"</p> Messages and Listings";
 					?></li>
 				</a>
-				<a href="<?php echo URL; ?>logout">
+				<a href="<?php echo URL; ?>api/logout">
 					<li id="logout">Log out</li>
 				</a>
 			</ul>

@@ -244,7 +244,7 @@ class Model {
 	 * Query to put it into DB
 	 *
 	 */
-	public function addListing($rentalSQLParams, $listingSQLParams) {
+	public function addListing($rentalSQLParams, $listingSQLParams, $userId) {
             /*
              *  Create Aditional Values for DB
              */
@@ -254,11 +254,14 @@ class Model {
             //Long and Lat for maps API
             $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
             $city = $rentalSQLParams['City'];
-            $coordinates = $this -> createCoords($addr,$city);
-            $coordinates = $this -> obfuscate($coordinates);
 
+            $coordinates = $this -> createCoords($addr,$city);
             $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
             $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
+
+            $coordinates = $this -> obfuscate($coordinates);
+
+
             $listingSQLParams['Latitude'] = $coordinates[":latitude"];
             $listingSQLParams['Longitude'] = $coordinates[":longitude"];
 
@@ -277,6 +280,7 @@ class Model {
             // Get distance value in Miles, form of a double
             $distance= $result['rows'][0]['elements'][0]['distance']['text'];
             $distance= doubleval(explode(' ', $distance)[0]);
+            $rentalSQLParams['Distance'] = $distance;
             // TEST 
             //echo "<br>Distance is: " . $distance . " (type is ".gettype($distance);
             
@@ -309,7 +313,7 @@ class Model {
             //Add listing ID
             $listingSQLParams["RentalId"] = $last_id;
             //Dummy value for Landlord ID
-            $listingSQLParams["LandlordId"] = 42;
+            $listingSQLParams["LandlordId"] = $userId;
             //Previously calculated distance
             $listingSQLParams["Distance"] = $distance;
 
@@ -340,10 +344,10 @@ class Model {
 
 	public function retrieve_listing($listingId): array {
 		$sql = "SELECT StreetNo, StreetName, City, ZIP, " .
-				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, " .
-				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate " .
+				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, LandlordId, " .
+				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate, L.Longitude, L.Latitude " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.Listing=$listingId";
+				"WHERE L.ListingId=$listingId AND R.RentalId=L.RentalId;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -377,9 +381,13 @@ class Model {
 		$name = $firstName . ' ' . $lastName;
 
 		// Exit if any of the variables passed in do not pass the regex validation
-		if ($this->validate_name($name) && $this->validate_email($email) && $this->validate_password($password)) {
+        
+		if (!($this->validate_name($name) && $this->validate_email($email) && $this->validate_password($password))) {
+
+            echo "failure at validate check.";
 			return false;
 		}
+        echo "Passed Validation Check.";
 
 		try {
 			// Test to see if email already exists in database
@@ -389,8 +397,10 @@ class Model {
 			$query->execute($params);
 			$results = $query->fetchAll();
 			if (count($results) > 0) {
+                echo "failure";
 				return false;
 			}
+            echo "Email check passed.";
 
 			// Hash password for insertion into database
 			$options = ['cost' => 12];
@@ -441,7 +451,7 @@ class Model {
 		}
 
 		try {
-			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password 
+			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password, Disabled 
 			        FROM Users U, Emails E 
 			        WHERE U.UserId=E.UserId AND Email=:email";
 			$query = $this->db->prepare($sql);
@@ -456,13 +466,18 @@ class Model {
 						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
 						$response['name'] = $name;
 						$response['userId'] = $results['UserId'];
-						$this->init_session($results['UserId'], $name);
+                        $response['disabled'] = $results['Disabled'];
+						$this->init_session($results['UserId'], $name, $results['Disabled']);
 						$this->generate_auth_cookie($results['UserId']);
-						header('Location: ' . URL . $url);
-					}
-				}
+					}else{
+                        echo "incorrect password";
+                    }
+				}else{
+                    echo "incorrect email";
+                }
 			}
 			if (empty($_SESSION)) {
+                
 				$response['status'] = 'error';
 				$response['message'] = 'Username and/or password do not match.';
 			}
@@ -479,26 +494,31 @@ class Model {
 		if (session_start()) {
 			$_SESSION['UserId'] = $userId;
 			$_SESSION['Name'] = $name;
+            var_dump($_SESSION);
 			return true;
 		} else {
+            echo "Session init fail";
 			return false;
 		}
         }
 	private function validate_email($email): bool {
 		// Regex pulled through referral link from StackOverflow - http://thedailywtf.com/articles/Validating_Email_Addresses
 		$emailPattern = '/^[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&\'*+\/0-9=?A-Z^_a-z{|}~])*@[a-zA-Z](-?[a-zA-Z0-9])*(\.[a-zA-Z](-?[a-zA-Z0-9])*)+$/';
+        echo "Email: ", preg_match($emailPattern, $email);
 		return preg_match($emailPattern, $email);
 	}
 
 	private function validate_name($name): bool {
 		// Regex pulled from StackOverflow - http://stackoverflow.com/a/2044909/845306
 		$namePattern = '/^([ \x{00c0}-\x{01ff}a-zA-Z\'\-])+$/u';
+        echo "Name: ", preg_match($namePattern, $name);
 		return preg_match($namePattern, $name);
 	}
 
 	private function validate_password($password): bool {
 		// Regex for all ANSI keyboard characters
-		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{8,70}/';
+		$passwordPattern = '/[A-Za-z0-9 ,\/*\-+`~!@#$%^&\(\)_=<.>\{\}\\\|\?\[\];:\'"]{1,70}/';
+        echo "Password: ", preg_match($passwordPattern, $password);
 		return preg_match($passwordPattern, $password);
 	}
 
@@ -580,6 +600,7 @@ class Model {
         $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
                     VALUES(:senderId, :recipientId, :listingId, :title, :body, :true);";
         $query = $this->db->prepare($sql);
+        var_dump($query);
         var_dump($params);
         $query->execute($params);
     }
@@ -648,6 +669,24 @@ class Model {
 
     }
 
+
+    public function edit_listing($streetNo, $streetName, $city, $ZIP, $monthlyRent, $description, $bedrooms, $baths, $deposit, $keyDeposit, $petDeposit, $startDate, 
+                                 $endDate, $electricity, $furnished, $gas, $internet, $pets, $smoking, $television, $water, $listingId){
+
+        $sql = 	"UPDATE Listings L, Rentals R " .
+			    "SET R.StreetNo='$streetNo', R.StreetName='$streetName', R.City='$city', R.ZIP='$ZIP', R.Bedrooms='$bedrooms', ".
+				"R.Baths='$baths', L.MonthlyRent='$monthlyRent', " .
+				"L.Description='$description', L.Deposit='$deposit', L.PetDeposit='$petDeposit', L.KeyDeposit='$keyDeposit', " .
+				"L.Electricity='$electricity', L.Internet='$internet', L.Water='$water', L.Gas='$gas', " . 
+                "L.Television='$television', ".
+			    "L.Pets='$pets', L.Smoking='$smoking', L.Furnished='$furnished', L.StartDate='$startDate', ".  
+                "L.EndDate='$endDate' " .
+				"WHERE R.RentalId=L.RentalId AND L.ListingId='$listingId'";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+    }
+
 	/**
 	 * Get all songs from database
 	 */
@@ -695,8 +734,9 @@ class Model {
 		$query->execute($parameters);
         }
 	public function logout() {
+        session_start();
 		if (empty($_SESSION) || empty($_SESSION['UserId'])) {
-			return;
+            return;
 		}
 		list($userId, $selector, $token) = explode(':', $_COOKIE['rememberRentSFSU']);
 
@@ -781,7 +821,11 @@ class Model {
                 //INSERT CODE HERE
             
             //Execute sequence
-            $sql = "DELETE FROM Listings WHERE ListingId = $listingId";
+            $sql_0 = "DELETE FROM Photos WHERE ListingId='$listingId';";
+            $query_0 = $this->db->prepare($sql_0);
+            $query_0->execute();
+
+            $sql = "DELETE FROM Listings WHERE ListingId='$listingId';";
             $query = $this->db->prepare($sql);
             $query->execute();
         }

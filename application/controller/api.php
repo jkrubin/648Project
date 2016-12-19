@@ -9,15 +9,99 @@ Class Api extends Controller {
 	public function index() {
 		// load views
 		require APP . 'view/_templates/header.php';
-		if (empty($_SESSION) && empty($_SESSION['UserId'])) {
-			require APP . 'view/_templates/login_modal.php';
-		}
 		require APP . 'view/problem/index.php';
+        require APP . 'view/_templates/login_modal.php';
 		require APP . 'view/_templates/footer.php';
 	}
         public function getCoords($listingId){
 		    return $this->model->getCoords($listingId);
         }
+
+    public function logout(){
+        try{
+            $this->model->logout();
+            header("Location: ../");
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function login(){
+        $response = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
+        session_start();
+        if($response['status'] == 'success'){
+            header("Location: ../account_center");
+        }else{
+            header("Location: ../");
+        }
+    }
+
+    public function signup(){
+        try{           
+            $this->model->add_user($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']);
+            $response = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
+            if($response['status'] == 'success'){
+                header("Location: ../");
+            }
+            
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();        
+        }
+    }
+
+    public function sendMessage(){
+        session_start();
+        try{
+           $params = array(':body' => $_POST['message'], 'senderId' => $_SESSION['UserId'], ':recipientId' => $_POST['landlordId'], 
+                           ':listingId' => $_POST['listingId'], ':true' => true);
+           if(array_key_exists('subject', $_POST)){
+                $params[':title'] = $_POST['subject'];
+           }
+           $this->model->send_message($params);
+           header("Location: ../account_center#messages");            
+        }catch(Exception $e){
+           echo 'Error', $e->getMessage();
+        }
+    }
+    
+    public function get_new_messages():array{
+        try{
+            return $this->model->get_new_messages($_POST['userId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function view_message():array{
+        try{
+            return $this->model->view_message($_POST['messageId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();
+        }
+    }
+
+    public function get_old_messages():array{
+        try{
+            return $this->model->view_message($_POST['userId']);
+        }catch(Exception $e){
+            echo 'Error', $e->getMessage();        
+        }
+    }
+
+    public function delete_message(){
+        if(isset($_POST['deleteMessage'])){
+            try{
+                $this->model->delete_message($_POST['messageId']);
+                header("Location: ../account_center#messages");
+            }catch(Exception $e){
+                echo 'Error', $e->getMessage();        
+            }
+        }
+        else{
+            header("Location: ../account_center?".$_POST['idPass']."#contact");
+        }
+    }
+
 	public function addListing() {
 
 		//Create new listing if we have post data from submit_listing
@@ -53,9 +137,9 @@ Class Api extends Controller {
 	}
 
 	public function retrieveListing(): array {
-		if (array_key_exists('listingId', $_POST[])) {
+		if (array_key_exists('listingId', $_POST)) {
 			$response = $this->model->retrieve_listing($_POST['listingId']);
-		} else {
+                } else {
 			$response['status'] = 'error';
 			$response['message'] = 'cannot find listing';
 		}
@@ -63,11 +147,96 @@ Class Api extends Controller {
 	}
 
 	public function editListing() {
-  }
+          
+    }
 
 	public function deleteListing() {
-
+        $this->model->delete_listing($_POST['listingId']);
 	}
+
+    public function changeListing(){
+        if(isset($_POST['delete'])){
+            echo "delete found";
+            $this->model->delete_listing($_POST['ListingId']);
+        }
+
+        if(isset($_POST['save'])){
+            echo "save found";
+
+            if(empty($_POST['Deposit'])){
+                $deposit = 0;
+            }else{
+                $deposit = $_POST['Deposit'];            
+            }
+
+            if(empty($_POST['KeyDeposit'])){
+                $keyDeposit = 0;
+            }else{
+                $keyDeposit = $_POST['KeyDeposit'];
+            }
+
+            if(empty($_POST['PetDeposit'])){
+                $petDeposit = 0;
+            }else{
+                $petDeposit = $_POST['petDeposit'];
+            }
+
+            if(empty($_POST['Electricity'])){
+                $electricity = 0;
+            }else{
+                $electricity = $_POST['Electricity'];
+            }
+
+            if(empty($_POST['Furnished'])){
+                $furnished = 0;
+            }else{
+                $furnished = $_POST['Furnished'];
+            }
+
+            if(empty($_POST['Gas'])){
+                $gas = 0;
+            }else{
+                $gas = $_POST['Gas'];
+            }
+
+            if(empty($_POST['Internet'])){
+                $internet = 0;
+            }else{
+                $internet = $_POST['Internet'];
+            }
+            
+            if(empty($_POST['Pets'])){
+                $pets = 0;
+            }else{
+                $pets = $_POST['Pets'];
+            }
+            
+            if(empty($_POST['Smoking'])){
+                $smoking = 0;
+            }else{
+                $smoking = $_POST['Smoking'];
+            }
+
+            if(empty($_POST['Television'])){
+                $television = 0;
+            }else{
+                $television = $_POST['Television'];
+            }
+            
+            if(empty($_POST['Water'])){
+                $water = 0;
+            }else{
+                $water = $_POST['Water'];
+            }
+
+            $this->model->edit_listing($_POST['StreetNo'], $_POST['StreetName'], $_POST['City'], $_POST['ZIP'], $_POST['MonthlyRent'], $_POST['Description'], 
+                                       $_POST['Bedrooms'], $_POST['Baths'], $deposit, $keyDeposit, $petDeposit, $_POST['StartDate'], 
+                                       $_POST['EndDate'], $electricity, $furnished, $gas, $internet, $pets, 
+                                       $smoking, $television, $water, $_POST['ListingId']);
+        }
+        
+        header("Location: ../account_center#listings");
+    }
 
 	public function authenticateUser(): array {
 		if (isset($_POST["email"]) && isset($_POST["password"])) {
