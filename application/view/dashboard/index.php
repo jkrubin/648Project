@@ -66,7 +66,7 @@
                     echo "              </div>\n";
                     echo "              <div class='col2'>\n";
                     echo "			<ul>\n";
-                    echo "				<li><input type='number' value='$monthlyRent' id='inputSmall'/><br>Monthly Rent</li><br>\n";
+                    echo "				<li><input type='number' value='$sqft' id='inputSmall'/><br>Square Feet</li><br>\n";
                     echo "				<li><input type='number' name='Deposit' value='$deposit' id='inputSmall'/><br>Deposit</li><br>\n";
                     echo "			</ul>\n";
                     echo "              </div>\n";

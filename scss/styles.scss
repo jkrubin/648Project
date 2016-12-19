@@ -48,33 +48,36 @@ header {
 }
 
 #navbar {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: $navbar-height;
-	margin-bottom: $navbar-margin-bottom;
-	padding: $navbar-padding-vertical $navbar-padding-horizontal;
-	color: $navbar-default-color;
-	background: $navbar-default-bg;
-	a {
-		display: inline-block;
-		top: 0;
-		bottom: 0;
-		text-decoration: none;
-		font-size: 1em;
-		font-weight: bold;
-		color: #fff;
-		&:hover {
-			background-color: $purple-hover;
-		}
-	}
-	ul {
-		margin: 0;
-		li {
-			padding: $padding-base-vertical $padding-base-horizontal;
-		}
-	}
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $navbar-height+5;
+    margin-bottom: $navbar-margin-bottom;
+    padding: $navbar-padding-vertical $navbar-padding-horizontal;
+    color: $navbar-default-color;
+    background: $navbar-default-bg;
+    a {
+        display: inline-block;
+        top: 0;
+        bottom: 0;
+        text-decoration: none;
+        font-size: 1em;
+        font-weight: bold;
+        color: #fff;
+        &:hover {
+            background-color: $purple-hover;
+        }
+    }
+    #create{
+        background-color: transparent;
+    }
+    ul {
+        margin: 0;
+        li {
+            padding: $padding-base-vertical $padding-base-horizontal;
+        }
+    }
 }
 
 ul li {
@@ -108,7 +111,7 @@ ul li {
 	font-weight: bold;
 	color: #ff0000;
 	position: absolute;
-	top: $navbar-height;
+	top: $navbar-height+5;
 	padding: $padding-base-vertical $padding-base-horizontal;
 }
 
@@ -648,6 +651,7 @@ ul li {
     #delete {
         background-color: red;
         border-color: red;
+        width: 7%;
     }
     #delete:hover {
         background-color: darkred;
@@ -655,6 +659,7 @@ ul li {
     }
     #reply {
         margin-left: 0px;
+        width: 7%;
     }
 }
 .detail-listing{
@@ -772,4 +777,8 @@ ul li {
 
 #modalTrigger{
     display: none;
+}
+
+#center{
+    text-align: center;
 }
