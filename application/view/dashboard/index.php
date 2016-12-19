@@ -4,6 +4,7 @@
                 foreach ($listings as $i => $row) {
                     $url = URL;
                     $listingId = $row["ListingId"];
+                    $img = $this->retrieveBlob($listingId);
                     $rent = $row["MonthlyRent"];
                     $streetNo = $row["StreetNo"];
                     $streetName = $row["StreetName"];
@@ -51,7 +52,11 @@
 
                     # Photos window
                     echo "		<div class='photos edit-listing-details-left'>\n";
-                    echo "          <img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/>\n";
+                                        if($img != null){
+                                            echo "<img class='col-sm-4' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                        }
+                                        else
+                                            echo "<img class='col-sm-4' src='". URL ."public/img/placeholder.png' height='150px' width='150px'/>";
                     echo "			<textarea class='description' name='Description'>$description</textarea>\n";
                     echo "		</div>\n";
 
