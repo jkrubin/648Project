@@ -46,11 +46,7 @@
                             //echo "<input type='submit' id='reply' name='reply' value=' reply ' class='form-input bottom-right btn btn-default' btn btn-default' value='reply'/>";
                             echo "</form>";
                             $idPass = http_build_query(array('listing' => $listingId, 'mess' => $messageId, 'to' => $senderId));
-                            foreach($_GET as $key => $value){
-                                if($key != 'url'){
-                                    $idPass .= "&" . $key . "=" . $value;
-                                }
-                            }
+                            
                             # Delete
                             echo "<form method='post' action='$url/api/delete_message'>";
                             echo "<input type='hidden' name='messageId' value='$messageId'>"; 
