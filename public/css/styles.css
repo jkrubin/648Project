@@ -9654,3 +9654,8 @@ ul li {
 #modalTrigger {
   display: none;
 }
+
+/* line 780, ../../scss/styles.scss */
+#center {
+  text-align: center;
+}
