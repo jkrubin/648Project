@@ -280,7 +280,6 @@ class Model {
             // Get distance value in Miles, form of a double
             $distance= $result['rows'][0]['elements'][0]['distance']['text'];
             $distance= doubleval(explode(' ', $distance)[0]);
-            $rentalSQLParams['Distance'] = $distance;
             // TEST 
             //echo "<br>Distance is: " . $distance . " (type is ".gettype($distance);
             
@@ -297,6 +296,7 @@ class Model {
             $rentalSQL .= " VALUES('" . implode("' , '", $rentalSQLParams) . "')";
             
             try{
+                echo $rentalSQL;
                 //Insert into Rentals Table
                 $this->db->query($rentalSQL);
 

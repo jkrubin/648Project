@@ -152,10 +152,9 @@
     <input type="checkbox" id="television" name="television"/> <label for="television">Television</label>
     <input type="checkbox" id="furished" name="furnished"/> <label for="furnished">Furnished</label><br><br><br>
     Add images:<br><br>
-    <input type="file" id="images" name="images" multiple/><br>
-    <div id="center">
-        <input type="checkbox" name="agree"/> By checking, I accept the <a href="#">Terms of Service</a><br><br>
-        <input type="submit" id="button" class="btn btn-default" name ="submit_listing" value="Create Listing" />
-    </div>
+    <input type="file" id="images" name="images[]" multiple/><br><br><br>
+    <input type="checkbox" name="agree"/> By checking, I accept the <a href="#">Terms of Service</a>
+    <input type="submit" id="button" class="btn btn-default" name ="submit_listing" value="Create Listing" />
+ 
 </form>
 </div>
