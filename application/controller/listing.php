@@ -170,14 +170,20 @@ class Listing extends Controller {
     public function handle_blob($id){
         
         //var_dump($_FILES);
+        
+        $fileNumber = count($_FILES['images']['name']);
 
         if ((isset($_FILES["images"]) and (!empty($_FILES['images']['tmp_name'])))){
+            
+            for($i = 0; $i < $fileNumber; $i++){
                         
-            $img_info = getimagesize($_FILES['images']['tmp_name']);
+                $img_info = getimagesize($_FILES['images']['tmp_name'][$i]);
 
-            $img_temp = $_FILES['images']['tmp_name'];
+                $img_temp = $_FILES['images']['tmp_name'][$i];
 
-            $this->model->submit_blob($img_info,$img_temp,$id);
+                $this->model->submit_blob($img_info,$img_temp,$id);
+            
+            }
             
         }
         
