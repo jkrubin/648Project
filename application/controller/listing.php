@@ -172,8 +172,9 @@ class Listing extends Controller {
         //var_dump($_FILES);
         
         $fileNumber = count($_FILES['images']['name']);
+        //echo '<br>'. $fileNumber. '<br>';
 
-        if ((isset($_FILES["images"]) and (!empty($_FILES['images']['tmp_name'])))){
+        if ((isset($_FILES["images"]) and $_FILES['images']['name'][0] != "")){
             
             for($i = 0; $i < $fileNumber; $i++){
                         
