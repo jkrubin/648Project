@@ -347,7 +347,7 @@ class Model {
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, LandlordId, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate, L.Longitude, L.Latitude " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.ListingId=$listingId AND R.RentalId=L.ListingId;";
+				"WHERE L.ListingId=$listingId AND R.RentalId=L.RentalId;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -445,39 +445,30 @@ class Model {
 		$email = strtolower(trim($email));
 
 		if (!($this->validate_email($email) && $this->validate_password($password))) {
-            echo "failure at validate email.";
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
 		}
-        echo "validation passed";
 
 		try {
-            echo "enter try";
-			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password 
+			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password, Disabled 
 			        FROM Users U, Emails E 
 			        WHERE U.UserId=E.UserId AND Email=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
-            //$temp = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            //var_dump($temp);
-            echo "enter while loop";
 			while ($results = $query->fetch()) {
-                echo "enter success.";
 				if (strtolower($results['Email']) === $email) {
-                    echo "Correct email";
 					$verified = password_verify($password, $results['Password']);
 					if ($verified) {
-                        echo "passed verified";
 						$response['status'] = 'success';
 						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
 						$response['name'] = $name;
 						$response['userId'] = $results['UserId'];
-						$this->init_session($results['UserId'], $name);
+                        $response['disabled'] = $results['Disabled'];
+						$this->init_session($results['UserId'], $name, $results['Disabled']);
 						$this->generate_auth_cookie($results['UserId']);
-						//header('Location: ' . URL . $url);
 					}else{
                         echo "incorrect password";
                     }
@@ -609,6 +600,7 @@ class Model {
         $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
                     VALUES(:senderId, :recipientId, :listingId, :title, :body, :true);";
         $query = $this->db->prepare($sql);
+        var_dump($query);
         var_dump($params);
         $query->execute($params);
     }

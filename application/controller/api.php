@@ -49,16 +49,16 @@ Class Api extends Controller {
         }
     }
 
-    public function sendMessage($LandlordId){
+    public function sendMessage(){
         session_start();
         try{
-           $params = array(':body' => $_POST['body'], 'senderId' => $_SESSION['UserId'], ':recipientId' => $LandlordId, 
+           $params = array(':body' => $_POST['message'], 'senderId' => $_SESSION['UserId'], ':recipientId' => $_POST['landlordId'], 
                            ':listingId' => $_POST['listingId'], ':true' => true);
-           if(array_key_exists('title', $_POST)){
-                $params[':title'] = $_POST['title'];
+           if(array_key_exists('subject', $_POST)){
+                $params[':title'] = $_POST['subject'];
            }
            $this->model->send_message($params);
-           header("Location: ..");
+           header("Location: ../account_center#messages");            
         }catch(Exception $e){
            echo 'Error', $e->getMessage();
         }

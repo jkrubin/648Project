@@ -55,8 +55,10 @@
             <!-- Modal Forms-->
             <div class="modal-body">
                 <div class=" tab-pane active">
-                    <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage($sender)";?>" data-toggle="validator">
+                    <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage";?>" data-toggle="validator">
                         <div class="form-group row">
+                            <input type='hidden' name='landlordId' value='<?php echo $landlordId;?>'>
+                            "<input type='hidden' name='listingId' value='<?php echo $listId;?>'>
                             <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
                             <div class="col-sm-8">
                                 <div class="address">
