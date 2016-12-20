@@ -37,37 +37,66 @@
                 </button>
                 <h class="modal-title">Reply to Potential Rentee</h>
             </div>
+ <?php 
+    $listId = $_GET['listing'];
+    $sender = $_GET['to'];
+    $mess = $_GET['mess'];
+        #grab listing based on id
+        $listing = $this->retrieveListing($_GET['listing']);
+        $messageC = $this->view_message($_GET['mess']);
+        $img = $this->retrieveBlob($listId);
+        $titleC = $messageC[0]['Title'];
+
+        $landlordId = $listing[0]["LandlordId"];
+        $addressC = $listing[0]["StreetNo"] . ' ' .$listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
+        $bedroomsC = $listing[0]['Bedrooms'];
+        $bathsC = $listing[0]['Baths'];     
+       ?>           
             <!-- Modal Forms-->
             <div class="modal-body">
                 <div class=" tab-pane active">
-                    <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage($_POST[senderId])";?>" data-toggle="validator">
+                    <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage";?>" data-toggle="validator">
                         <div class="form-group row">
-                            <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
+                            <div class="reply-details-left">
+                                <?php 
+                                if($img != null){
+                                    echo "<img id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                }
+                                else
+                                    echo "<img id='imgMaxSize' src='". URL."public/img/placeholder.png' height='150px' width='150px'/>";
+                                ?>
+                            </div>
+                            <input type='hidden' name='landlordId' value='<?php echo $landlordId;?>'>
+                            <input type='hidden' name='listingId' value='<?php echo $listId;?>'>
                             <div class="col-sm-8">
                                 <div class="address">
-                                    <?php echo $streetNo. " ". $streetName. ", ". $city, " CA ". $zip ?></p>
+                                    <?php echo $addressC ?></p>
                                 </div>
                                 <div class="rental-details">
                                     <p><span class="bedrooms">
                                     <?php
-                                        echo "1 room";
-//												echo $_POST['bedrooms'] . " bedroom";
-//												if($_POST['bedrooms'] > 1){
-//												    echo "s";
-//												}
+                                        if ($bedroomsC == 1){
+                                            echo $bedroomsC. " Bedroom";
+                                        }
+                                        elseif ($bedroomsC>1 ) {
+                                            echo $bedroomsC." Bedrooms";
+                                        }
+                                        else
+                                            echo "Studio"; 
                                     ?>
                                     </span> &nbsp; 
                                     <span class="baths">
                                         <?php 	
-                                                echo "1 bath";
-//												echo $_POST['baths'] . " bath";
-//												if($_POST['baths'] > 1){
-//												    echo "s";
-//												} 
+                                            if ($bathsC==1){
+                                                echo $bathsC." Bath";
+                                            }
+                                            elseif ($bathsC>1 || $bathsC<1 ) {
+                                                echo $bathsC." Baths";
+                                            }
                                         ?>
                                     </span></p>
                                     </div>
-                                    <input class="form-input form-control" type="text" name="subject" value="<?php echo$title?>" required="">
+                                    <input class="form-input form-control" type="text" name="subject" value="<?php echo$titleC?>" required="">
                                     <div class="help-block with-errors"></div>
                             </div>
                     </div>

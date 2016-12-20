@@ -16,7 +16,6 @@ class Account_Center extends Controller {
             $messages = $this->get_all_messages();
             $newMessages = $this->get_new_messages();
             $oldMessages = $this->get_old_messages();
-            $retreive = $this->retrieveListing();
         }
 
             require APP . 'view/_templates/header.php';
@@ -26,9 +25,13 @@ class Account_Center extends Controller {
             } else {
                 require APP . 'view/_templates/user_navbar.php';
             }
-            require APP . 'view/account_center/index.php';
+            if($_SESSION['Disabled']){
+                require APP . 'view/disabled/index.php';
+            }else{
+                require APP . 'view/account_center/index.php';
+            }
             require APP . 'view/_templates/footer.php';
-    }
+   }
 
     public function fetch_dashboard($userId): array{
      
@@ -56,9 +59,9 @@ class Account_Center extends Controller {
         }
     }
 
-    public function view_message(): array {
+    public function view_message($messageID): array {
         try {
-            return $this->model->view_message($_POST['messageId']);
+            return $this->model->view_message($messageID);
         } catch (Exception $e) {
             echo 'Error', $e->getMessage();
         }
@@ -81,23 +84,27 @@ class Account_Center extends Controller {
     }
 
     public function delete_message() {
-        try {
-            $this->model->delete_message($_POST['messageId']);
-        } catch (Exception $e) {
-            echo 'Error', $e->getMessage();
+        if(isset($_POST['deleteMessage'])){
+            try{
+                $this->model->delete_message($_POST['messageId']);
+                header("Location: ../account_center#messages");
+            }catch(Exception $e){
+                echo 'Error', $e->getMessage();        
+            }
+        }
+        else{
+            header("Location: ../account_center?".$_POST['idPass']."#contact");
         }
     }
 
-    public function retrieveListing(): array {
-        if (array_key_exists('listingId', $_POST)) {
-            $response = $this->model->retrieve_listing($_POST['listingId']);
-        } else {
-            $response['status'] = 'error';
-            $response['message'] = 'cannot find listing';
-        }
-        return $response;
+    public function retrieveListing($listingId): array {
+        return $this->model->retrieve_listing($listingId);
     }
-
+    
+    public function retrieveBlob($ListingId){
+        $response = $this->model->retrieve_blob_by_listing($ListingId);
+        return $response;	    
+    }
 
 }
 

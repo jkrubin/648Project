@@ -200,26 +200,16 @@ class Model {
 		//json_decode changes the file from it's JSON representation to an associative array.
 		$file = json_decode(file_get_contents($url), true);         
                 
-                //TESTING ONLY
-                //echo '<br> LONG LAT RESULTS ARRAY: <br>';
+                if(!empty($file["results"])){
+                    $latitude = $file["results"][0]["geometry"]["location"]["lat"];
+                    $longitude = $file["results"][0]["geometry"]["location"]["lng"];
+                }else{
+                    $latitude = 37.7749;
+                    $longitude = -122.4194;
+                }
+                
                 //var_dump($file["results"]);
-                //echo '<br>';
-               
-                
-                /*
-		foreach ($file["results"] as $results) {
-			foreach ($results["geometry"] as $geometry => $location) {
-				$latitude = $location["lat"];
-				$longitude = $location["lng"];
-				break;
-			}
-		}
-                 * 
-                 */
-                $latitude = $file["results"][0]["geometry"]["location"]["lat"];
-                $longitude = $file["results"][0]["geometry"]["location"]["lng"];
-                
-                //echo "<br><br>long: $longitude, lat: $latitude<br><br>";
+                //echo '<br> lat: '. $latitude. 'long: ' . $longitude. '<br>';
                 
 		//creates an associative array with keys "Latitude" and "Longitude"
 		$coords = array(":latitude" => $latitude, ":longitude" => $longitude);
@@ -245,28 +235,43 @@ class Model {
 	 *
 	 */
 	public function addListing($rentalSQLParams, $listingSQLParams, $userId) {
+
+            $message = array();
+            $message['id'] = 0;
+            $message['error'] = FALSE;
+
+            
             /*
              *  Create Aditional Values for DB
              */
             //RENTAL ID
             $rentalSQLParams["RentalTypeId"] = 1;
 
-            //Long and Lat for maps API
+            /*
+             *  Create long and lat for appartment
+             */
             $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
             $city = $rentalSQLParams['City'];
+            
+            try{
+                $coordinates = $this -> createCoords($addr,$city);
+                $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
+                $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
 
-            $coordinates = $this -> createCoords($addr,$city);
-            $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
-            $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
-
-            $coordinates = $this -> obfuscate($coordinates);
+                $coordinates = $this -> obfuscate($coordinates);
+            }catch(Exception $e){
+                echo "error";
+            }
 
 
             $listingSQLParams['Latitude'] = $coordinates[":latitude"];
             $listingSQLParams['Longitude'] = $coordinates[":longitude"];
-
-            //Distance API
-            //Google URL for  rental distance
+            
+            /*
+             * Calculate distance from SFSU
+             * Distance API
+             * Google URL for  rental distance
+             */
 
             $baseURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
             $rentalCoords = "&origins=" . $rentalSQLParams['Latitude'] . "," . $rentalSQLParams['Longitude'];
@@ -277,13 +282,14 @@ class Model {
             $rentalResponse = file_get_contents($rentalDistanceURL);
             $result = json_decode($rentalResponse,true);
 
-            // Get distance value in Miles, form of a double
-            $distance= $result['rows'][0]['elements'][0]['distance']['text'];
-            $distance= doubleval(explode(' ', $distance)[0]);
-            $rentalSQLParams['Distance'] = $distance;
-            // TEST 
-            //echo "<br>Distance is: " . $distance . " (type is ".gettype($distance);
-            
+            // Get distance value in Miles, form of a double            
+            if(array_key_exists('rows', $result) and 
+                    ($result['rows'][0]['elements'][0]['status'] == 'OK')){
+                $distance= $result['rows'][0]['elements'][0]['distance']['text'];
+                $distance= doubleval(explode(' ', $distance)[0]);
+            }else{
+                $distance = 0.0;
+            }
 
             /*
              *      ADD RENTAL TO DB
@@ -303,7 +309,9 @@ class Model {
                 //Get the last inserted ID, which is the thing we just added
                 $last_id = $this->db->lastInsertID();
             }catch(PDOException $e){
+                $message['error']=TRUE;
                 echo 'Database entry Failed:'. $e->getMessage();
+                
             }
 
             /*
@@ -319,7 +327,6 @@ class Model {
 
             //Prepate Listing SQL
             $listingSQL = "INSERT INTO Listings";
-
             //Implode all keys
             $listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
             //Implode all values
@@ -332,14 +339,12 @@ class Model {
                 $last_id = $this->db->lastInsertID();
 
             }catch(PDOException $e){
+                $message['error']=TRUE;
                 echo 'Database entry Failed:'. $e->getMessage();
             }
 
-            //For testing only
-            //echo $rentalSQL;
-            //echo "<br>" . $listingSQL;
-
-            return $last_id;
+            $message['id'] = $last_id;
+            return $message;
 	}
 
 	public function retrieve_listing($listingId): array {
@@ -347,7 +352,7 @@ class Model {
 				"Bedrooms, Baths, SqFt, MonthlyRent, Description, Deposit, PetDeposit, KeyDeposit, LandlordId, " .
 				"Electricity, Internet, Water, Gas, Television, Pets, Smoking, Furnished, StartDate, EndDate, L.Longitude, L.Latitude " .
 				"FROM Listings L, Rentals R " .
-				"WHERE L.ListingId=$listingId AND R.RentalId=L.ListingId;";
+				"WHERE L.ListingId=$listingId AND R.RentalId=L.RentalId;";
 		$query = $this->db->prepare($sql);
 		$query->execute();
 		return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -445,39 +450,30 @@ class Model {
 		$email = strtolower(trim($email));
 
 		if (!($this->validate_email($email) && $this->validate_password($password))) {
-            echo "failure at validate email.";
 			$response['status'] = 'error';
 			$response['message'] = 'Email and/or password cannot be found.';
 			return $response;
 		}
-        echo "validation passed";
 
 		try {
-            echo "enter try";
-			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password 
+			$sql = "SELECT U.UserId, FirstName, LastName, Email, Password, Disabled 
 			        FROM Users U, Emails E 
 			        WHERE U.UserId=E.UserId AND Email=:email";
 			$query = $this->db->prepare($sql);
 			$params = [':email' => $email];
 			$query->execute($params);
-            //$temp = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            //var_dump($temp);
-            echo "enter while loop";
 			while ($results = $query->fetch()) {
-                echo "enter success.";
 				if (strtolower($results['Email']) === $email) {
-                    echo "Correct email";
 					$verified = password_verify($password, $results['Password']);
 					if ($verified) {
-                        echo "passed verified";
 						$response['status'] = 'success';
 						$name = $results['FirstName'] . ' ' . substr($results['LastName'], 0, 1) . '.';
 						$response['name'] = $name;
 						$response['userId'] = $results['UserId'];
-						$this->init_session($results['UserId'], $name);
+                        $response['disabled'] = $results['Disabled'];
+						$this->init_session($results['UserId'], $name, $results['Disabled']);
 						$this->generate_auth_cookie($results['UserId']);
-						//header('Location: ' . URL . $url);
 					}else{
                         echo "incorrect password";
                     }
@@ -499,11 +495,11 @@ class Model {
 		return $response;
 	}
 
-	private function init_session($userId, $name): bool {
+	private function init_session($userId, $name, $disabled): bool {
 		if (session_start()) {
 			$_SESSION['UserId'] = $userId;
 			$_SESSION['Name'] = $name;
-            var_dump($_SESSION);
+            $_SESSION['Disabled'] = $disabled;
 			return true;
 		} else {
             echo "Session init fail";
@@ -609,6 +605,7 @@ class Model {
         $sql = "INSERT INTO Messages(SenderId, RecipientId, ListingId, Title, Body, IsUnread)
                     VALUES(:senderId, :recipientId, :listingId, :title, :body, :true);";
         $query = $this->db->prepare($sql);
+        var_dump($query);
         var_dump($params);
         $query->execute($params);
     }

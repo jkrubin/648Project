@@ -6,7 +6,7 @@
 		</div>
 		<div class="navbar-right">
 			<ul>
-				<a href="<?php echo URL; ?>listing">
+				<a id="create" href="<?php echo URL; ?>listing">
 					<li class="btn btn-default create">Add listing</li>
 				</a>
 				<a href="<?php echo URL; ?>account_center">

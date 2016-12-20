@@ -8,7 +8,7 @@
 		</div>
 		<div class="navbar-right">
 			<ul>
-				<a href="#signup" data-toggle="modal" data-target=".member">
+				<a href="#signup" data-toggle="modal" id="create" data-target=".member">
 					<li class="btn btn-default">Add listing</li>
 				</a>
 				<a href="#signup" data-toggle="modal" data-target=".member">
