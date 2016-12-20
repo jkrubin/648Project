@@ -55,15 +55,19 @@
             <!-- Modal Forms-->
             <div class="modal-body">
                 <div class=" tab-pane active">
-                    <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage($sender)";?>" data-toggle="validator">
+                    <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage";?>" data-toggle="validator">
                         <div class="form-group row">
-                            <?php 
-                            if($img != null){
-                                echo "<img class='col-sm-4' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>;";
-                            }
-                            else
-                                echo "<img class='col-sm-4' src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>;";
-                            ?>
+                            <div class="reply-details-left">
+                                <?php 
+                                if($img != null){
+                                    echo "<img class='col-sm-4' id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                }
+                                else
+                                    echo "<img class='col-sm-4' src='". URL."public/img/placeholder.png' height='150px' width='150px'/>";
+                                ?>
+                            </div>
+                            <input type='hidden' name='landlordId' value='<?php echo $landlordId;?>'>
+                            <input type='hidden' name='listingId' value='<?php echo $listId;?>'>
                             <div class="col-sm-8">
                                 <div class="address">
                                     <?php echo $addressC ?></p>
@@ -71,12 +75,14 @@
                                 <div class="rental-details">
                                     <p><span class="bedrooms">
                                     <?php
-                                        if ($bedroomsC==1){
+                                        if ($bedroomsC == 1){
                                             echo $bedroomsC. " bedroom";
                                         }
-                                        elseif ($bedrooms>1) {
+                                        elseif ($bedroomsC>1 ) {
                                             echo $bedroomsC." bedrooms";
                                         }
+                                        else
+                                            echo "studio"; 
                                     ?>
                                     </span> &nbsp; 
                                     <span class="baths">

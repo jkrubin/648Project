@@ -357,11 +357,6 @@ ul li {
         height: 255 - $navbar-height;
         position: relative;
         &-left {
-            img{
-                max-height: 100%;
-                width: auto;
-                padding: 0px;
-            }
             position: relative;
             float: left;
             clear: left;
@@ -787,4 +782,19 @@ ul li {
 
 #center{
     text-align: center;
+}
+#imgMaxSize{
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    padding: 0px;
+}
+
+.reply-details-left {
+    clear: left;
+    float: left;
+    margin-left: 3%;
+    height: 150px;
+    width: 150px;
 }

@@ -53,7 +53,7 @@
                     # Photos window
                     echo "		<div class='photos edit-listing-details-left'>\n";
                                         if($img != null){
-                                            echo "<img class='col-sm-4' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                            echo "<img class='col-sm-4' id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
                                         }
                                         else
                                             echo "<img class='col-sm-4' src='". URL ."public/img/placeholder.png' height='150px' width='150px'/>";

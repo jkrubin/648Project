@@ -197,11 +197,20 @@
 				<!-- Modal Forms-->
 				<div class="modal-body">
 					<div class=" tab-pane active">
-						<form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage($listing[$landlordId])";?>" data-toggle="validator">
+						<form id="form-wrapper" method="post" action="<?php echo URL."api/sendMessage";?>" data-toggle="validator">
 							<div class="form-group row">
-
-								<img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
-
+                                <input type='hidden' name='landlordId' value='<?php echo $landlordId?>'>
+                                <input type='hidden' name='listingId' value=<?php echo $id?>>
+								<div class="reply-details-left">
+                                                                    <?php 
+                                                                    if($img != null){
+                                                                        echo "<img class='col-sm-4' id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                                                    }
+                                                                    else
+                                                                        echo "<img class='col-sm-4' src='". URL."public/img/placeholder.png' height='150px' width='150px'/>";
+                                                                    ?>
+                                                                </div>
+                            
 								<div class="col-sm-8">
 									<div class="address">
 										<p><?php echo $address ?></p>
@@ -211,7 +220,7 @@
 										<p><span class="bedrooms">
 											<?php
 												echo $bedrooms . " bedroom";
-												if($bedrooms > 1){
+												if($bedrooms > 1 || $bedrooms < 1){
 												    echo "s";
 												}
 											?>
@@ -235,7 +244,7 @@
 								<div class="help-block with-errors"></div>
 							</div>
 
-							<input type="submit" name="sendMsg" class="form-input btn btn-default" value="Send"/>
+							<input type="submit" name="<??>" class="form-input btn btn-default" value="Send"/>
 
 						</form>
 
