@@ -357,10 +357,16 @@ ul li {
         height: 255 - $navbar-height;
         position: relative;
         &-left {
+            img{
+                max-height: 100%;
+                width: auto;
+                padding: 0px;
+            }
             position: relative;
             float: left;
             clear: left;
             width: 42%;
+            height: 75%;
             image rent{
                 float: left;
             }

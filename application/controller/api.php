@@ -28,7 +28,6 @@ Class Api extends Controller {
 
     public function login(){
         $response = $this->model->authenticate_user($_POST['email'], $_POST['password'], '');
-        session_start();
         if($response['status'] == 'success'){
             header("Location: ../account_center");
         }else{

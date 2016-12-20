@@ -25,7 +25,11 @@ class Account_Center extends Controller {
             } else {
                 require APP . 'view/_templates/user_navbar.php';
             }
-            require APP . 'view/account_center/index.php';
+            if($_SESSION['Disabled']){
+                require APP . 'view/disabled/index.php';
+            }else{
+                require APP . 'view/account_center/index.php';
+            }
             require APP . 'view/_templates/footer.php';
    }
 
@@ -96,7 +100,11 @@ class Account_Center extends Controller {
     public function retrieveListing($listingId): array {
         return $this->model->retrieve_listing($listingId);
     }
-
+    
+    public function retrieveBlob($ListingId){
+        $response = $this->model->retrieve_blob_by_listing($ListingId);
+        return $response;	    
+    }
 
 }
 
