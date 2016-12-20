@@ -24,7 +24,11 @@ class Listing_detail extends Controller {
 			require APP . 'view/_templates/user_navbar.php';
 		}
 		require APP . 'view/_templates/login_modal.php';
-		require APP . 'view/listing-detail/index.php';
+        if($_SESSION['Disabled']){
+            require APP . 'view/disabled/index.php';
+        } else{
+		    require APP . 'view/listing-detail/index.php';
+        }
 		require APP . 'view/_templates/footer.php';
 	}
 	//Retrieves the latitude and longitude of a Listing using it's listingId. Returns an associative array["Latitude" => $value, "Longitude" => $value]

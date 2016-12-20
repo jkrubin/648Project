@@ -24,7 +24,11 @@ class Listing extends Controller {
 		} else {
 			require APP . 'view/_templates/user_navbar.php';
 		}
-		require APP . 'view/listing/index.php';
+        if($_SESSION['Disabled']){
+            require APP . 'view/disabled/index.php';
+        }else{
+		    require APP . 'view/listing/index.php';
+        }
 		require APP . 'view/_templates/footer.php';
 	
     }
@@ -151,17 +155,23 @@ class Listing extends Controller {
             //echo "<br>Rentals array: <br>";
             //var_dump($rentalSQLPairs);
             
-//            echo" <br>fuck me <br>_files arr: ";
 //            var_dump($_FILES);
 //            echo "<br>";
 //            var_dump($_POST);
             session_start();
             
-            $id = $this->model->addListing($rentalSQLPairs,$listingSQLPairs, $_SESSION["UserId"]);
+            
+            $response = $this->model->addListing($rentalSQLPairs,$listingSQLPairs, $_SESSION["UserId"]);
 
+            $id = $response['id'];
             $this->handle_blob($id);
             
-            header("Location: ../listing_detail?detail=$id");
+            if($response['error'] == FALSE){
+                header("Location: ../listing_detail?detail=$id");
+            }else if($response['error'] == TRUE){
+                //echo "ERRRORRRRR";
+                header("Location: ../problem");
+            }
         }
 
     }
@@ -170,14 +180,21 @@ class Listing extends Controller {
     public function handle_blob($id){
         
         //var_dump($_FILES);
+        
+        $fileNumber = count($_FILES['images']['name']);
+        //echo '<br>'. $fileNumber. '<br>';
 
-        if ((isset($_FILES["images"]) and (!empty($_FILES['images']['tmp_name'])))){
+        if ((isset($_FILES["images"]) and $_FILES['images']['name'][0] != "")){
+            
+            for($i = 0; $i < $fileNumber; $i++){
                         
-            $img_info = getimagesize($_FILES['images']['tmp_name']);
+                $img_info = getimagesize($_FILES['images']['tmp_name'][$i]);
 
-            $img_temp = $_FILES['images']['tmp_name'];
+                $img_temp = $_FILES['images']['tmp_name'][$i];
 
-            $this->model->submit_blob($img_info,$img_temp,$id);
+                $this->model->submit_blob($img_info,$img_temp,$id);
+            
+            }
             
         }
         

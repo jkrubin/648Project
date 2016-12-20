@@ -84,7 +84,7 @@
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
                     <span class="input-group-addon">$</span>
-                    <input type="number" id="deposit" min="0" step=".1" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
+                    <input type="number" id="deposit" min="0" step="1" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>

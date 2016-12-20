@@ -23,7 +23,11 @@ class Home extends Controller {
 		} else {
 			require APP . 'view/_templates/user_navbar.php';
 		}
-		require APP . 'view/home/index.php';
+        if($_SESSION['Disabled']){
+            require APP . 'view/disabled/index.php';
+        }else{
+		    require APP . 'view/home/index.php';
+        }
 		require APP . 'view/_templates/footer.php';
 	}
 }

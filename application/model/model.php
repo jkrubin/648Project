@@ -200,26 +200,16 @@ class Model {
 		//json_decode changes the file from it's JSON representation to an associative array.
 		$file = json_decode(file_get_contents($url), true);         
                 
-                //TESTING ONLY
-                //echo '<br> LONG LAT RESULTS ARRAY: <br>';
+                if(!empty($file["results"])){
+                    $latitude = $file["results"][0]["geometry"]["location"]["lat"];
+                    $longitude = $file["results"][0]["geometry"]["location"]["lng"];
+                }else{
+                    $latitude = 37.7749;
+                    $longitude = -122.4194;
+                }
+                
                 //var_dump($file["results"]);
-                //echo '<br>';
-               
-                
-                /*
-		foreach ($file["results"] as $results) {
-			foreach ($results["geometry"] as $geometry => $location) {
-				$latitude = $location["lat"];
-				$longitude = $location["lng"];
-				break;
-			}
-		}
-                 * 
-                 */
-                $latitude = $file["results"][0]["geometry"]["location"]["lat"];
-                $longitude = $file["results"][0]["geometry"]["location"]["lng"];
-                
-                //echo "<br><br>long: $longitude, lat: $latitude<br><br>";
+                //echo '<br> lat: '. $latitude. 'long: ' . $longitude. '<br>';
                 
 		//creates an associative array with keys "Latitude" and "Longitude"
 		$coords = array(":latitude" => $latitude, ":longitude" => $longitude);
@@ -245,28 +235,43 @@ class Model {
 	 *
 	 */
 	public function addListing($rentalSQLParams, $listingSQLParams, $userId) {
+
+            $message = array();
+            $message['id'] = 0;
+            $message['error'] = FALSE;
+
+            
             /*
              *  Create Aditional Values for DB
              */
             //RENTAL ID
             $rentalSQLParams["RentalTypeId"] = 1;
 
-            //Long and Lat for maps API
+            /*
+             *  Create long and lat for appartment
+             */
             $addr = ''.$rentalSQLParams['StreetNo'].' '.$rentalSQLParams['StreetName'];
             $city = $rentalSQLParams['City'];
+            
+            try{
+                $coordinates = $this -> createCoords($addr,$city);
+                $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
+                $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
 
-            $coordinates = $this -> createCoords($addr,$city);
-            $rentalSQLParams['Latitude'] = $coordinates[":latitude"];
-            $rentalSQLParams['Longitude'] = $coordinates[":longitude"];
-
-            $coordinates = $this -> obfuscate($coordinates);
+                $coordinates = $this -> obfuscate($coordinates);
+            }catch(Exception $e){
+                echo "error";
+            }
 
 
             $listingSQLParams['Latitude'] = $coordinates[":latitude"];
             $listingSQLParams['Longitude'] = $coordinates[":longitude"];
-
-            //Distance API
-            //Google URL for  rental distance
+            
+            /*
+             * Calculate distance from SFSU
+             * Distance API
+             * Google URL for  rental distance
+             */
 
             $baseURL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
             $rentalCoords = "&origins=" . $rentalSQLParams['Latitude'] . "," . $rentalSQLParams['Longitude'];
@@ -277,13 +282,14 @@ class Model {
             $rentalResponse = file_get_contents($rentalDistanceURL);
             $result = json_decode($rentalResponse,true);
 
-            // Get distance value in Miles, form of a double
-            $distance= $result['rows'][0]['elements'][0]['distance']['text'];
-            $distance= doubleval(explode(' ', $distance)[0]);
-            $rentalSQLParams['Distance'] = $distance;
-            // TEST 
-            //echo "<br>Distance is: " . $distance . " (type is ".gettype($distance);
-            
+            // Get distance value in Miles, form of a double            
+            if(array_key_exists('rows', $result) and 
+                    ($result['rows'][0]['elements'][0]['status'] == 'OK')){
+                $distance= $result['rows'][0]['elements'][0]['distance']['text'];
+                $distance= doubleval(explode(' ', $distance)[0]);
+            }else{
+                $distance = 0.0;
+            }
 
             /*
              *      ADD RENTAL TO DB
@@ -303,7 +309,9 @@ class Model {
                 //Get the last inserted ID, which is the thing we just added
                 $last_id = $this->db->lastInsertID();
             }catch(PDOException $e){
+                $message['error']=TRUE;
                 echo 'Database entry Failed:'. $e->getMessage();
+                
             }
 
             /*
@@ -319,7 +327,6 @@ class Model {
 
             //Prepate Listing SQL
             $listingSQL = "INSERT INTO Listings";
-
             //Implode all keys
             $listingSQL .= " (" . implode(" , ", array_keys($listingSQLParams)) . ")";
             //Implode all values
@@ -332,14 +339,12 @@ class Model {
                 $last_id = $this->db->lastInsertID();
 
             }catch(PDOException $e){
+                $message['error']=TRUE;
                 echo 'Database entry Failed:'. $e->getMessage();
             }
 
-            //For testing only
-            //echo $rentalSQL;
-            //echo "<br>" . $listingSQL;
-
-            return $last_id;
+            $message['id'] = $last_id;
+            return $message;
 	}
 
 	public function retrieve_listing($listingId): array {
@@ -490,11 +495,11 @@ class Model {
 		return $response;
 	}
 
-	private function init_session($userId, $name): bool {
+	private function init_session($userId, $name, $disabled): bool {
 		if (session_start()) {
 			$_SESSION['UserId'] = $userId;
 			$_SESSION['Name'] = $name;
-            var_dump($_SESSION);
+            $_SESSION['Disabled'] = $disabled;
 			return true;
 		} else {
             echo "Session init fail";

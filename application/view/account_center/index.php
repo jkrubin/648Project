@@ -60,10 +60,10 @@
                             <div class="reply-details-left">
                                 <?php 
                                 if($img != null){
-                                    echo "<img class='col-sm-4' id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                    echo "<img id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
                                 }
                                 else
-                                    echo "<img class='col-sm-4' src='". URL."public/img/placeholder.png' height='150px' width='150px'/>";
+                                    echo "<img id='imgMaxSize' src='". URL."public/img/placeholder.png' height='150px' width='150px'/>";
                                 ?>
                             </div>
                             <input type='hidden' name='landlordId' value='<?php echo $landlordId;?>'>
