@@ -155,17 +155,23 @@ class Listing extends Controller {
             //echo "<br>Rentals array: <br>";
             //var_dump($rentalSQLPairs);
             
-//            echo" <br>fuck me <br>_files arr: ";
 //            var_dump($_FILES);
 //            echo "<br>";
 //            var_dump($_POST);
             session_start();
             
-            $id = $this->model->addListing($rentalSQLPairs,$listingSQLPairs, $_SESSION["UserId"]);
+            
+            $response = $this->model->addListing($rentalSQLPairs,$listingSQLPairs, $_SESSION["UserId"]);
 
+            $id = $response['id'];
             $this->handle_blob($id);
             
-            header("Location: ../listing_detail?detail=$id");
+            if($response['error'] == FALSE){
+                header("Location: ../listing_detail?detail=$id");
+            }else if($response['error'] == TRUE){
+                //echo "ERRRORRRRR";
+                header("Location: ../problem");
+            }
         }
 
     }
