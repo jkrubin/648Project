@@ -48,7 +48,7 @@
         $titleC = $messageC[0]['Title'];
 
         $landlordId = $listing[0]["LandlordId"];
-        $addressC = $listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
+        $addressC = $listing[0]["StreetNo"] . ' ' .$listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
         $bedroomsC = $listing[0]['Bedrooms'];
         $bathsC = $listing[0]['Baths'];     
        ?>           
@@ -57,18 +57,17 @@
                 <div class=" tab-pane active">
                     <form id="form-wrapper" method="post" action="<?php echo URL."api/sendmessage";?>" data-toggle="validator">
                         <div class="form-group row">
-
+                            <div class="reply-details-left">
+                                <?php 
+                                if($img != null){
+                                    echo "<img id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>";
+                                }
+                                else
+                                    echo "<img id='imgMaxSize' src='". URL."public/img/placeholder.png' height='150px' width='150px'/>";
+                                ?>
+                            </div>
                             <input type='hidden' name='landlordId' value='<?php echo $landlordId;?>'>
-                            "<input type='hidden' name='listingId' value='<?php echo $listId;?>'>
-                            <img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
-                            <?php 
-                            if($img != null){
-                                echo "<img class='col-sm-4' src='data:image/" . $img[0]['Format'] . ";base64," . base64_encode($img[0]['Data']) . "'/>;";
-                            }
-                            else
-                                echo "<img class='col-sm-4' src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>;";
-                            ?>
-
+                            <input type='hidden' name='listingId' value='<?php echo $listId;?>'>
                             <div class="col-sm-8">
                                 <div class="address">
                                     <?php echo $addressC ?></p>
@@ -76,21 +75,23 @@
                                 <div class="rental-details">
                                     <p><span class="bedrooms">
                                     <?php
-                                        if ($bedroomsC==1){
-                                            echo $bedroomsC. " bedroom";
+                                        if ($bedroomsC == 1){
+                                            echo $bedroomsC. " Bedroom";
                                         }
-                                        elseif ($bedrooms>1) {
-                                            echo $bedroomsC." bedrooms";
+                                        elseif ($bedroomsC>1 ) {
+                                            echo $bedroomsC." Bedrooms";
                                         }
+                                        else
+                                            echo "Studio"; 
                                     ?>
                                     </span> &nbsp; 
                                     <span class="baths">
                                         <?php 	
                                             if ($bathsC==1){
-                                                echo $bathsC." bath";
+                                                echo $bathsC." Bath";
                                             }
-                                            elseif ($bathsC>1) {
-                                                echo $bathsC." baths";
+                                            elseif ($bathsC>1 || $bathsC<1 ) {
+                                                echo $bathsC." Baths";
                                             }
                                         ?>
                                     </span></p>

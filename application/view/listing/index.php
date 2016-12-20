@@ -84,7 +84,7 @@
             <div class="form-group has-feedback">
                 <div class="input-group required-field-block">
                     <span class="input-group-addon">$</span>
-                    <input type="number" id="deposit" min="0" step=".1" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
+                    <input type="number" id="deposit" min="0" step="1" pattern="0-9" name="deposit" placeholder="Deposit" required class="form-control"/>
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
@@ -152,9 +152,10 @@
     <input type="checkbox" id="television" name="television"/> <label for="television">Television</label>
     <input type="checkbox" id="furished" name="furnished"/> <label for="furnished">Furnished</label><br><br><br>
     Add images:<br><br>
-    <input type="file" id="images" name="images[]" multiple/><br><br><br>
-    <input type="checkbox" name="agree"/> By checking, I accept the <a href="#">Terms of Service</a>
-    <input type="submit" id="button" class="btn btn-default" name ="submit_listing" value="Create Listing" />
- 
+    <input type="file" id="images" name="images" multiple/><br>
+    <div id="center">
+        <input type="checkbox" name="agree"/> By checking, I accept the <a href="#">Terms of Service</a><br><br>
+        <input type="submit" id="button" class="btn btn-default" name ="submit_listing" value="Create Listing" />
+    </div>
 </form>
 </div>
