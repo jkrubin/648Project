@@ -45,6 +45,18 @@ class Model {
 						}
 						break;
 
+					case "brmax":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.Bedrooms<=$value";
+						}
+						break;
+
+					case "brmin":
+						if ($this->validate($value, "integer")) {
+							$sql .= " AND R.Bedrooms>=$value";
+						}
+						break;
+
 					case "sqft":
 						if ($this->validate($value, "integer")) {
 							$sql .= " AND R.SqFt=$value";
@@ -154,12 +166,12 @@ class Model {
 
 					case "rentmax":
 						if ($this->validate($value, "integer")) {
-							$sql .= " AND L.MonthlyRent<$value";
+							$sql .= " AND L.MonthlyRent<=$value";
 						}
 						break;
 					case "rentmin":
 						if ($this->validate($value, "integer")) {
-							$sql .= " AND L.MonthlyRent>$value";
+							$sql .= " AND L.MonthlyRent>=$value";
 						}
 						break;
 
