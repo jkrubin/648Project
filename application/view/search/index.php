@@ -16,7 +16,7 @@
 				$baths = $row['Baths'];
 				$sqft = $row['SqFt'];
 				$description = $row['Description'];
-				#convert $row into URL rncoded query string
+				#convert $row into URL encoded query string
 				$idPass = http_build_query(array('detail' => $row["ListingId"]));
 				foreach ($_GET as $key => $value) {
 					if ($key != 'url') {
