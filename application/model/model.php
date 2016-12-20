@@ -490,11 +490,11 @@ class Model {
 		return $response;
 	}
 
-	private function init_session($userId, $name): bool {
+	private function init_session($userId, $name, $disabled): bool {
 		if (session_start()) {
 			$_SESSION['UserId'] = $userId;
 			$_SESSION['Name'] = $name;
-            var_dump($_SESSION);
+            $_SESSION['Disabled'] = $disabled;
 			return true;
 		} else {
             echo "Session init fail";

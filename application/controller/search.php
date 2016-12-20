@@ -27,7 +27,12 @@ class Search extends Controller {
 		} else {
 			require APP . 'view/_templates/user_navbar.php';
 		}
-		require APP . 'view/search/index.php';
+
+        if($_SESSION['Disabled']){
+            require APP . 'view/disabled/index.php';
+        }else{
+		    require APP . 'view/search/index.php';
+        }
 		require APP . 'view/_templates/footer.php';
 	}
 
