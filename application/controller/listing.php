@@ -165,8 +165,8 @@ class Listing extends Controller {
             if($response['error'] == FALSE){
                 header("Location: ../listing_detail?detail=$id");
             }else if($response['error'] == TRUE){
-                echo "ERRRORRRRR";
-                //header("Location: ../problem");
+                //echo "ERRRORRRRR";
+                header("Location: ../problem");
             }
         }
 
