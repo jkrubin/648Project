@@ -48,7 +48,7 @@
         $titleC = $messageC[0]['Title'];
 
         $landlordId = $listing[0]["LandlordId"];
-        $addressC = $listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
+        $addressC = $listing[0]["StreetNo"] . ' ' .$listing[0]["StreetName"] . ', ' . $listing[0]["City"] . ', CA ' . $listing[0]["ZIP"];
         $bedroomsC = $listing[0]['Bedrooms'];
         $bathsC = $listing[0]['Baths'];     
        ?>           
@@ -76,22 +76,22 @@
                                     <p><span class="bedrooms">
                                     <?php
                                         if ($bedroomsC == 1){
-                                            echo $bedroomsC. " bedroom";
+                                            echo $bedroomsC. " Bedroom";
                                         }
                                         elseif ($bedroomsC>1 ) {
-                                            echo $bedroomsC." bedrooms";
+                                            echo $bedroomsC." Bedrooms";
                                         }
                                         else
-                                            echo "studio"; 
+                                            echo "Studio"; 
                                     ?>
                                     </span> &nbsp; 
                                     <span class="baths">
                                         <?php 	
                                             if ($bathsC==1){
-                                                echo $bathsC." bath";
+                                                echo $bathsC." Bath";
                                             }
-                                            elseif ($bathsC>1) {
-                                                echo $bathsC." baths";
+                                            elseif ($bathsC>1 || $bathsC<1 ) {
+                                                echo $bathsC." Baths";
                                             }
                                         ?>
                                     </span></p>
