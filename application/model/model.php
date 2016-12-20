@@ -17,8 +17,8 @@ class Model {
 	 */
 	public function get_listings($query): array {
 		$allowedKeys = array("br", "brmin", "brmax", "bath", "sqft", "zip", "city",
-				"dep", "pdep", "kdep", "electric", "internet", "water",
-				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
+				"dep", "pdep", "kdep", "electricity", "internet", "water",
+				"gas", "tv", "pets", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
 				"rentmax", "rentmin");
 
 		$sql =  "SELECT ListingId,StreetNo, StreetName, City, ZIP, " .

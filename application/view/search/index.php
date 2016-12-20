@@ -10,8 +10,8 @@
 			foreach ($listings as $i => $row) {
 
 				$rent = $row["MonthlyRent"];
-                $img = $this$row["ListingId"];
-				$address = $row["StreetNo"] . ' ' . $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
+                $img = $this->retrieveBlob($row["ListingId"]);
+				$address = $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
 				$bedrooms = $row['Bedrooms'];
 				$baths = $row['Baths'];
 				$sqft = $row['SqFt'];
@@ -20,7 +20,13 @@
 				$idPass = http_build_query(array('detail' => $row["ListingId"]));
 				foreach ($_GET as $key => $value) {
 					if ($key != 'url') {
-						$idPass .= "&" . $key . "=" . $value;
+                        if($key == 'utilities'){
+                            foreach($_GET[$key] as $values){
+                                $idPass .= "utilities[]=".$values;
+                            }
+                        }else{
+    						$idPass .= "&" . $key . "=" . $value;
+                        }
 					}
 
 				}

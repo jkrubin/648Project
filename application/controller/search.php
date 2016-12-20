@@ -39,7 +39,7 @@ class Search extends Controller {
     public function retrieveBlob($ListingId){
         $response = $this->model->retrieve_blob_by_listing($ListingId);
         return $response;	    
-    }O
+    }
 
 	public function fetch_listings(): array {
 		$assoc_array = $this->model->get_cities();
@@ -117,7 +117,7 @@ class Search extends Controller {
 
 			foreach($_GET as $key => $value){
 				if($key != "q"){
-                    if($key == 'ultilites' && isset($key)){
+                    if($key == 'utilities' && isset($key)){
                         foreach($key as $values){
                             $sortedQuery[$values] = TRUE;
                         }
