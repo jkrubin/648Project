@@ -124,7 +124,7 @@ ul li {
 	left: 30%;
 	top: 125px;
 	margin: 0 0 0 -305px;
-	width: 80%;
+	width: 90%;
 }
 
 #search-wrapper.home {
@@ -146,19 +146,19 @@ ul li {
 #search {
 	margin-left: auto;
 	margin-right: auto;
+	min-height: 50px;
 	&.home {
 		text-align: center;
+		width: 120%;
+		margin-left: -50px;
+		color: #ffffff;
 	}
-	input[type=text], select {
+	input[type=text], input[type=number] {
 		padding: $font-size-large / 2;
 		font-size: $font-size-large;
 	}
 	input[type=text] {
-		width: 55%;
-	}
-	select {
-		@include border-radius(none);
-		width: 20%;
+		width: 25%;
 	}
 	input[type=submit] {
 		padding: $font-size-large / 2;
@@ -173,6 +173,20 @@ ul li {
 			background-color: white;
 			cursor: pointer;
 			border: 1px solid $btn-default-border;
+		}
+	}
+	label {
+		padding: $font-size-large / 2;
+	}
+	input[type=text], &-br, &-rent, input[type=submit] {
+		position: relative;
+		float: left;
+	}
+	&-br, &-rent {
+		font-size: $font-size-large;
+		margin-left: 30px;
+		input[type=number]{
+			width: 70px;
 		}
 	}
 }

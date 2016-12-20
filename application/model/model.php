@@ -16,7 +16,7 @@ class Model {
 	 * Get all Listings from the database that match criteria $query
 	 */
 	public function get_listings($query): array {
-		$allowedKeys = array("br", "bath", "sqft", "zip", "city",
+		$allowedKeys = array("br", "brmin", "brmax", "bath", "sqft", "zip", "city",
 				"dep", "pdep", "kdep", "electric", "internet", "water",
 				"gas", "tv", "pet", "smoke", "furnished", "startdate", "enddate", "stno", "stadd",
 				"rentmax", "rentmin");

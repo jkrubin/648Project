@@ -1,23 +1,14 @@
-
 <div id="wrapper">
 	<div id="search-wrapper">
-		<form id="search" action="<?php echo URL; ?>search" method="GET">
-			<input type="text" name="q"
-			       placeholder="Enter City or ZIP" <?php if (!empty($_GET['q'])) echo "value='" . $_GET["q"] . "'"; ?> />
-			<select name="br">
-				<option value="0" <?php if ($_GET["br"] === '0') echo ' selected="selected"'; ?>>Studio</option>
-				<option value="1" <?php if ($_GET["br"] === '1') echo ' selected="selected"'; ?>>1 Bedroom</option>
-				<option value="2" <?php if ($_GET["br"] === '2') echo ' selected="selected"'; ?>>2 Bedroom</option>
-				<option value="3" <?php if ($_GET["br"] === '3') echo ' selected="selected"'; ?>>3+ Bedroom</option>
-			</select>
-			<input type="submit" class="btn btn-default" value="Search"/>
-		</form>
+		<?php
+			require_once(APP . 'view/_templates/search_form.php');
+		?>
 	</div>
 	<div id="results-wrapper">
 		<ul id="listings">
 			<?php
 			foreach ($listings as $i => $row) {
-				
+
 				$rent = $row["MonthlyRent"];
 				$address = $row["StreetNo"] . ' ' . $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
 				$bedrooms = $row['Bedrooms'];
@@ -25,12 +16,12 @@
 				$sqft = $row['SqFt'];
 				$description = $row['Description'];
 				#convert $row into URL rncoded query string
-                $idPass = http_build_query(array('detail' => $row["ListingId"]));
-                foreach($_GET as $key => $value){
-                    if($key != 'url'){
-                        $idPass .= "&" . $key . "=" . $value;
-                    }
-                }
+				$idPass = http_build_query(array('detail' => $row["ListingId"]));
+				foreach ($_GET as $key => $value) {
+					if ($key != 'url') {
+						$idPass .= "&" . $key . "=" . $value;
+					}
+				}
 
 				echo "<li class='listing'>\n";
 
