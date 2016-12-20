@@ -10,6 +10,7 @@
 			foreach ($listings as $i => $row) {
 
 				$rent = $row["MonthlyRent"];
+                $img = $this$row["ListingId"];
 				$address = $row["StreetNo"] . ' ' . $row["StreetName"] . ', ' . $row["City"] . ', CA ' . $row["ZIP"];
 				$bedrooms = $row['Bedrooms'];
 				$baths = $row['Baths'];
@@ -21,6 +22,7 @@
 					if ($key != 'url') {
 						$idPass .= "&" . $key . "=" . $value;
 					}
+
 				}
 
 				echo "<li class='listing'>\n";
@@ -43,7 +45,12 @@
 				echo "		<div class='photos listing-details-left'>\n";
 				#passes ListingId to Listing_detail page
 				echo "    	<a href='" . URL . "listing_detail?$idPass'> ";
+                            if($img != null){
+                                echo "<img class='col-sm-4' id='imgMaxSize' src='data:image/" . $img[0]['Format'] . ";base64," 
+                                     . base64_encode($img[0]['Data']) . "'/>";
+                             }else{
 				echo "			<img src='" . URL . "public/img/placeholder.png' height='150px' width='150px'/> ";
+                             }
 				echo "		</a>\n";
 				echo "		</div>\n";
 
@@ -89,15 +96,15 @@
 				<!-- Modal Forms-->
 				<div class="modal-body">
 					<div class=" tab-pane active">
-						<form id="form-wrapper" method="post" action="" data-toggle="validator">
+						<form id="form-wrapper" method="post" action="api/sendMessage" data-toggle="validator">
 							<div class="form-group row">
 
 								<img class="col-sm-4" src='<?php echo URL; ?>public/img/placeholder.png' height='150px' width='150px'/>
 
 								<div class="col-sm-8">
 									<div class="address">
-										<p>900 Folsom St</p>
-										<p>San Francisco, CA 94105</p>
+										<p><?php $address?></p>
+										<p></p>
 									</div>
 									<div class="rental-details">
 										<p><span class="bedrooms">Studio</span> &nbsp; <span class="baths">1 Bath</span></p>
