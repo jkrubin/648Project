@@ -49,7 +49,7 @@
         $keyDeposit = null;
     }
     if ($listing[0]['Electricity']) {
-        $electricity = "electricy included";
+        $electricity = "electricity included";
     } else {
         $electricity = null;
     }
